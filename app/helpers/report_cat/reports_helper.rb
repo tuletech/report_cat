@@ -1,4 +1,4 @@
 module ReportCat
-  module ApplicationHelper
+  module ReportsHelper
   end
 end
