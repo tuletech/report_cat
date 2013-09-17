@@ -1,6 +1,6 @@
 <h1>Reports</h1>
 <ul>
-  <% @reports.each do |report| %>
-    <li><%= link_to report, '#' %></li>
+  <% @reports.values.sort { |a,b| a.name <=> b.name }.each do |report| %>
+    <li><%= link_to report.name, { :controller => :reports, :action => :show, :id => report.name } %></li>
   <% end %>
 </ul>

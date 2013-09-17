@@ -6,8 +6,11 @@ class UserReport < Report
   def initialize
     super( :name => :user_report )
 
-    @day_column = Column.new( :name => :day, :type => :date, :sql => 'date( created_at )' )
-    @total_column = Column.new( :name => :total, :type => :integer, :sql => 'count( id )' )
+    @start_date = add_param( :start_date, :date, Date.today - 7 )
+    @stop_date =  add_param( :stop_date, :date, Date.today )
+
+    @day_column = add_column( :day, :date, 'date( created_at )' )
+    @total_column = add_column( :total, :integer, 'count( id )' )
   end
 
   def to_sql

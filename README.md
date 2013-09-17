@@ -30,6 +30,8 @@ You can place new reports anywhere you like, but `app/reports` is the recommende
 
  * Controller / view implementation
 
+ * Cleanup
+   * Externalize strings
 
  * Document
    * Getting Started
