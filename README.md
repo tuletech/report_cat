@@ -25,11 +25,14 @@ You can place new reports anywhere you like, but `app/reports` is the recommende
 # TODO
 
  * Core models
-   * Report#to_csv
-   * Report#to_sql
+   * Calculation columns - avg, ma
 
  * Controller / view implementation
    * HTML => helpers
+   * Page nav model
+
+ * Date range reports
+ * Cohort reports
 
  * Cleanup
    * Externalize strings

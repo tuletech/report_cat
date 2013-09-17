@@ -27,6 +27,8 @@
 
 </table>
 
+<%= link_to 'CSV', { :format => 'csv' } %>
+
 
 <% @report.charts.each do |chart| %>
     <%= raw content_tag :div, '', :class => :chart,

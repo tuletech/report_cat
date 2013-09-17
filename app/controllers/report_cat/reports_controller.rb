@@ -9,6 +9,11 @@ module ReportCat
     def show
       @report = @reports[ params[ :id ] ]
       @report.generate( params )
+
+      respond_to do |format|
+        format.html
+        format.csv { render :text => @report.to_csv, :content_type => 'text/csv' }
+      end
     end
 
   protected

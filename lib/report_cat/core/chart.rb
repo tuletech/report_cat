@@ -16,16 +16,16 @@ module ReportCat
 
       def columns( report )
         columns = []
-        columns << [ 'string', @label.name ]
-        @values.each { |c| columns << [ 'number', c.name  ] }
+        columns << [ 'string', @label ]
+        @values.each { |name| columns << [ 'number', name  ] }
 
         return columns.to_json
       end
 
       def data( report )
         table = []
-        label_index = report.column_index( @label.name )
-        value_indexes = @values.map { |c| report.column_index( c.name ) }
+        label_index = report.column_index( @label )
+        value_indexes = @values.map { |name| report.column_index( name ) }
 
         report.rows.each do |row|
           data = [ row[ label_index ].to_s ]

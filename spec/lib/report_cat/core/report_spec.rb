@@ -91,6 +91,19 @@ module ReportCat::Core
 
     end
 
+    describe '#to_csv' do
+
+      before( :each ) do
+        setup_reports
+        @report.stub( :query ).and_return( nil )
+      end
+
+      it 'generates CSV' do
+        @report.to_csv.should eql_file( 'spec/data/report.csv' )
+      end
+
+    end
+
     describe '#query' do
 
       before( :each ) do
@@ -130,6 +143,19 @@ module ReportCat::Core
         @report.send( :query )
         @report.rows.size.should eql( results.size )
         results.each_index { |i| @report.rows[ i ].should eql( results[ i ] ) }
+      end
+
+    end
+
+    describe '#to_sql' do
+
+      before( :each ) do
+        setup_reports
+        @report.stub( :query ).and_return( nil )
+      end
+
+      it 'generates SQL' do
+        @report.send( :to_sql ).should eql_file( 'spec/data/report.sql' )
       end
 
     end

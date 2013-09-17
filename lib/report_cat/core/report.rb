@@ -1,3 +1,5 @@
+require 'csv'
+
 module ReportCat
   module Core
     class Report
@@ -68,6 +70,13 @@ module ReportCat
           return @params[ index ]
         end
         return nil
+      end
+
+      def to_csv
+        CSV.generate(:force_quotes => true ) do |csv|
+          csv << @columns.map { |column| column.name }
+          @rows.each { |row| csv << row }
+        end
       end
 
     protected

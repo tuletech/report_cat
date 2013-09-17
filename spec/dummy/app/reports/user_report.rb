@@ -1,4 +1,3 @@
-
 include ReportCat::Core
 
 class UserReport < Report
@@ -13,9 +12,9 @@ class UserReport < Report
     @total_column = add_column( :total, :integer, 'count( id )' )
     @activated_column = add_column( :activated, :integer, 'sum( activated == "t" )' )
 
-    add_chart( :pie, :pie, @day_column, @total_column )
-    add_chart( :bar, :bar, @day_column, @total_column )
-    add_chart( :line, :line, @day_column, @total_column )
+    add_chart( :pie_test, :pie, :day_column, :total_column )
+    add_chart( :bar_test, :bar, :day_column, :total_column )
+    add_chart( :line_test, :line, :day_column, :total_column )
   end
 
 end

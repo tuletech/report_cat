@@ -13,8 +13,8 @@ module ReportCat::Core
 
       @name = :test
       @type = :select
-      @label = @report.columns.first
-      @values = @report.columns
+      @label = @report.columns.first.name.to_sym
+      @values = @report.columns.map { |c| c.name.to_sym }
       @options = {}
 
       @chart = Chart.new(

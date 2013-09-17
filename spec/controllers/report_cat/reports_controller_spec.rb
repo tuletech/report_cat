@@ -44,6 +44,27 @@ describe ReportCat::ReportsController do
       get :show, :id => @report.name
       assigns( :report ).should be_an_instance_of( Report )
     end
+
+    context 'formatting CSV' do
+
+      it 'renders CSV' do
+        get :show, :id => @report.name, :format => 'csv'
+        response.should be_success
+        response.content_type.should eql( 'text/csv' )
+      end
+
+   end
+
+    context 'formatting HTML' do
+
+      it 'renders HTML' do
+        get :show, :id => @report.name, :format => 'html'
+        response.should be_success
+        response.content_type.should eql( 'text/html' )
+      end
+
+    end
+
   end
 
 end
