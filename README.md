@@ -15,7 +15,14 @@
 
 # TODO
 
-    * Integrate rspec
-    * Report models
-    * Random data generator
-    * Controller / view implementation
+ * Core models
+ * Random data generator
+ * Controller / view implementation
+
+
+ * Document
+   * Getting Started
+   * How To
+   * Background
+     * UML
+
