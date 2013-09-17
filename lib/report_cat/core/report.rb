@@ -4,9 +4,16 @@ module ReportCat
       extend ActiveSupport::DescendantsTracker
 
       attr_reader :name, :params, :columns, :rows, :charts
+      attr_reader :from, :joins, :where, :group_by, :order_by, :limit
 
       def initialize( attributes = {} )
         @name = attributes[ :name ]
+        @from = attributes[ :from ]
+        @joins = attributes[ :joins ]
+        @where = attributes[ :where ]
+        @group_by = attributes[ :group_by ]
+        @order_by = attributes[ :order_by ]
+        @limit = attributes[ :limit ]
 
         @params = []
         @columns = []
@@ -67,25 +74,26 @@ module ReportCat
 
       def query
         @rows = []
-        if results = ActiveRecord::Base.connection.execute( to_sql )
-          results.each do |row|
-            if row.is_a?( Hash )
-              row = columns.map { |c| row[ c.name.to_s ] }
-            end
+        return unless results = ActiveRecord::Base.connection.execute( to_sql )
 
-            # Format each columns
-
-            row.each_index { |i| row[ i ] = columns[ i ].format( row[ i ] ) }
-
-            @rows << row
-          end
+        results.each do |row|
+          row = columns.map { |c| row[ c.name.to_s ] } if row.is_a?( Hash )
+          row.each_index { |i| row[ i ] = columns[ i ].format( row[ i ] ) }
+          @rows << row
         end
       end
 
       def to_sql
-        # TODO implement
+        select = @columns.map { |c| c.sql.blank? ? c.name : "#{c.sql} as #{c.name}" }.compact.join( ',' )
 
-        'select 1'
+        sql = "select #{select} from #{from}"
+        sql << " #{joins}" if joins
+        sql << " where #{where}" if where
+        sql << " group by #{group_by}" if group_by
+        sql << " order by #{order_by}" if order_by
+        sql << " limit #{limit}" if limit
+
+        return sql
       end
 
     end

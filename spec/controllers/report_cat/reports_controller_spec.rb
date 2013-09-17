@@ -31,6 +31,10 @@ describe ReportCat::ReportsController do
 
   describe '/show' do
 
+    before( :each ) do
+      @report.stub( :query )
+    end
+
     it 'gets successfully' do
       get :show, :id => @report.name
       response.should be_success

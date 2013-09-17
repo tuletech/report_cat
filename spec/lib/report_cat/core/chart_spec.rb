@@ -6,30 +6,50 @@ module ReportCat::Core
 
   describe Chart do
 
+    include SetupReports
+
     before( :each ) do
+      setup_reports
+
       @name = :test
       @type = :select
-      @label = Column.new
-      @values = [ Column.new, Column.new ]
+      @label = @report.columns.first
+      @values = @report.columns
       @options = {}
+
+      @chart = Chart.new(
+                  :name => @name,
+                  :type => @type,
+                  :label => @label,
+                  :values => @values,
+                  :options => @options )
     end
 
-    describe 'initialize' do
+    describe '#initialize' do
 
       it 'initializes accessor values' do
-        chart = Chart.new(
-            :name => @name,
-            :type => @type,
-            :label => @label,
-            :values => @values,
-            :options => @options
-        )
+        @chart.name.should eql( @name )
+        @chart.type.should eql( @type )
+        @chart.label.should eql( @label )
+        @chart.values.should eql( @values )
+        @chart.options.should eql( @options )
+      end
 
-        chart.name.should eql( @name )
-        chart.type.should eql( @type )
-        chart.label.should eql( @label )
-        chart.values.should eql( @values )
-        chart.options.should eql( @options )
+    end
+
+    describe '#columns' do
+
+      it 'generates json' do
+        @chart.columns( @report ).should eql_file( 'spec/data/chart_columns.json' )
+      end
+
+    end
+
+    describe '#data' do
+
+      it 'generates json' do
+        setup_reports
+        @chart.data( @report ).should eql_file( 'spec/data/chart_data.json' )
       end
 
     end

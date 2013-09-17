@@ -14,6 +14,7 @@
 ActiveRecord::Schema.define(version: 20130917030647) do
 
   create_table "users", force: true do |t|
+    t.boolean  "activated"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

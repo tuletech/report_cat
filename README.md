@@ -20,17 +20,16 @@ You can place new reports anywhere you like, but `app/reports` is the recommende
  * [Best practice for specifying dependencies that cannot be put in gemspec?](https://groups.google.com/forum/?fromgroups=#!topic/ruby-bundler/U7FMRAl3nJE)
  * [Clarifying the Roles of the .gemspec and Gemfile](http://yehudakatz.com/2010/12/16/clarifying-the-roles-of-the-gemspec-and-gemfile/)
  * [The Semi-Isolated Rails Engine](http://bibwild.wordpress.com/2012/05/10/the-semi-isolated-rails-engine/)
- * [FactoryGirl](https://github.com/thoughtbot/factory_girl)
  * [Shoulda](https://github.com/thoughtbot/shoulda-matchers)
 
 # TODO
 
  * Core models
-   * Report#to_sql
    * Report#to_csv
-   * Format columns on way out of DB
+   * Report#to_sql
 
  * Controller / view implementation
+   * HTML => helpers
 
  * Cleanup
    * Externalize strings
