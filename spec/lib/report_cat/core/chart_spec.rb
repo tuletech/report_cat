@@ -1,21 +1,23 @@
 require 'spec_helper'
 
-module ReportCat
+include ReportCat::Core
+
+module ReportCat::Core
 
   describe Chart do
 
     before( :each ) do
       @name = :test
       @type = :select
-      @label = ReportCat::Column.new
-      @values = [ ReportCat::Column.new, ReportCat::Column.new ]
+      @label = Column.new
+      @values = [ Column.new, Column.new ]
       @options = {}
     end
 
     describe 'initialize' do
 
       it 'initializes accessor values' do
-        chart = ReportCat::Chart.new(
+        chart = Chart.new(
             :name => @name,
             :type => @type,
             :label => @label,
@@ -33,5 +35,4 @@ module ReportCat
     end
 
   end
-
 end

@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-module ReportCat
+include ReportCat::Core
+
+module ReportCat::Core
 
   describe Column do
 
@@ -13,7 +15,7 @@ module ReportCat
     describe 'initialize' do
 
       it 'initializes accessor values' do
-        column = ReportCat::Column.new( :name => @name, :type => @type, :sql => @sql )
+        column = Column.new( :name => @name, :type => @type, :sql => @sql )
         column.name.should eql( @name )
         column.type.should eql( @type )
         column.sql.should eql( @sql )

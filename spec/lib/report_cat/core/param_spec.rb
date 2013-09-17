@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-module ReportCat
+include ReportCat::Core
+
+module ReportCat::Core
 
   describe Param do
 
@@ -14,7 +16,7 @@ module ReportCat
     describe 'initialize' do
 
       it 'initializes accessor values' do
-        param = ReportCat::Param.new( :name => @name, :type => @type, :value => @value, :options => @options )
+        param = Param.new( :name => @name, :type => @type, :value => @value, :options => @options )
         param.name.should eql( @name )
         param.type.should eql( @type )
         param.value.should eql( @value )
