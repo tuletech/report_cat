@@ -1,6 +1,16 @@
 # schrodingersbox/report_cat README
 
 
+## How To
+
+### Add New Reports
+
+You can place new reports anywhere you like, but `app/reports` is the recommended location.
+
+1.  Add the following to `config/application.rb`
+
+    	Dir[Rails.root + 'app/reports/**/*.rb'].each { |path| require path }
+
 
 ## Reference
 
@@ -16,7 +26,8 @@
 # TODO
 
  * Core models
- * Random data generator
+   * Report#to_csv
+
  * Controller / view implementation
 
 

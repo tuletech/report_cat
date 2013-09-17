@@ -1,1 +1,6 @@
-<i>Reports go here</i>
+<h1>Reports</h1>
+<ul>
+  <% @reports.each do |report| %>
+    <li><%= link_to report, '#' %></li>
+  <% end %>
+</ul>
