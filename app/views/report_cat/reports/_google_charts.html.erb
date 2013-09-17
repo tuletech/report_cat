@@ -1,0 +1,61 @@
+<%= javascript_include_tag 'http://www.google.com/jsapi' %>
+<%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js' %>
+
+<script type="text/javascript">
+  google.load('visualization', '1', {'packages':['corechart']});
+  google.setOnLoadCallback(drawCharts);
+
+  function makeDataTable( element ) {
+    var columns = eval( element.getAttribute( 'columns' ) );
+    var data = eval( element.getAttribute( 'data' ) );
+    var dataTable = new google.visualization.DataTable();
+
+    for( i = 0; i < columns.length; i++ ) {
+      dataTable.addColumn( columns[ i ][ 0 ], columns[ i ][ 1 ] );
+    }
+
+    dataTable.addRows( data  );
+
+    return dataTable;
+  }
+
+  function makeChart( index, element ) {
+    var dataTable =  makeDataTable( element );
+    var customOptions = eval( element.getAttribute( 'options' ) );
+    var defaultOptions = { is3D: true, title: element.getAttribute( 'name' ) };
+    var chart = undefined;
+
+    switch( element.getAttribute( 'chart' ) ) {
+      case 'area':
+        chart = new google.visualization.AreaChart( element );
+        break;
+
+      case 'bar':
+        chart = new google.visualization.BarChart( element );
+        break;
+
+      case 'column':
+        chart = new google.visualization.ColumnChart( element );
+        break;
+
+      case 'line':
+        chart = new google.visualization.LineChart( element );
+        break;
+
+      case 'pie':
+        chart = new google.visualization.PieChart( element );
+        break;
+    }
+
+    if ( chart != undefined ) {
+      jQuery.extend( true, defaultOptions, customOptions );
+      chart.draw( dataTable, defaultOptions );
+    }
+  }
+
+  function drawCharts() {
+    $('[chart]').each( makeChart );
+   }
+
+
+</script>

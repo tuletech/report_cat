@@ -26,7 +26,9 @@ You can place new reports anywhere you like, but `app/reports` is the recommende
 # TODO
 
  * Core models
+   * Report#to_sql
    * Report#to_csv
+   * Format columns on way out of DB
 
  * Controller / view implementation
 

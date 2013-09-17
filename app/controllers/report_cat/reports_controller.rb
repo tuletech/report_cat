@@ -8,6 +8,7 @@ module ReportCat
 
     def show
       @report = @reports[ params[ :id ] ]
+      @report.generate( params )
     end
 
   protected
@@ -21,7 +22,7 @@ module ReportCat
 
       ReportCat::Core::Report.descendants.map do |klass|
         report = klass.new
-        @reports[ report.name.to_sym ] = report
+        reports[ report.name.to_sym ] = report
       end
 
       return reports

@@ -9,3 +9,32 @@
     <% end %>
     <%= submit_tag( t( :report, :scope => :report_cat ) ) %>
 <% end %>
+
+<table border="1">
+    <tr>
+      <% @report.columns.each do |column| %>
+          <th><%= column.name.to_s %></th>
+      <% end %>
+    </tr>
+
+    <% @report.rows.each do |row| %>
+        <tr>
+            <% row.each do |data| %>
+              <td><%= data %></td>
+            <% end %>
+        </tr>
+    <% end %>
+
+</table>
+
+
+<% @report.charts.each do |chart| %>
+    <%= raw content_tag :div, '', :class => :chart,
+                   :name => chart.name, :chart => chart.type,
+                   :columns => chart.columns( @report ),
+                   :data => chart.data( @report ),
+                   :options => chart.options.to_json %>
+<% end %>
+
+
+<%= render :partial => 'google_charts' %>
