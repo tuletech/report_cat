@@ -8,6 +8,9 @@ describe ReportCat::ReportsHelper do
     setup_reports
   end
 
+  #############################################################################
+  # #report_chart_partial
+
   describe '#report_chart_partial' do
 
     it 'renders the google charts partial' do
@@ -17,6 +20,9 @@ describe ReportCat::ReportsHelper do
 
   end
 
+  #############################################################################
+  # #report_charts
+
   describe '#report_charts' do
 
     it 'renders the configured charts' do
@@ -24,6 +30,9 @@ describe ReportCat::ReportsHelper do
     end
 
   end
+
+  #############################################################################
+  # #report_csv_link
 
   describe '#report_csv_link' do
 
@@ -35,6 +44,36 @@ describe ReportCat::ReportsHelper do
 
   end
 
+  #############################################################################
+  # #report_description
+
+  describe '#report_description' do
+
+    it 'renders the localized description for the report' do
+      expected = t( :description, :scope => [ :report_cat, :instances, @report.name.to_sym ] )
+      helper.report_description( @report ).should eql( expected )
+    end
+
+  end
+
+  #############################################################################
+  # #report_form
+
+  describe '#report_form' do
+
+    before( :each ) do
+      helper.should_receive( :reports_path ).and_return( '' )
+    end
+
+    it 'renders a form for the report params' do
+      helper.report_form( @report ).should eql_file( 'spec/data/helpers/report_form.html' )
+    end
+
+  end
+
+  #############################################################################
+  # #report_list
+
   describe '#report_list' do
 
     it 'renders a list of reports in HTML' do
@@ -42,6 +81,21 @@ describe ReportCat::ReportsHelper do
     end
 
   end
+
+  #############################################################################
+  # #report_name
+
+  describe '#report_name' do
+
+    it 'renders the localized description for the report' do
+      expected = t( :name, :scope => [ :report_cat, :instances, @report.name.to_sym ] )
+      helper.report_name( @report ).should eql( expected )
+    end
+
+  end
+
+  #############################################################################
+  # #report_param
 
   describe '#report_param' do
 
@@ -78,6 +132,17 @@ describe ReportCat::ReportsHelper do
     it 'raises an exception for unknown types' do
       param = Param.new( :name => :foo, :type => :bar )
       lambda { report_param( param ) }.should raise_error
+    end
+
+    #############################################################################
+    # #report_table
+
+    describe '#report_table' do
+
+      it 'renders a table of report rows' do
+        report_table( @report ).should eql_file( 'spec/data/helpers/report_table.html' )
+      end
+
     end
 
   end

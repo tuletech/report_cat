@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130917030647) do
+ActiveRecord::Schema.define(version: 20130918075854) do
+
+  create_table "report_cat_date_ranges", force: true do |t|
+    t.date   "start_date"
+    t.date   "stop_date"
+    t.string "period"
+  end
+
+  add_index "report_cat_date_ranges", ["period", "start_date", "stop_date"], name: "index_report_cat_date_ranges_on_period_and_dates", unique: true
+  add_index "report_cat_date_ranges", ["period", "stop_date"], name: "index_report_cat_date_ranges_on_period_and_stop_date"
 
   create_table "users", force: true do |t|
     t.boolean  "activated"
