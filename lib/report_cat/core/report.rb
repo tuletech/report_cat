@@ -90,6 +90,8 @@ module ReportCat
           row.each_index { |i| row[ i ] = columns[ i ].format( row[ i ] ) }
           @rows << row
         end
+
+        @columns.each { |c| c.post_process( self ) }
       end
 
       def to_sql

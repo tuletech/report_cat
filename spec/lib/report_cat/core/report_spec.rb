@@ -263,6 +263,13 @@ module ReportCat::Core
         results.each_index { |i| @report.rows[ i ].should eql( results[ i ] ) }
       end
 
+      it 'post processes each column' do
+        ActiveRecord::Base.connection.stub( :execute ).and_return( [] )
+
+        @report.columns.each { |c| c.should_receive( :post_process ).with( @report ) }
+        @report.send( :query )
+      end
+
     end
 
     #############################################################################

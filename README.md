@@ -36,7 +36,7 @@ Add the following to ApplicationController:
 # TODO
 
  * Core models
-   * Calculation columns - avg, ma
+   * Apply params to query
 
  * Controller / view implementation
    * HTML => helpers
@@ -48,6 +48,7 @@ Add the following to ApplicationController:
 
  * Cleanup
    * Externalize strings
+   * Improve Column modelling WRT calculated ratios and moving averages
 
  * Document
    * Getting Started
