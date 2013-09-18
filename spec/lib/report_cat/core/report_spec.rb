@@ -13,6 +13,9 @@ module ReportCat::Core
       @report = Report.new( :name => @name )
     end
 
+    #############################################################################
+    # #initialize
+
     describe '#initialize' do
 
       it 'initializes accessor values' do
@@ -25,41 +28,131 @@ module ReportCat::Core
 
     end
 
-    describe '#add_param' do
+    #############################################################################
+    # #add_chart
 
-      it 'adds a param' do
-        @report.params.should be_empty
-        @report.add_param( :foo, :integer )
-        @report.params.size.should eql( 1 )
+    describe '#add_chart' do
+
+      it 'adds a chart' do
+        name = :i_like_pie
+        type = :pie
+        label = :label
+        values = [ :value_1, :value_2 ]
+        options = { :sweet => true }
+
+        @report.charts.should be_empty
+        @report.add_chart( name, type, label, values, options )
+        @report.charts.size.should eql( 1 )
+
+        chart = @report.charts.first
+
+        chart.should be_an_instance_of( Chart )
+        chart.name.should eql( name )
+        chart.type.should eql( type )
+        chart.label.should eql( label )
+        chart.values.should eql( values )
+        chart.options.should eql( options )
       end
 
     end
 
-    describe '#param' do
-
-      before( :each ) do
-        @param = @report.add_param( :foo, :integer )
-      end
-
-      it 'finds a parameter by name' do
-        @report.param( :foo ).should be( @param )
-      end
-
-      it 'returns nil if it can not find it' do
-        @report.param( :bar ).should be_nil
-      end
-
-    end
+    #############################################################################
+    # #add_column
 
     describe '#add_column' do
 
       it 'adds a column' do
+        name = :foo
+        type = :integer
+        sql = 'count( 1 )'
+
         @report.columns.should be_empty
-        @report.add_column( :foo, :integer )
+        @report.add_column( name, type,sql )
         @report.columns.size.should eql( 1 )
+
+        column = @report.columns.first
+        column.name.should eql( name )
+        column.type.should eql( type )
+        column.sql.should eql( sql )
       end
 
     end
+
+    #############################################################################
+    # #add_param
+
+    describe '#add_param' do
+
+      it 'adds a param' do
+        name = :foo
+        type = :integer
+
+        @report.params.should be_empty
+        @report.add_param( name, type )
+        @report.params.size.should eql( 1 )
+
+        param = @report.params.first
+        param.should be_an_instance_of( Param )
+        param.name.should eql( name )
+        param.type.should eql( type )
+      end
+
+    end
+
+    #############################################################################
+    # #column
+
+    describe '#column' do
+
+      before( :each ) do
+        setup_reports
+      end
+
+      it 'returns the named column' do
+        @report.columns.size.should > 1
+        @report.columns.each_index do |i|
+          column = @report.columns[ i ]
+          @report.column( column.name ).should eql( column )
+        end
+
+      end
+
+
+      it 'returns nil if it is unable to find the column' do
+        @report.column( :does_not_exist ).should be_nil
+      end
+
+    end
+
+
+    #############################################################################
+    # #column_index
+
+    describe '#column_index' do
+
+      before( :each ) do
+        setup_reports
+      end
+
+      it 'returns the index of the named column' do
+        @report.columns.size.should > 1
+        @report.columns.each_index do |i|
+          column = @report.columns[ i ]
+          @report.column_index( column.name ).should eql( i )
+        end
+
+      end
+
+
+      it 'returns nil if it is unable to find the column' do
+        @report.column_index( :does_not_exist ).should be_nil
+      end
+
+    end
+
+
+    #############################################################################
+    # #generate
 
     describe '#generate' do
 
@@ -91,6 +184,28 @@ module ReportCat::Core
 
     end
 
+    #############################################################################
+    # #param
+
+    describe '#param' do
+
+      before( :each ) do
+        @param = @report.add_param( :foo, :integer )
+      end
+
+      it 'finds a parameter by name' do
+        @report.param( :foo ).should be( @param )
+      end
+
+      it 'returns nil if it can not find it' do
+        @report.param( :bar ).should be_nil
+      end
+
+    end
+
+    #############################################################################
+    # #to_csv
+
     describe '#to_csv' do
 
       before( :each ) do
@@ -103,6 +218,9 @@ module ReportCat::Core
       end
 
     end
+
+    #############################################################################
+    # #query
 
     describe '#query' do
 
@@ -146,6 +264,9 @@ module ReportCat::Core
       end
 
     end
+
+    #############################################################################
+    # #to_sql
 
     describe '#to_sql' do
 

@@ -24,7 +24,10 @@ module ReportCat
 
       def data( report )
         table = []
+
         label_index = report.column_index( @label )
+        raise "Bad label index: #{@label}" unless label_index
+
         value_indexes = @values.map { |name| report.column_index( name ) }
 
         report.rows.each do |row|

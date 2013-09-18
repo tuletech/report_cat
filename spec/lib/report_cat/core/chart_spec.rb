@@ -25,6 +25,9 @@ module ReportCat::Core
                   :options => @options )
     end
 
+    #############################################################################
+    # #initialize
+
     describe '#initialize' do
 
       it 'initializes accessor values' do
@@ -37,13 +40,19 @@ module ReportCat::Core
 
     end
 
-    describe '#columns' do
+    #############################################################################
+    # #columns
+
+    describe '#data' do
 
       it 'generates json' do
         @chart.columns( @report ).should eql_file( 'spec/data/chart_columns.json' )
       end
 
     end
+
+    #############################################################################
+    # #initialize
 
     describe '#data' do
 

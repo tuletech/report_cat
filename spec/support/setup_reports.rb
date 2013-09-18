@@ -14,6 +14,9 @@ module SetupReports
     @report.add_column( :day, :date )
     @report.add_column( :total, :integer)
 
+    @report.rows[ 0 ] = [ '2013-09-17', 27 ]
+    @report.rows[ 1 ] = [ '2013-09-18', 270 ]
+
     @reports = HashWithIndifferentAccess.new
     @reports[ @report.name.to_sym ] = @report
   end

@@ -31,8 +31,9 @@ You can place new reports anywhere you like, but `app/reports` is the recommende
    * HTML => helpers
    * Page nav model
 
- * Date range reports
- * Cohort reports
+ * Add abstract flag to report
+   * Date range reports
+   * Cohort reports
 
  * Cleanup
    * Externalize strings
