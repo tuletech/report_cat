@@ -8,11 +8,13 @@ module ReportCat
         @name = attributes[ :name ]
         @type = attributes[ :type ]
         @label = attributes[ :label ]
-        @values = attributes[ :values ]
-        @options = attributes[ :options ]
+        @values = attributes[ :values ] || []
+        @options = attributes[ :options ] || {}
 
         @values = [ @values ] unless @values.is_a?( Array )
        end
+
+      # Returns columns as JSON for the Google Visualization API
 
       def columns( report )
         columns = []
@@ -21,6 +23,8 @@ module ReportCat
 
         return columns.to_json
       end
+
+       # Returns rows as JSON for the Google Visualization API
 
       def data( report )
         table = []

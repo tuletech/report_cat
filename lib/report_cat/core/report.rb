@@ -35,8 +35,8 @@ module ReportCat
         return chart
       end
 
-      def add_column( name, type, sql = nil )
-        columns << ( column = Column.new( :name => name, :type => type, :sql => sql ) )
+      def add_column( name, type, options = {} )
+        columns << ( column = Column.new( :name => name, :type => type, :options => options ) )
         return column
       end
 
@@ -93,7 +93,7 @@ module ReportCat
       end
 
       def to_sql
-        select = @columns.map { |c| c.sql.blank? ? c.name : "#{c.sql} as #{c.name}" }.compact.join( ',' )
+        select = @columns.map { |c| c.to_sql }.compact.join( ',' )
 
         sql = "select #{select} from #{from}"
         sql << " #{joins}" if joins

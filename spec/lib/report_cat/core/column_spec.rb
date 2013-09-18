@@ -9,7 +9,7 @@ module ReportCat::Core
     before( :each ) do
       @name = :test
       @type = :select
-      @sql = 'max( something )'
+      @options = { :sql => 'max( something )' }
     end
 
     #############################################################################
@@ -18,10 +18,10 @@ module ReportCat::Core
     describe '#initialize' do
 
       it 'initializes accessor values' do
-        column = Column.new( :name => @name, :type => @type, :sql => @sql )
+        column = Column.new( :name => @name, :type => @type, :options => @options )
         column.name.should eql( @name )
         column.type.should eql( @type )
-        column.sql.should eql( @sql )
+        column.options.should eql( @options )
       end
 
     end

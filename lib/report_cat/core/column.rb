@@ -2,12 +2,12 @@ module ReportCat
   module Core
     class Column
 
-      attr_reader :name, :type, :sql
+      attr_reader :name, :type, :options
 
       def initialize( attributes = {} )
         @name = attributes[ :name ]
         @type = attributes[ :type ]
-        @sql = attributes[ :sql ]
+        @options = attributes[ :options ] || {}
       end
 
       def format( value )
@@ -18,6 +18,13 @@ module ReportCat
           when :integer then return value.to_i
           else return value
         end
+      end
+
+      def to_sql
+        sql = @options[ :sql ]
+        return "#{sql} as #{name}" if sql
+        return 0 if @type == :ratio
+        return @name
       end
 
     end

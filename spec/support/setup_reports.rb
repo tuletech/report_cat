@@ -12,7 +12,7 @@ module SetupReports
     @report.add_param( :text_field_test, :text_field )
 
     @report.add_column( :day, :date )
-    @report.add_column( :total, :integer)
+    @report.add_column( :total, :integer )
 
     @report.rows[ 0 ] = [ '2013-09-17', 27 ]
     @report.rows[ 1 ] = [ '2013-09-18', 270 ]

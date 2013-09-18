@@ -43,7 +43,7 @@ module ReportCat::Core
     #############################################################################
     # #columns
 
-    describe '#data' do
+    describe '#columns' do
 
       it 'generates json' do
         @chart.columns( @report ).should eql_file( 'spec/data/chart_columns.json' )

@@ -12,6 +12,17 @@ You can place new reports anywhere you like, but `app/reports` is the recommende
     	Dir[Rails.root + 'app/reports/**/*.rb'].each { |path| require path }
 
 
+### Reload Reports In Development Mode
+
+Add the following to ApplicationController:
+
+      before_filter :require_reports if Rails.env.development?
+
+      def require_reports
+        Dir[Rails.root + 'app/reports/**/*.rb'].each { |path| require_dependency path }
+      end
+
+
 ## Reference
 
  * [Getting Started with Engines](http://edgeguides.rubyonrails.org/engines.html)

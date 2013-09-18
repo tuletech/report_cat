@@ -64,16 +64,16 @@ module ReportCat::Core
       it 'adds a column' do
         name = :foo
         type = :integer
-        sql = 'count( 1 )'
+        options = { :sql => 'count( 1 )' }
 
         @report.columns.should be_empty
-        @report.add_column( name, type,sql )
+        @report.add_column( name, type, options )
         @report.columns.size.should eql( 1 )
 
         column = @report.columns.first
         column.name.should eql( name )
         column.type.should eql( type )
-        column.sql.should eql( sql )
+        column.options.should eql( options )
       end
 
     end
