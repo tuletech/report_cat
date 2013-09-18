@@ -19,8 +19,11 @@ class UserReport < Report
     add_chart( :line_test, :line, :day, [ :total, :activated ] )
   end
 
-  def post_process
+  def where
+    start_date = param( :start_date ).value
+    stop_date = param( :stop_date ).value
 
+    "users.created_at between '#{start_date}' and '#{stop_date}'"
   end
 
 end

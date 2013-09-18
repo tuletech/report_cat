@@ -35,9 +35,6 @@ Add the following to ApplicationController:
 
 # TODO
 
- * Core models
-   * Apply params to query
-
  * Controller / view implementation
    * HTML => helpers
    * Page nav model
