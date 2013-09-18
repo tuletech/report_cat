@@ -35,15 +35,13 @@ Add the following to ApplicationController:
 
 # TODO
 
- * Controller / view implementation
-   * HTML => helpers
-   * Page nav model
-
  * Add abstract flag to report
    * Date range reports
    * Cohort reports
 
  * Cleanup
+   * Specs for ReportHelper
+   * HTML => helpers
    * Externalize strings
    * Improve Column modelling WRT calculated ratios and moving averages
 

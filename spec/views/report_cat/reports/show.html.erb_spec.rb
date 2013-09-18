@@ -6,6 +6,7 @@ describe 'report_cat/reports/show.html.erb' do
 
   before( :each ) do
     setup_reports
+    view.stub( :report_path ).and_return( '/' )
   end
 
   it 'renders without exception' do

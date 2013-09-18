@@ -21,3 +21,9 @@
 
 en:
   hello: "Hello world"
+
+  report_cat:
+    instances:
+      user_report:
+        name: User Report
+        description: This is only a test

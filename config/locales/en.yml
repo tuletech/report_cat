@@ -1,3 +1,5 @@
 en:
   report_cat:
+    export_as_csv: Export as CSV
     report: Report
+    reports: Reports

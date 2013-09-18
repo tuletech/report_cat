@@ -14,6 +14,10 @@ module SetupReports
     @report.add_column( :day, :date )
     @report.add_column( :total, :integer )
 
+    @report.add_chart( :pie_test, :pie, :day, :total )
+    @report.add_chart( :bar_test, :bar, :day, :total )
+    @report.add_chart( :line_test, :line, :day, :total )
+
     @report.rows[ 0 ] = [ '2013-09-17', 27 ]
     @report.rows[ 1 ] = [ '2013-09-18', 270 ]
 

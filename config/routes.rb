@@ -2,6 +2,6 @@ ReportCat::Engine.routes.draw do
 
   root :to => 'reports#index'
 
-  resources :reports
+  resources :reports, :only => [ :index, :show ]
 
 end
