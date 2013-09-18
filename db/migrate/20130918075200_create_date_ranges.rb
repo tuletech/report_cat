@@ -5,8 +5,9 @@ class CreateDateRanges < ActiveRecord::Migration
       t.date :stop_date
       t.string :period
 
+      t.index [ :period, :start_date ], :unique => true
+      t.index [ :period, :stop_date ], :unique => true
       t.index [ :period, :start_date, :stop_date ], :unique => true, :name => 'index_report_cat_date_ranges_on_period_and_dates'
-      t.index [ :period, :stop_date ]
     end
   end
 end

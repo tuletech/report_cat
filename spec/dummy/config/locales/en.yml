@@ -27,3 +27,9 @@ en:
       user_report:
         name: User Report
         description: This is only a test
+        pie_test: Pie Chart Test
+        bar_test: Bar Chart Test
+        line_test: Line Chart Test
+      date_report:
+        name: Date Range Report
+        description: Simply way to visualize DateRange

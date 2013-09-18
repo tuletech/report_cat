@@ -4,9 +4,32 @@ module ReportCat
     PERIODS = [ :daily, :weekly, :monthly, :quarterly, :yearly ]
 
     def self.generate( period, start_date, stop_date )
+      sql = [
+          sql_intersect( start_date, stop_date ),
+          sql_period( period )
+      ].join( ' and ' )
+      date_ranges = {}
+      DateRange.where( sql ).each { |d| date_ranges[ d.start_date ] = true }
+
       iterate( period, start_date, stop_date ) do |start_date, stop_date|
-        DateRange.where( :period => period, :start_date => start_date, :stop_date => stop_date ).first_or_create
+        unless date_ranges[ start_date ]
+          DateRange.where( :period => period, :start_date => start_date, :stop_date => stop_date ).create
+        end
       end
+    end
+
+    def self.sql_intersect( start_date, stop_date )
+      sql =<<-EOSQL
+        (
+          #{table_name}.start_date between '#{start_date}' and '#{stop_date}'
+          or
+          '#{start_date}' between #{table_name}.start_date and #{table_name}.stop_date
+        )
+      EOSQL
+    end
+
+    def self.sql_period( period )
+      "#{table_name}.period = '#{period}'"
     end
 
     def self.iterate( period, start_date, stop_date )

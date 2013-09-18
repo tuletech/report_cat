@@ -36,6 +36,7 @@ Add the following to ApplicationController:
 # TODO
 
  * DateRange
+   * Improve DateReport range query
    * joins for actual reporting
    * Smarter strategy to ensure populated -
      * bulk query for all expected values and fill misses?
@@ -45,7 +46,6 @@ Add the following to ApplicationController:
    * Cohort reports
 
  * Cleanup
-   * Improve DateReport range query
    * Externalize strings
    * Improve Column modelling WRT calculated ratios and moving averages
 

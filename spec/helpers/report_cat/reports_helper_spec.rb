@@ -62,7 +62,7 @@ describe ReportCat::ReportsHelper do
   describe '#report_form' do
 
     before( :each ) do
-      helper.should_receive( :reports_path ).and_return( '' )
+      helper.should_receive( :report_path ).and_return( '' )
     end
 
     it 'renders a form for the report params' do

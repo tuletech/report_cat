@@ -1,6 +1,11 @@
 module ReportCat
   module ReportsHelper
 
+    def report_chart_name( report, chart )
+      t( chart.name.to_sym, :scope => [ :report_cat, :instances, report.name.to_sym ] )
+    end
+
+
     def report_chart_partial
       render :partial => 'report_cat/reports/google_charts'
     end
@@ -10,7 +15,8 @@ module ReportCat
 
       report.charts.each do |chart|
         output += content_tag :div, '', :class => :chart,
-                           :name => chart.name, :chart => chart.type,
+                           :name => report_chart_name( report, chart ),
+                           :chart => chart.type,
                            :columns => chart.columns( report ),
                            :data => chart.data( report ),
                            :options => chart.options.to_json
@@ -28,7 +34,7 @@ module ReportCat
     end
 
     def report_form( report )
-      form_tag reports_path, :method => :get do
+      form_tag report_path( report.name ), :method => :get do
         @report.params.each do |param|
           concat content_tag( :div, label_tag( param.name ) + report_param( param ) )
         end

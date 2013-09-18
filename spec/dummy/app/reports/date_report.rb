@@ -1,11 +1,12 @@
 include ReportCat::Core
+include ReportCat
 
 class DateReport < Report
 
   def initialize
-    super( :name => :date_report, :from => 'report_cat_date_ranges' )
+    super( :name => :date_report, :from => 'report_cat_date_ranges', :order_by => 'start_date asc' )
 
-    periods = [ 'all' ] + ReportCat::DateRange::PERIODS.map { |p| p.to_s }
+    periods = ReportCat::DateRange::PERIODS.map { |p| p.to_s }
 
     add_param( :start_date, :date, Date.today - 7 )
     add_param( :stop_date, :date, Date.today )
@@ -21,21 +22,17 @@ class DateReport < Report
     stop_date = param( :stop_date ).value
     period = param( :period ).value.to_sym
 
-    sql =<<-EOSQL
-      (
-        report_cat_date_ranges.start_date between '#{start_date}' and '#{stop_date}'
-        or
-        report_cat_date_ranges.stop_date between '#{start_date}' and '#{stop_date}'
-        or
-        '#{start_date}' between report_cat_date_ranges.start_date and report_cat_date_ranges.stop_date
-        or
-        '#{stop_date}' between report_cat_date_ranges.start_date and report_cat_date_ranges.stop_date
-      )
-    EOSQL
+    sql = [ DateRange.sql_intersect( start_date, stop_date ) ]
+    sql << DateRange.sql_period( period ) if DateRange::PERIODS.include?( period )
+    sql.join( ' and ' )
+  end
 
-    if ReportCat::DateRange::PERIODS.include?( period )
-      sql += "and report_cat_date_ranges.period = '#{period}'"
-    end
+  def pre_process
+    period = param( :period ).value.to_sym
+    start_date = param( :start_date ).value
+    stop_date = param( :stop_date ).value
+
+    DateRange.generate( period, start_date, stop_date )
   end
 
 end
