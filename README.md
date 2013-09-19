@@ -34,9 +34,9 @@ Add the following to ApplicationController:
  * [Shoulda](https://github.com/thoughtbot/shoulda-matchers)
 
 # TODO
+ * Spec cohort report
 
  * Cleanup
-   * Move date_range_report from Reports to Core
    * Externalize strings
    * Improve Column modelling WRT calculated ratios and moving averages
 

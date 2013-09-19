@@ -87,13 +87,13 @@ module ReportCat
 
       before( :each ) do
         @table = 'users'
-        @column = 'user_id'
+        @column = 'created_at'
       end
 
       describe '::join_to' do
 
         it 'generates a join string' do
-          expected = "join users on date( user_id ) between report_cat_date_ranges.start_date and report_cat_date_ranges.stop_date"
+          expected = "join users on date( users.created_at ) between report_cat_date_ranges.start_date and report_cat_date_ranges.stop_date"
           DateRange.join_to( @table, @column ).should eql( expected )
         end
 
@@ -102,7 +102,7 @@ module ReportCat
       describe '::join_before' do
 
         it 'generates a join string' do
-          expected = "join users on date( user_id ) <= report_cat_date_ranges.stop_date"
+          expected = "join users on date( users.created_at ) <= report_cat_date_ranges.stop_date"
           DateRange.join_before( @table, @column ).should eql( expected )
         end
 
@@ -111,7 +111,7 @@ module ReportCat
       describe '::join_after' do
 
         it 'generates a join string' do
-          expected = "join users on date( user_id ) > report_cat_date_ranges.stop_date"
+          expected = "join users on date( users.created_at ) > report_cat_date_ranges.stop_date"
           DateRange.join_after( @table, @column ).should eql( expected )
         end
 

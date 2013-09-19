@@ -3,7 +3,12 @@ en:
     export_as_csv: Export as CSV
     report: Report
     reports: Reports
+    charts:
+      cohort_line: Cohort Line Chart
     instances:
+      cohort_report:
+        name: Cohort Report
+        description: Generic cohort reporting
       date_range_report:
         name: Date Range Report
-        description: Daily, weekly, monthly, quarterly, yearly reports
+        description: Generic daily, weekly, monthly, quarterly, yearly reports

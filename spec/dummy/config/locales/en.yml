@@ -21,14 +21,18 @@
 
 en:
   report_cat:
+    charts:
+      pie_test: Pie Chart Test
+      bar_test: Bar Chart Test
+      line_test: Line Chart Test
+      retention_line: Retention Line Chart
     instances:
+      retention_cohort_report:
+        name: Retention Cohort Report
+        description: Retention cohorts over time
       retention_report:
         name: Retention Report
         description: Retention over time
-        retention_line: Retention Line Chart
       user_report:
         name: User Report
         description: This is only a test
-        pie_test: Pie Chart Test
-        bar_test: Bar Chart Test
-        line_test: Line Chart Test

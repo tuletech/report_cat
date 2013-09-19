@@ -2,7 +2,7 @@ module ReportCat
   module ReportsHelper
 
     def report_chart_name( report, chart )
-      t( chart.name.to_sym, :scope => [ :report_cat, :instances, report.name.to_sym ] )
+      t( chart.name.to_sym, :scope => [ :report_cat, :charts ] )
     end
 
 
