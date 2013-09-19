@@ -34,12 +34,13 @@ Add the following to ApplicationController:
  * [Shoulda](https://github.com/thoughtbot/shoulda-matchers)
 
 # TODO
+ * Spec
+   * DateRange
+   * DateRangeReport
+
 
  * DateRange
-   * Improve DateReport range query
    * joins for actual reporting
-   * Smarter strategy to ensure populated -
-     * bulk query for all expected values and fill misses?
 
  * Add abstract flag to report
    * Date range reports

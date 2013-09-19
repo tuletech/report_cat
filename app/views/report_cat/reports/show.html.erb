@@ -2,8 +2,11 @@
 <%= report_description( @report ) %>
 
 <p><%= report_form( @report ) %></p>
-<p><%= report_table( @report ) %></p>
-<p><%= report_csv_link( @report ) %></p>
+
 <p><%= raw report_charts( @report ) %></p>
 <p><%= report_chart_partial %></p>
+
+<p><%= report_table( @report ) %></p>
+<p><%= report_csv_link( @report ) %></p>
+
 

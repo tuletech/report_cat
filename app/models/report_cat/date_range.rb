@@ -1,7 +1,7 @@
 module ReportCat
   class DateRange < ActiveRecord::Base
 
-    PERIODS = [ :daily, :weekly, :monthly, :quarterly, :yearly ]
+#    PERIODS = [ :daily, :weekly, :monthly, :quarterly, :yearly ]
 
     def self.generate( period, start_date, stop_date )
       sql = [
@@ -26,6 +26,18 @@ module ReportCat
           '#{start_date}' between #{table_name}.start_date and #{table_name}.stop_date
         )
       EOSQL
+    end
+
+    def self.join_to( table, column )
+      "join #{table} on date( #{column} ) between #{table_name}.start_date and #{table_name}.stop_date"
+    end
+
+    def self.join_before( table, column )
+      "join #{table} on date( #{column} ) <= #{table_name}.stop_date"
+    end
+
+    def self.join_after( table, column )
+      "join #{table} on date( #{column} ) > #{table_name}.stop_date"
     end
 
     def self.sql_period( period )

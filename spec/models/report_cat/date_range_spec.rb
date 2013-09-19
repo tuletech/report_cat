@@ -10,10 +10,6 @@ module ReportCat
       @stop_date = Date.civil( 2013, 9, 18 )
     end
 
-    it 'defines supported time periods' do
-      DateRange::PERIODS.should eql( [ :daily, :weekly, :monthly, :quarterly, :yearly ] )
-    end
-
     #############################################################################
     # ::iterate
 

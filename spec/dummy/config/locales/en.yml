@@ -30,6 +30,3 @@ en:
         pie_test: Pie Chart Test
         bar_test: Bar Chart Test
         line_test: Line Chart Test
-      date_report:
-        name: Date Range Report
-        description: Simply way to visualize DateRange

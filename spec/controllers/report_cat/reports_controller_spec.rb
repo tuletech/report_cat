@@ -101,7 +101,7 @@ describe ReportCat::ReportsController do
 
       Report.descendants.each do |klass|
         report = klass.new
-        reports[ report.name.to_sym ].should_not be_nil
+        reports[ report.name.to_sym ].should_not be_nil  unless report.abstract
       end
     end
 

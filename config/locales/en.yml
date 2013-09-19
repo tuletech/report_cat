@@ -3,3 +3,7 @@ en:
     export_as_csv: Export as CSV
     report: Report
     reports: Reports
+    instances:
+      date_range_report:
+        name: Date Range Report
+        description: Daily, weekly, monthly, quarterly, yearly reports
