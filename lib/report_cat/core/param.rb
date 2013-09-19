@@ -17,8 +17,10 @@ module ReportCat
           when :date
             if value.kind_of?( Hash )
               Date.new( value[:year].to_i, value[:month].to_i, value[:day].to_i )
+            elsif value.kind_of?( String )
+              Date.parse( value )
             else
-              Date.parse( value.to_s )
+              value
             end
           else value
         end

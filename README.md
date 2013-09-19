@@ -34,7 +34,7 @@ Add the following to ApplicationController:
  * [Shoulda](https://github.com/thoughtbot/shoulda-matchers)
 
 # TODO
- * Spec cohort report
+ * Matchers to help with speccing charts ... have_param, have_column, have_chart
 
  * Cleanup
    * Externalize strings

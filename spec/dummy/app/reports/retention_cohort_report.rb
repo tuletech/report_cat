@@ -6,7 +6,7 @@ class RetentionCohortReport < CohortReport
   def initialize( attributes = {} )
     defaults = {
         :name => :retention_cohort_report,
-        :report => RetentionReport.new
+        :other => RetentionReport.new
     }
 
     super( defaults.merge( attributes ) )
