@@ -1,5 +1,29 @@
 # schrodingersbox/report_cat README
 
+A Rails engine to generate simple web-based reports with charts
+
+## Getting Started
+
+1. Add this to your `Gemfile` and `bundle install`
+
+		gem 'report_cat', :git => 'https://github.com/schrodingersbox/report_cat.git'
+
+2. Add this to your `config/routes.rb`
+
+		mount ReportCat::Engine => '/report_cat'
+
+3. Install and run migrations
+
+        rake report_cat:install:migrations
+        rake db:migrate
+
+4. Restart your Rails server
+
+5.  Visit http://yourapp/report_cat in a browser for an HTML meter report
+
+ ## Background
+
+ _TODO: UML goes here_
 
 ## How To
 
@@ -11,6 +35,16 @@ You can place new reports anywhere you like, but `app/reports` is the recommende
 
     	Dir[Rails.root + 'app/reports/**/*.rb'].each { |path| require path }
 
+2.  Create a subclass of `ReportCat::Core::Report`, `ReportCat::Report::DateRangeReport` or `ReportCat::Report::CohortReport`
+
+    class MyReport << ReportCat::Report::DateRangeReport
+
+        def initialize
+            super( :name => :my_report, :from => :users, :order_by => 'users.id asc' )
+            add_column( :total, :integer, :sql => 'count( users.id )' )
+            add_chart( :chart, :line, :start_date, :total )
+        end
+    end
 
 ### Reload Reports In Development Mode
 
@@ -34,14 +68,14 @@ Add the following to ApplicationController:
  * [Shoulda](https://github.com/thoughtbot/shoulda-matchers)
 
 # TODO
+
+ * Externalize all strings (maybe already there)
  * Matchers to help with speccing charts ... have_param, have_column, have_chart
+ * Improve Column modelling WRT calculated ratios and moving averages
 
  * Cleanup
-   * Externalize strings
-   * Improve Column modelling WRT calculated ratios and moving averages
 
  * Document
-   * Getting Started
    * How To
    * Background
      * UML
