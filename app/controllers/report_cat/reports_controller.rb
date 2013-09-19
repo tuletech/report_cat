@@ -27,7 +27,7 @@ module ReportCat
 
       ReportCat::Core::Report.descendants.map do |klass|
         report = klass.new
-        reports[ report.name.to_sym ] = report unless report.abstract
+        reports[ report.name.to_sym ] = report
       end
 
       return reports

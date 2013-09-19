@@ -1,16 +1,21 @@
 module ReportCat
   class DateRange < ActiveRecord::Base
 
-    #############################################################################
-    # ::generate
-
-    def self.generate( period, start_date, stop_date )
+    def self.range( period, start_date, stop_date )
       sql = [
           sql_intersect( start_date, stop_date ),
           sql_period( period )
       ].join( ' and ' )
+
+      DateRange.where( sql ).order( "#{table_name}.start_date asc" )
+    end
+
+    #############################################################################
+    # ::generate
+
+    def self.generate( period, start_date, stop_date )
       date_ranges = {}
-      DateRange.where( sql ).each { |d| date_ranges[ d.start_date ] = true }
+      range( period, start_date, stop_date ).each { |d| date_ranges[ d.start_date ] = true }
 
       iterate( period, start_date, stop_date ) do |start_date, stop_date|
         unless date_ranges[ start_date ]
@@ -56,15 +61,15 @@ module ReportCat
     # ::join_*
 
     def self.join_to( table, column )
-      "join #{table} on date( #{column} ) between #{table_name}.start_date and #{table_name}.stop_date"
+      "join #{table} on date( #{table}.#{column} ) between #{table_name}.start_date and #{table_name}.stop_date"
     end
 
     def self.join_before( table, column )
-      "join #{table} on date( #{column} ) <= #{table_name}.stop_date"
+      "join #{table} on date( #{table}.#{column} ) <= #{table_name}.stop_date"
     end
 
     def self.join_after( table, column )
-      "join #{table} on date( #{column} ) > #{table_name}.stop_date"
+      "join #{table} on date( #{table}.#{column} ) > #{table_name}.stop_date"
     end
 
     #############################################################################

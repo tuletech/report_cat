@@ -7,7 +7,6 @@ module ReportCat
 
       attr_reader :name, :params, :columns, :rows, :charts
       attr_reader :from, :joins, :where, :group_by, :order_by, :limit
-      attr_reader :abstract
 
       def initialize( attributes = {} )
         @name = attributes[ :name ]
@@ -17,7 +16,6 @@ module ReportCat
         @group_by = attributes[ :group_by ]
         @order_by = attributes[ :order_by ]
         @limit = attributes[ :limit ]
-        @abstract = attributes[ :abstract ]
 
         @params = []
         @columns = []

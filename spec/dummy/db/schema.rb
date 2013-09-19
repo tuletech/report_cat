@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130918075854) do
+ActiveRecord::Schema.define(version: 20130919022647) do
 
   create_table "report_cat_date_ranges", force: true do |t|
     t.date   "start_date"
@@ -24,6 +24,12 @@ ActiveRecord::Schema.define(version: 20130918075854) do
 
   create_table "users", force: true do |t|
     t.boolean  "activated"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "visits", force: true do |t|
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -20,10 +20,12 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
-
   report_cat:
     instances:
+      retention_report:
+        name: Retention Report
+        description: Retention over time
+        retention_line: Retention Line Chart
       user_report:
         name: User Report
         description: This is only a test

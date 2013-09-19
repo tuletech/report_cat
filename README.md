@@ -34,19 +34,9 @@ Add the following to ApplicationController:
  * [Shoulda](https://github.com/thoughtbot/shoulda-matchers)
 
 # TODO
- * Spec
-   * DateRange
-   * DateRangeReport
-
-
- * DateRange
-   * joins for actual reporting
-
- * Add abstract flag to report
-   * Date range reports
-   * Cohort reports
 
  * Cleanup
+   * Move date_range_report from Reports to Core
    * Externalize strings
    * Improve Column modelling WRT calculated ratios and moving averages
 
