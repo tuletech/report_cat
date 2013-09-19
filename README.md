@@ -69,7 +69,6 @@ Add the following to ApplicationController:
 
 # TODO
 
- * Matchers to help with speccing charts ... have_param, have_column, have_chart
  * Improve Column modelling WRT calculated ratios and moving averages
 
  * Cleanup
