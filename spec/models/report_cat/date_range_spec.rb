@@ -11,6 +11,40 @@ module ReportCat
     end
 
     #############################################################################
+    # ::generate
+
+    describe '::generate' do
+
+      it 'iterates the periods in the date range' do
+        DateRange.should_receive( :iterate ).with( @period, @start_date, @stop_date )
+        DateRange.generate( @period, @start_date, @stop_date )
+      end
+
+      it 'creates entries for each period' do
+        expected = @stop_date - @start_date + 1
+
+        DateRange.count.should eql( 0 )
+        DateRange.generate( @period, @start_date, @stop_date )
+        DateRange.count.should eql( expected )
+
+        (@start_date..@stop_date).each do |date|
+          date_range = DateRange.where( :period => @period, :start_date => date, :stop_date => date ).first
+          date_range.should be_present
+          date_range.period.should eql( @period.to_s )
+          date_range.start_date.should eql( date )
+          date_range.stop_date.should eql( date )
+        end
+      end
+
+      it 'does not create entries that already exist' do
+        DateRange.generate( @period, @start_date, @stop_date )
+        DateRange.should_not_receive( :create )
+        DateRange.generate( @period, @start_date, @stop_date )
+      end
+
+    end
+
+    #############################################################################
     # ::iterate
 
     describe '::iterate' do
@@ -40,32 +74,67 @@ module ReportCat
         expect { |b| DateRange.iterate( :yearly, '2013-01-01', '2013-12-31', &b) }.to yield_control.exactly( 1 ).times
       end
 
+      it 'raises an except for an unknown period' do
+        expect { |b| DateRange.iterate( :hourly, '2013-01-01', '2013-12-31', &b) }.to raise_error( 'Unknown date range: hourly' )
+      end
+
     end
 
     #############################################################################
-    # ::generate
+    # ::join_*
 
-    describe '::generate' do
+    describe 'joins' do
 
-      it 'iterates the periods in the date range' do
-        DateRange.should_receive( :iterate ).with( @period, @start_date, @stop_date )
-        DateRange.generate( @period, @start_date, @stop_date )
+      before( :each ) do
+        @table = 'users'
+        @column = 'user_id'
       end
 
-      it 'finds or creates entries for each period' do
-        expected = @stop_date - @start_date + 1
+      describe '::join_to' do
 
-        DateRange.count.should eql( 0 )
-        DateRange.generate( @period, @start_date, @stop_date )
-        DateRange.count.should eql( expected )
-
-        (@start_date..@stop_date).each do |date|
-          date_range = DateRange.where( :period => @period, :start_date => date, :stop_date => date ).first
-          date_range.should be_present
-          date_range.period.should eql( @period.to_s )
-          date_range.start_date.should eql( date )
-          date_range.stop_date.should eql( date )
+        it 'generates a join string' do
+          expected = "join users on date( user_id ) between report_cat_date_ranges.start_date and report_cat_date_ranges.stop_date"
+          DateRange.join_to( @table, @column ).should eql( expected )
         end
+
+      end
+
+      describe '::join_before' do
+
+        it 'generates a join string' do
+          expected = "join users on date( user_id ) <= report_cat_date_ranges.stop_date"
+          DateRange.join_before( @table, @column ).should eql( expected )
+        end
+
+      end
+
+      describe '::join_after' do
+
+        it 'generates a join string' do
+          expected = "join users on date( user_id ) > report_cat_date_ranges.stop_date"
+          DateRange.join_after( @table, @column ).should eql( expected )
+        end
+
+      end
+
+    end
+
+    #############################################################################
+    # ::sql_*
+
+    describe '::sql_intersect' do
+
+      it 'generates date intersection sql' do
+        DateRange.sql_intersect( '2013-09-01', '2013-09-18' ).should eql_file( 'spec/data/models/sql_intersect.sql')
+      end
+
+    end
+
+    describe '::sql_period' do
+
+      it 'generate query sql' do
+        expected = "report_cat_date_ranges.period = 'weekly'"
+        DateRange.sql_period( :weekly ).should eql( expected )
       end
 
     end

@@ -1,7 +1,8 @@
 module ReportCat
   class DateRange < ActiveRecord::Base
 
-#    PERIODS = [ :daily, :weekly, :monthly, :quarterly, :yearly ]
+    #############################################################################
+    # ::generate
 
     def self.generate( period, start_date, stop_date )
       sql = [
@@ -13,36 +14,13 @@ module ReportCat
 
       iterate( period, start_date, stop_date ) do |start_date, stop_date|
         unless date_ranges[ start_date ]
-          DateRange.where( :period => period, :start_date => start_date, :stop_date => stop_date ).create
+          DateRange.create( :period => period, :start_date => start_date, :stop_date => stop_date )
         end
       end
     end
 
-    def self.sql_intersect( start_date, stop_date )
-      sql =<<-EOSQL
-        (
-          #{table_name}.start_date between '#{start_date}' and '#{stop_date}'
-          or
-          '#{start_date}' between #{table_name}.start_date and #{table_name}.stop_date
-        )
-      EOSQL
-    end
-
-    def self.join_to( table, column )
-      "join #{table} on date( #{column} ) between #{table_name}.start_date and #{table_name}.stop_date"
-    end
-
-    def self.join_before( table, column )
-      "join #{table} on date( #{column} ) <= #{table_name}.stop_date"
-    end
-
-    def self.join_after( table, column )
-      "join #{table} on date( #{column} ) > #{table_name}.stop_date"
-    end
-
-    def self.sql_period( period )
-      "#{table_name}.period = '#{period}'"
-    end
+    #############################################################################
+    # ::iterate
 
     def self.iterate( period, start_date, stop_date )
       start_date = Date.parse( start_date ) if start_date.is_a?( String )
@@ -72,6 +50,38 @@ module ReportCat
 
         start_date = next_date + 1
       end
+    end
+
+    #############################################################################
+    # ::join_*
+
+    def self.join_to( table, column )
+      "join #{table} on date( #{column} ) between #{table_name}.start_date and #{table_name}.stop_date"
+    end
+
+    def self.join_before( table, column )
+      "join #{table} on date( #{column} ) <= #{table_name}.stop_date"
+    end
+
+    def self.join_after( table, column )
+      "join #{table} on date( #{column} ) > #{table_name}.stop_date"
+    end
+
+    #############################################################################
+    # ::sql_*
+
+    def self.sql_intersect( start_date, stop_date )
+      sql =<<-EOSQL
+        (
+          #{table_name}.start_date between '#{start_date}' and '#{stop_date}'
+          or
+          '#{start_date}' between #{table_name}.start_date and #{table_name}.stop_date
+        )
+      EOSQL
+    end
+
+    def self.sql_period( period )
+      "#{table_name}.period = '#{period}'"
     end
 
   end

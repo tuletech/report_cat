@@ -167,18 +167,8 @@ module ReportCat::Core
         @report.param( :text_field_test ).value.should eql( 'foobar' )
       end
 
-      it 'calls pre_process before query' do
-        @report.should_receive( :pre_process )
-        @report.generate
-      end
-
       it 'calls query' do
         @report.should_receive( :query ).and_return( nil )
-        @report.generate
-      end
-
-      it 'calls post_process after query' do
-        @report.should_receive( :post_process )
         @report.generate
       end
 
@@ -214,7 +204,7 @@ module ReportCat::Core
       end
 
       it 'generates CSV' do
-        @report.to_csv.should eql_file( 'spec/data/report.csv' )
+        @report.to_csv.should eql_file( 'spec/data/lib/report.csv' )
       end
 
     end
@@ -283,7 +273,7 @@ module ReportCat::Core
       end
 
       it 'generates SQL' do
-        @report.send( :to_sql ).should eql_file( 'spec/data/report.sql' )
+        @report.send( :to_sql ).should eql_file( 'spec/data/lib/report.sql' )
       end
 
     end

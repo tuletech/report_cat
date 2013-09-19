@@ -46,7 +46,7 @@ module ReportCat::Core
     describe '#columns' do
 
       it 'generates json' do
-        @chart.columns( @report ).should eql_file( 'spec/data/chart_columns.json' )
+        @chart.columns( @report ).should eql_file( 'spec/data/lib/chart_columns.json' )
       end
 
     end
@@ -58,7 +58,7 @@ module ReportCat::Core
 
       it 'generates json' do
         setup_reports
-        @chart.data( @report ).should eql_file( 'spec/data/chart_data.json' )
+        @chart.data( @report ).should eql_file( 'spec/data/lib/chart_data.json' )
       end
 
     end

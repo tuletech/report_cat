@@ -29,12 +29,14 @@ module ReportCat
         add_column( :stop_date, :date, :sql => "#{table_name}.stop_date" )
       end
 
-      def pre_process
+      def query
         period = param( :period ).value.to_sym
         start_date = param( :start_date ).value
         stop_date = param( :stop_date ).value
 
         DateRange.generate( period, start_date, stop_date )
+
+        super
       end
 
       def where
@@ -42,9 +44,10 @@ module ReportCat
         stop_date = param( :stop_date ).value
         period = param( :period ).value.to_sym
 
-        sql = [ DateRange.sql_intersect( start_date, stop_date ) ]
-        sql << DateRange.sql_period( period ) if PERIODS.include?( period )
-        sql.join( ' and ' )
+        return [
+            DateRange.sql_intersect( start_date, stop_date ),
+            DateRange.sql_period( period )
+        ].join( ' and ' )
       end
 
     end
