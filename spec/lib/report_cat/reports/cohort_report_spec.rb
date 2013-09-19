@@ -30,22 +30,17 @@ module ReportCat
         end
 
         it 'adds a total column' do
-          @report.column( :total ).should be_present
+          @report.should have_column( :total ).with_type( :integer )
         end
 
         it 'merges in any non-duplicate params from the other report' do
-          @report.param( :foo ).should be_present
-          @report.param( :bar ).should be_present
+          @report.should have_param( :foo ).with_type( :integer )
+          @report.should have_param( :bar ).with_type( :string )
         end
 
       end
 
       describe '#query' do
-
-        it 'raises an exception if the other report has not been set' do
-          @report = CohortReport.new
-          expect { @report.query }.to raise_error( 'Missing cohort report: cohort_report' )
-        end
 
         it 'adds columns for each date range' do
           @report.query
@@ -60,6 +55,7 @@ module ReportCat
         it 'adds a line chart of all its columns' do
           @report.query
           @report.charts.size.should eql( 1 )
+          @report.should have_chart( :cohort_line ).with_type( :line )
         end
 
       end

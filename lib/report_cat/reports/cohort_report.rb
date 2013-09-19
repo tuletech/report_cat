@@ -20,8 +20,6 @@ module ReportCat
       def query
         @rows = []
 
-        raise "Missing cohort report: #{name}" unless @other
-
         period = param( :period ).value.to_sym
         start_date = param( :start_date ).value
         stop_date = param( :stop_date ).value
@@ -38,6 +36,8 @@ module ReportCat
       end
 
       def add_row( date_range, column_range )
+        return [] unless other
+
         generate_cohort( date_range )
 
         i_total = other.column_index( :total )

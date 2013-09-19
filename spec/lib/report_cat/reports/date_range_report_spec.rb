@@ -54,15 +54,15 @@ module ReportCat
 
         it 'defines params' do
           @report.params.size.should eql( 3 )
-          @report.param( :start_date ).should be_present
-          @report.param( :stop_date ).should be_present
-          @report.param( :period ).should be_present
+          @report.should have_param( :start_date ).with_type( :date )
+          @report.should have_param( :stop_date ).with_type( :date )
+          @report.should have_param( :period ).with_type( :select )
         end
 
         it 'defines columns' do
           @report.columns.size.should eql( 2 )
-          @report.column( :start_date ).should be_present
-          @report.column( :stop_date ).should be_present
+          @report.should have_column( :start_date ).with_type( :date )
+          @report.should have_column( :stop_date ).with_type( :date )
 
           expected = "report_cat_date_ranges.start_date as start_date"
           @report.column( :start_date ).to_sql.should eql( expected )

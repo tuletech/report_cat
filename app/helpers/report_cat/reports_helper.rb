@@ -36,7 +36,8 @@ module ReportCat
     def report_form( report )
       form_tag report_path( report.name ), :method => :get do
         @report.params.each do |param|
-          concat content_tag( :div, label_tag( param.name ) + report_param( param ) )
+          name =  t( param.name, :scope => [ :report_cat, :params ] )
+          concat content_tag( :div, label_tag( name ) + report_param( param ) )
         end
         concat submit_tag( t( :report, :scope => :report_cat ) )
       end
