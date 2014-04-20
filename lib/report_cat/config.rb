@@ -9,6 +9,11 @@ module ReportCat
 
     attr_accessor :authenticate, :authorize
     attr_accessor :layout
+    attr_accessor :excludes
+
+    def initialize
+      @excludes = []
+    end
 
     def authenticate_with(&blk)
       @authenticate = blk if blk

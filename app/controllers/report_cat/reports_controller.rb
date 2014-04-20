@@ -30,8 +30,10 @@ module ReportCat
       reports = HashWithIndifferentAccess.new
 
       ReportCat::Core::Report.descendants.map do |klass|
-        report = klass.new
-        reports[ report.name.to_sym ] = report
+        unless ReportCat.config.excludes.include?( klass )
+          report = klass.new
+          reports[ report.name.to_sym ] = report
+        end
       end
 
       return reports

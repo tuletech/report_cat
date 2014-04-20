@@ -9,4 +9,9 @@ ReportCat.configure do |config|
   end
 
   config.layout = 'admin'
+
+  config.excludes = [
+      ReportCat::Reports::CohortReport,
+      ReportCat::Reports::DateRangeReport
+  ]
 end

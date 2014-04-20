@@ -6,15 +6,19 @@
 
 # schrodingersbox/report_cat README
 
-A Rails engine to generate simple web-based reports with charts.
+A Rails engine to generate simple web-based reports with charts along with Rspec matchers for testing them.
 
-It currently supports
+It currently supports:
 
  * Simple reports
-
  * Date range reports
-
  * Date range cohort reports
+
+It provides the following matchers:
+
+ * have_chart
+ * have_column
+ * have_param
 
 ## Getting Started
 
@@ -82,6 +86,8 @@ Add the following to ApplicationController:
  * [Shoulda](https://github.com/thoughtbot/shoulda-matchers)
 
 # TODO
+
+ * Replace Google Charts with D3
 
  * Improve Column modelling WRT calculated ratios and moving averages
 

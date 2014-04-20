@@ -9,6 +9,12 @@ require 'report_cat/core/report'
 require 'report_cat/reports/date_range_report'
 require 'report_cat/reports/cohort_report'
 
+if defined?( RSpec )
+  require 'report_cat/matchers/have_chart'
+  require 'report_cat/matchers/have_column'
+  require 'report_cat/matchers/have_param'
+end
+
 module ReportCat
 
   def self.config

@@ -37,7 +37,7 @@ module ReportCat
         report.rows.each do |row|
           data = [ row[ label_index ].to_s ]
           value_indexes.each do |value_index|
-            data << row[ value_index ]
+            data << ( value_index ? row[ value_index ] : nil )
           end
           table << data
         end

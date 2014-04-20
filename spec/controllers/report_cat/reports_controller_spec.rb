@@ -111,8 +111,9 @@ describe ReportCat::ReportsController do
       reports = @controller.send( :get_reports )
 
       Report.descendants.each do |klass|
+        expect_nil = ReportCat.config.excludes.include?( klass )
         report = klass.new
-        reports[ report.name.to_sym ].should_not be_nil
+        reports[ report.name.to_sym ].nil?.should eql( expect_nil )
       end
     end
 

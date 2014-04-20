@@ -22,6 +22,12 @@ describe ReportCat::Config do
       config.authorize.should eql( config.authorize )
     end
 
+    it 'has an #layout excludes' do
+      config.excludes.should_not be_nil
+      config.excludes = config.excludes
+      config.excludes.should eql( config.excludes )
+    end
+
     it 'has a #layout accessor' do
       config.layout.should_not be_nil
       config.layout = config.layout
