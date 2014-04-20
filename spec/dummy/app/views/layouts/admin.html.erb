@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dummy Admin</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<ul>
+    <li><a href="/">/home</a></li>
+    <li><a href="/report_cat">/report_cat</a></li>
+</ul>
+
+<%= yield %>
+
+</body>
+</html>

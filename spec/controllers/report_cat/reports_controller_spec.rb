@@ -29,6 +29,17 @@ describe ReportCat::ReportsController do
       assigns( :reports ).should be_an_instance_of( HashWithIndifferentAccess )
     end
 
+    it 'uses the configured before authentication filter' do
+      expect( @controller ).to receive( :instance_eval ).with( &ReportCat.config.authenticate_with )
+      expect( @controller ).to receive( :instance_eval ).with( &ReportCat.config.authorize_with )
+      get :index
+    end
+
+    it 'renders with the configured layout' do
+      get :index
+      expect( response ).to render_template( ReportCat.config.layout )
+    end
+
   end
 
   #############################################################################

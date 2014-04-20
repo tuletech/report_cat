@@ -6,7 +6,15 @@
 
 # schrodingersbox/report_cat README
 
-A Rails engine to generate simple web-based reports with charts
+A Rails engine to generate simple web-based reports with charts.
+
+It currently supports
+
+ * Simple reports
+
+ * Date range reports
+
+ * Date range cohort reports
 
 ## Getting Started
 
