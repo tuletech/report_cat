@@ -33,7 +33,7 @@ It currently supports
 
 4. Restart your Rails server
 
-5.  Visit http://yourapp/report_cat in a browser for an HTML meter report
+5.  Visit http://yourapp/report_cat in a browser
 
  ## Background
 

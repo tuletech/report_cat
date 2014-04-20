@@ -7,6 +7,13 @@ class ApplicationController < ActionController::Base
 
   before_filter :require_reports if Rails.env.development?
 
+  def authenticate!
+    render :text => 'forbidden' unless cookies[ :login ]
+  end
+
+  def authorize!
+  end
+
   def require_reports
     Dir[Rails.root + 'app/reports/**/*.rb'].each { |path| require_dependency path }
   end
