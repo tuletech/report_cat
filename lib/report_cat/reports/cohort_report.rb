@@ -4,7 +4,7 @@ module ReportCat
 
     class CohortReport < DateRangeReport
 
-      attr_reader :other
+      attr_reader :cohort
 
       def initialize( attributes = {} )
         defaults = { :name => :cohort_report }
@@ -12,8 +12,8 @@ module ReportCat
 
         add_column( :total, :integer )
 
-        if @other = attributes[ :other ]
-          @other.params.each { |p| @params << p unless param( p.name ) }
+        if @cohort = attributes[ :cohort ]
+          @cohort.params.each { |p| @params << p unless param( p.name ) }
         end
        end
 
@@ -36,19 +36,19 @@ module ReportCat
       end
 
       def add_row( date_range, column_range )
-        return [] unless other
+        return [] unless cohort
 
         generate_cohort( date_range )
 
-        i_total = other.column_index( :total )
-        total = other.rows.empty? ? 0 : other.rows[ 0 ][ i_total ]
+        i_total = cohort.column_index( :total )
+        total = cohort.rows.empty? ? 0 : cohort.rows[ 0 ][ i_total ]
         row = [ date_range.start_date, date_range.stop_date, total ]
 
         column_range.each_index do |i|
-          if i >= other.rows.size
+          if i >= cohort.rows.size
             row << nil
           else
-            value = other.rows[ i ][ i_total ].to_f
+            value = cohort.rows[ i ][ i_total ].to_f
             value = ( total == 0 ? 0.0 : value / total )
             row << ("%.2f" % value).to_f
           end
@@ -58,10 +58,10 @@ module ReportCat
       end
 
       def generate_cohort( date_range )
-        other.param( :period ).value = date_range.period.to_sym
-        other.param( :start_date ).value = date_range.start_date
-        other.param( :stop_date ).value = param( :stop_date ).value
-        other.generate
+        cohort.param( :period ).value = date_range.period.to_sym
+        cohort.param( :start_date ).value = date_range.start_date
+        cohort.param( :stop_date ).value = param( :stop_date ).value
+        cohort.generate
       end
 
     end

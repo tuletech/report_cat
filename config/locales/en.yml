@@ -13,6 +13,7 @@ en:
         name: Date Range Report
         description: Generic daily, weekly, monthly, quarterly, yearly reports
     params:
+      activated: Activated
+      period: Period
       start_date: Start Date
       stop_date: Stop Date
-      period: Period

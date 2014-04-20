@@ -6,16 +6,16 @@ module ReportCat
     describe CohortReport do
 
       before( :each ) do
-        @other = DateRangeReport.new
-        @other.add_column( :total, :integer, :sql => '0' )
-        @other.add_param( :foo, :integer )
-        @other.add_param( :bar, :string )
+        @cohort = DateRangeReport.new
+        @cohort.add_column( :total, :integer, :sql => '0' )
+        @cohort.add_param( :foo, :integer )
+        @cohort.add_param( :bar, :string )
 
         @period = :weekly
         @start_date = Date.civil( 2013, 1, 1 )
         @stop_date = Date.civil( 2013, 1, 31 )
 
-        @report = CohortReport.new( :other => @other )
+        @report = CohortReport.new( :cohort => @cohort )
         @report.param( :start_date ).value =  @start_date
         @report.param( :stop_date ).value = @stop_date
         @report.param( :period ).value =  @period
@@ -33,7 +33,7 @@ module ReportCat
           @report.should have_column( :total ).with_type( :integer )
         end
 
-        it 'merges in any non-duplicate params from the other report' do
+        it 'merges in any non-duplicate params from the cohort report' do
           @report.should have_param( :foo ).with_type( :integer )
           @report.should have_param( :bar ).with_type( :string )
         end
@@ -70,7 +70,7 @@ module ReportCat
           @report.add_row( @range.first, @range ).should be_an_instance_of( Array )
         end
 
-        it 'generates the other report for this cohort' do
+        it 'generates the report for this cohort' do
           @report.should_receive( :generate_cohort )
           @report.add_row( @range.first, @range )
         end
@@ -89,19 +89,19 @@ module ReportCat
         end
 
         it 'fills nil when there is no data' do
-          @report.other.stub( :rows ).and_return( [] )
+          @report.cohort.stub( :rows ).and_return( [] )
           row = @report.add_row( @range.first, @range )
           row[ 3 ].should be_nil
         end
 
         it 'fills with the ratio to total' do
-          @report.other.stub( :rows ).and_return( [ [ '', '', 30 ], [ '', '', 20 ], [ '', '', 10 ] ] )
+          @report.cohort.stub( :rows ).and_return( [ [ '', '', 30 ], [ '', '', 20 ], [ '', '', 10 ] ] )
           row = @report.add_row( @range.first, @range )
           row[ 3 ].should eql( 1.0 )
         end
 
         it 'tolerates total being 0' do
-          @report.other.stub( :rows ).and_return( [ [ '', '', 0 ], [ '', '', 20 ], [ '', '', 10 ] ] )
+          @report.cohort.stub( :rows ).and_return( [ [ '', '', 0 ], [ '', '', 20 ], [ '', '', 10 ] ] )
           row = @report.add_row( @range.first, @range )
           row[ 3 ].should eql( 0.0 )
         end
@@ -114,20 +114,20 @@ module ReportCat
           DateRange.generate( @period, @start_date, @stop_date )
         end
 
-        it 'initializes the start, stop, and period of the other report' do
-          @report.other.param( :period ).value = :monthly
-          @report.other.param( :start_date ).value = Date.civil( 2012, 1, 1)
-          @report.other.param( :stop_date ).value = Date.civil( 2012, 1, 1)
+        it 'initializes the start, stop, and period of the cohort report' do
+          @report.cohort.param( :period ).value = :monthly
+          @report.cohort.param( :start_date ).value = Date.civil( 2012, 1, 1)
+          @report.cohort.param( :stop_date ).value = Date.civil( 2012, 1, 1)
 
           @report.generate_cohort( @range.first )
 
-          @report.other.param( :period ).value.should eql( @report.param( :period ).value )
-          @report.other.param( :start_date ).value.should eql( @range.first.start_date )
-          @report.other.param( :stop_date ).value.should eql( @report.param( :stop_date ).value )
+          @report.cohort.param( :period ).value.should eql( @report.param( :period ).value )
+          @report.cohort.param( :start_date ).value.should eql( @range.first.start_date )
+          @report.cohort.param( :stop_date ).value.should eql( @report.param( :stop_date ).value )
         end
 
-        it 'generates the other report' do
-          @report.other.should_receive( :generate )
+        it 'generates the cohort report' do
+          @report.cohort.should_receive( :generate )
           @report.generate_cohort( @range.first )
         end
 
