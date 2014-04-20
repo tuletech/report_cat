@@ -21,7 +21,7 @@ module ReportCat
       end
 
       it 'creates entries for each period' do
-        expected = @stop_date - @start_date + 1
+        expected = ( @stop_date - @start_date ).to_i + 1
 
         DateRange.count.should eql( 0 )
         DateRange.generate( @period, @start_date, @stop_date )

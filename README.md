@@ -1,3 +1,9 @@
+[![Build Status](https://travis-ci.org/schrodingersbox/report_cat.svg?branch=master)](https://travis-ci.org/schrodingersbox/report_cat)
+[![Coverage Status](https://coveralls.io/repos/schrodingersbox/report_cat/badge.png?branch=master)](https://coveralls.io/r/schrodingersbox/report_cat?branch=master)
+[![Code Climate](https://codeclimate.com/github/schrodingersbox/report_cat.png)](https://codeclimate.com/github/schrodingersbox/report_cat)
+[![Dependency Status](https://gemnasium.com/schrodingersbox/report_cat.png)](https://gemnasium.com/schrodingersbox/report_cat)
+[![Gem Version](https://badge.fury.io/rb/report_cat.png)](http://badge.fury.io/rb/report_cat)
+
 # schrodingersbox/report_cat README
 
 A Rails engine to generate simple web-based reports with charts

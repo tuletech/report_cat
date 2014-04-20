@@ -14,12 +14,12 @@ module ReportCat
       output = ''
 
       report.charts.each do |chart|
-        output += content_tag :div, '', :class => :chart,
+        output += content_tag( :div, '', :class => :chart,
                            :name => report_chart_name( report, chart ),
                            :chart => chart.type,
                            :columns => chart.columns( report ),
                            :data => chart.data( report ),
-                           :options => chart.options.to_json
+                           :options => chart.options.to_json )
       end
 
       output
