@@ -31,7 +31,7 @@ module ReportCat
       end
 
       #############################################################################
-      # #defaults
+      # defaults
 
       describe '#defaults' do
 
@@ -42,7 +42,7 @@ module ReportCat
       end
 
       #############################################################################
-      # #initialize
+      # initialize
 
       describe '#initialize' do
 
@@ -74,7 +74,7 @@ module ReportCat
       end
 
       #############################################################################
-      # #query
+      # query
 
       describe '#query' do
 
@@ -91,13 +91,31 @@ module ReportCat
       end
 
       #############################################################################
-      # #where
+      # where
 
       describe '#where' do
 
         it 'generates sql' do
           @report.where.should eql_file( 'spec/data/lib/date_range_report_where.sql')
         end
+      end
+
+      #############################################################################
+      # accessors
+
+      describe 'accessors' do
+
+        it 'has param accessors' do
+          expect( @report.period ).to eql( @report.param( :period ).value.to_sym )
+          expect( @report.start_date ).to eql( @report.param( :start_date ).value )
+          expect( @report.stop_date ).to eql( @report.param( :stop_date ).value )
+        end
+
+        it 'has a first_period accessor' do
+          expected = ReportCat::DateRange.range( @report.period, @report.start_date, @report.stop_date ).first
+          expect( @report.first_period ).to eql( expected )
+        end
+
       end
 
     end

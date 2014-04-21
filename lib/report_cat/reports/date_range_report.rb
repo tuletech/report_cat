@@ -30,24 +30,33 @@ module ReportCat
       end
 
       def query
-        period = param( :period ).value.to_sym
-        start_date = param( :start_date ).value
-        stop_date = param( :stop_date ).value
-
         DateRange.generate( period, start_date, stop_date )
-
         super
       end
 
       def where
-        start_date = param( :start_date ).value
-        stop_date = param( :stop_date ).value
-        period = param( :period ).value.to_sym
-
         return [
             DateRange.sql_intersect( start_date, stop_date ),
             DateRange.sql_period( period )
         ].join( ' and ' )
+      end
+
+      # Accessors
+
+      def period
+        param( :period ).value.to_sym
+      end
+
+      def start_date
+        param( :start_date ).value
+      end
+
+      def stop_date
+        param( :stop_date ).value
+      end
+
+      def first_period
+        ReportCat::DateRange.range( period, start_date, stop_date ).first
       end
 
     end
