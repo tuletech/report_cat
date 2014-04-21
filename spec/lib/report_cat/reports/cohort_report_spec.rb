@@ -94,10 +94,10 @@ module ReportCat
           row[ 3 ].should be_nil
         end
 
-        it 'fills with the ratio to total' do
+        it 'fills with the total value' do
           @report.cohort.stub( :rows ).and_return( [ [ '', '', 30 ], [ '', '', 20 ], [ '', '', 10 ] ] )
           row = @report.add_row( @range.first, @range )
-          row[ 3 ].should eql( 1.0 )
+          row[ 3 ].should eql( 30.0 )
         end
 
         it 'tolerates total being 0' do
