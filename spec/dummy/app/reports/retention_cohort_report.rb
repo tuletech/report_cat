@@ -12,5 +12,8 @@ class RetentionCohortReport < CohortReport
     super( defaults.merge( attributes ) )
   end
 
+  def process_cohort( row )
+    return fractional_cohort( row )
+  end
 
 end

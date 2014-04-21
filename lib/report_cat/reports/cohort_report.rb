@@ -48,9 +48,7 @@ module ReportCat
           if i >= cohort.rows.size
             row << nil
           else
-            value = cohort.rows[ i ][ i_total ].to_f
-            value = ( total == 0 ? 0.0 : value / total )
-            row << ("%.2f" % value).to_f
+            row << process_cohort( cohort.rows[ i ] )
           end
         end
 
@@ -62,6 +60,25 @@ module ReportCat
         cohort.param( :start_date ).value = date_range.start_date
         cohort.param( :stop_date ).value = param( :stop_date ).value
         cohort.generate
+      end
+
+      def process_cohort( row )
+        return raw_cohort( row )
+      end
+
+      def raw_cohort( row )
+        i_total = cohort.column_index( :total )
+        value = row[ i_total ].to_f
+        return ("%.2f" % value).to_f
+      end
+
+      def fractional_cohort( row )
+        i_total = cohort.column_index( :total )
+        total = cohort.rows.empty? ? 0 : cohort.rows[ 0 ][ i_total ]
+
+        value = row[ i_total ].to_f
+        value = ( total == 0 ? 0.0 : value / total )
+        return ("%.2f" % value).to_f
       end
 
     end

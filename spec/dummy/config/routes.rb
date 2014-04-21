@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get '/login', :to => 'root#login'
   get '/logout', :to => 'root#logout'
+  get '/admin', :to => 'root#admin'
 
   get ':controller(/:action(/:id))'
 
