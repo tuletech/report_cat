@@ -15,6 +15,8 @@ en:
         description: Generic daily, weekly, monthly, quarterly, yearly reports
     params:
       activated: Activated
+      group: Group
+      group_by: Group By
       is_cohort: Is Cohort
       mode: Mode
       period: Period
