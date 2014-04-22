@@ -21,12 +21,7 @@ class RetentionReport < DateRangeReport
   def where
     sql = super
 
-    start_date = param( :start_date ).value
-    stop_date = param( :stop_date ).value
-    period = param( :period ).value.to_sym
-    first =  ReportCat::DateRange.range( period, start_date, stop_date ).first
-
-    sql += " and users.created_at between '#{first.start_date}' and '#{first.stop_date}'"
+    sql += " and users.created_at between '#{first_period.start_date}' and '#{first_period.stop_date}'"
     sql += " and users.activated = 't'" if param( :activated ).value
 
     return sql

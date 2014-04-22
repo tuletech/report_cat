@@ -9,7 +9,7 @@ describe ReportCat::ReportsHelper do
   end
 
   #############################################################################
-  # #report_chart_partial
+  # report_chart_partial
 
   describe '#report_chart_partial' do
 
@@ -21,7 +21,7 @@ describe ReportCat::ReportsHelper do
   end
 
   #############################################################################
-  # #report_charts
+  # report_charts
 
   describe '#report_charts' do
 
@@ -32,20 +32,33 @@ describe ReportCat::ReportsHelper do
   end
 
   #############################################################################
-  # #report_csv_link
+  # report_count
+
+  describe '#report_count' do
+
+    it 'returns a translated count string' do
+      expected = I18n.t( :count, :scope => :report_cat, :count => @report.rows.count )
+      expect( helper.report_count( @report ) ).to eql( expected )
+    end
+
+  end
+
+  #############################################################################
+  # report_csv_link
 
   describe '#report_csv_link' do
 
     it 'renders a CSV link' do
-      expected = "<a href=\"/\">Export as CSV</a>"
-      helper.should_receive( :report_path ).with( @report.name, :format => 'csv' ).and_return( '/' )
+      url = '/foo/bar?format=csv'
+      expect( helper ).to receive( :url_for ).with( { :params => { :format => :csv } } ).and_return( url )
+      expected = "<a href=\"#{url}\">Export as CSV</a>"
       helper.report_csv_link( @report ).should eql( expected )
     end
 
   end
 
   #############################################################################
-  # #report_description
+  # report_description
 
   describe '#report_description' do
 
@@ -57,7 +70,7 @@ describe ReportCat::ReportsHelper do
   end
 
   #############################################################################
-  # #report_form
+  # report_form
 
   describe '#report_form' do
 
@@ -72,7 +85,7 @@ describe ReportCat::ReportsHelper do
   end
 
   #############################################################################
-  # #report_list
+  # report_list
 
   describe '#report_list' do
 
@@ -83,7 +96,7 @@ describe ReportCat::ReportsHelper do
   end
 
   #############################################################################
-  # #report_name
+  # report_name
 
   describe '#report_name' do
 
@@ -95,7 +108,7 @@ describe ReportCat::ReportsHelper do
   end
 
   #############################################################################
-  # #report_param
+  # report_param
 
   describe '#report_param' do
 
@@ -135,7 +148,7 @@ describe ReportCat::ReportsHelper do
     end
 
     #############################################################################
-    # #report_table
+    # report_table
 
     describe '#report_table' do
 

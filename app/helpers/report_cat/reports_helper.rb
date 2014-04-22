@@ -25,8 +25,16 @@ module ReportCat
       output
     end
 
+    def report_cohort_link( report )
+      link_to t( :cohort, :scope => :report_cat ), report_path( report.cohort.name )
+    end
+
+    def report_count( report )
+      t( :count, :scope => :report_cat, :count => report.rows.count )
+    end
+
     def report_csv_link( report )
-      link_to t( :export_as_csv, :scope => :report_cat ), report_path( report.name, :format => 'csv' )
+      link_to t( :export_as_csv, :scope => :report_cat ), :params => params.merge( :format => :csv )
     end
 
     def report_description( report )
@@ -46,8 +54,10 @@ module ReportCat
     def report_list( reports )
       content_tag( :ul ) do
         reports.values.sort { |a,b| a.name <=> b.name }.each do |report|
-          link = link_to( report_name( report ), { :controller => :reports, :action => :show, :id => report.name } )
-          concat content_tag( :li, link + ' - ' + report_description( report ) )
+          unless ReportCat.config.excludes.include?( report.class )
+            link = link_to( report_name( report ), { :controller => :reports, :action => :show, :id => report.name } )
+            concat content_tag( :li, link + ' - ' + report_description( report ) )
+          end
         end
       end
     end

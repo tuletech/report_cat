@@ -1,5 +1,6 @@
 en:
   report_cat:
+    count: "%{count} rows"
     export_as_csv: Export as CSV
     report: Report
     reports: Reports
@@ -14,6 +15,8 @@ en:
         description: Generic daily, weekly, monthly, quarterly, yearly reports
     params:
       activated: Activated
+      is_cohort: Is Cohort
+      mode: Mode
       period: Period
       start_date: Start Date
       stop_date: Stop Date

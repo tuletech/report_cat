@@ -39,9 +39,31 @@ It provides the following matchers:
 
 5.  Visit http://yourapp/report_cat in a browser
 
- ## Background
+## Background
 
  _TODO: UML goes here_
+
+### Building a report
+
+
+
+### Adding Params
+
+add_param( name, type, value = nil, options = {} )
+
+types = :check_box, :date, :hidden, :select, :text_field
+
+### Adding Columns
+
+add_column( name, type, options = {} )
+
+types = :date, :float, :integer, :moving_average, :ratio, :string
+
+### Adding Charts
+
+add_chart( name, type, label, values, options = {} )
+
+types = :area, :bar, :column, :line, :pie
 
 ## How To
 

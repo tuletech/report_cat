@@ -15,7 +15,7 @@ describe ReportCat::ReportsController do
   end
 
   #############################################################################
-  # #index
+  # index
 
   describe '#index' do
 
@@ -43,7 +43,7 @@ describe ReportCat::ReportsController do
   end
 
   #############################################################################
-  # #show
+  # show
 
   describe '#show' do
 
@@ -85,7 +85,7 @@ describe ReportCat::ReportsController do
   end
 
   #############################################################################
-  # #set_reports
+  # set_reports
 
   describe '#set_reports' do
 
@@ -99,7 +99,7 @@ describe ReportCat::ReportsController do
 
 
   #############################################################################
-  # #get_reports
+  # get_reports
 
   describe '#get_reports' do
 
@@ -111,9 +111,8 @@ describe ReportCat::ReportsController do
       reports = @controller.send( :get_reports )
 
       Report.descendants.each do |klass|
-        expect_nil = ReportCat.config.excludes.include?( klass )
         report = klass.new
-        reports[ report.name.to_sym ].nil?.should eql( expect_nil )
+        expect( reports[ report.name.to_sym ] ).to_not be_nil
       end
     end
 
