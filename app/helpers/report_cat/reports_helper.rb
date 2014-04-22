@@ -25,10 +25,6 @@ module ReportCat
       output
     end
 
-    def report_cohort_link( report )
-      link_to t( :cohort, :scope => :report_cat ), report_path( report.cohort.name )
-    end
-
     def report_count( report )
       t( :count, :scope => :report_cat, :count => report.rows.count )
     end
@@ -49,6 +45,12 @@ module ReportCat
         end
         concat submit_tag( t( :report, :scope => :report_cat ) )
       end
+    end
+
+    def report_link( attributes )
+      attributes = attributes.dup
+      attributes[ :id ] = name = attributes.delete( :name )
+      link_to t( :name, :scope => [ :report_cat, :instances, name ] ), report_cat.report_path( attributes )
     end
 
     def report_list( reports )
@@ -88,7 +90,9 @@ module ReportCat
 
         report.rows.each do |row|
           output += content_tag( :tr ) do
-            row.each do |data|
+            row.each_index do |index|
+              data = row[ index ]
+              data = report_link( data ) if ( :report == report.columns[ index ].type )
               concat content_tag( :td, data )
             end
           end

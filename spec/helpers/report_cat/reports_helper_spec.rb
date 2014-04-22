@@ -85,6 +85,19 @@ describe ReportCat::ReportsHelper do
   end
 
   #############################################################################
+  # report_link
+
+  describe '#report_link' do
+
+    it 'generates a link to a report' do
+      attributes = { :name => :cohort_report, :is_cohort => '1' }
+      expected =  "<a href=\"/report_cat/reports/cohort_report?is_cohort=1\">Cohort Report</a>"
+      expect( helper.report_link( attributes ) ).to eql( expected )
+    end
+
+  end
+
+  #############################################################################
   # report_list
 
   describe '#report_list' do

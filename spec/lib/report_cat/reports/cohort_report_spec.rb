@@ -23,6 +23,9 @@ module ReportCat
         @range = DateRange.range( @period, @start_date, @stop_date )
       end
 
+      #############################################################################
+      # initialize
+
       describe '#initialize' do
 
         it 'uses a default name'  do
@@ -40,11 +43,14 @@ module ReportCat
 
       end
 
+      #############################################################################
+      # query
+
       describe '#query' do
 
         it 'adds columns for each date range' do
           @report.query
-          @report.columns.size.should eql( 3 + @range.size )
+          @report.columns.size.should eql( 4 + @range.size )
         end
 
         it 'adds rows for each date range' do
@@ -58,7 +64,15 @@ module ReportCat
           @report.should have_chart( :cohort_line ).with_type( :line )
         end
 
+        it 'adds an edit column' do
+          expect( @report.column( :edit ) ).to be_nil
+          @report.query
+          expect( @report.column( :edit ) ).to be_present
+        end
       end
+
+      #############################################################################
+      # add_row
 
       describe '#add_row' do
 
@@ -108,6 +122,9 @@ module ReportCat
 
       end
 
+      #############################################################################
+      # generate_cohort
+
       describe '#generate_cohort' do
 
         before( :each ) do
@@ -130,6 +147,15 @@ module ReportCat
           @report.cohort.should_receive( :generate )
           @report.generate_cohort( @range.first )
         end
+
+      end
+
+      #############################################################################
+      # add_edit_column
+
+      describe '#add_edit_column' do
+
+        it 'should be specced'
 
       end
 

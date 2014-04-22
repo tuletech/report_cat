@@ -57,7 +57,7 @@ types = :check_box, :date, :hidden, :select, :text_field
 
 add_column( name, type, options = {} )
 
-types = :date, :float, :integer, :moving_average, :ratio, :string
+types = :date, :float, :integer, :moving_average, :ratio, :report, :string
 
 ### Adding Charts
 
