@@ -64,10 +64,10 @@ module ReportCat
           @report.should have_chart( :cohort_line ).with_type( :line )
         end
 
-        it 'adds an edit column' do
-          expect( @report.column( :edit ) ).to be_nil
+        it 'adds an link column' do
+          expect( @report.column( :link ) ).to be_nil
           @report.query
-          expect( @report.column( :edit ) ).to be_present
+          expect( @report.column( :link ) ).to be_present
         end
       end
 
@@ -151,11 +151,30 @@ module ReportCat
       end
 
       #############################################################################
-      # add_edit_column
+      # add_link_column
 
-      describe '#add_edit_column' do
+      describe '#add_link_column' do
 
-        it 'should be specced'
+        before( :each ) do
+          @report.add_link_column
+        end
+
+        it 'adds a link column' do
+          expect( @report ).to have_column( :link ).with_type( :report )
+        end
+
+        it 'populates the link column' do
+          i_link = @report.column_index( :link )
+          i_start = @report.column_index( :start_date )
+
+          @report.rows.each do |row|
+            cell = row[ i_link ]
+            expect( cell[ :name ] ).to eql( weight_report.name )
+            expect( cell[ :start_date ] ).to eql( row[ i_start ] )
+            expect( cell[ :stop_date ] ).to eql( @report.param( :stop_date ).value )
+            expect( cell[ :period ] ).to eql( @report.param( :period ).value )
+          end
+        end
 
       end
 

@@ -34,7 +34,7 @@ module ReportCat
         columns = @columns[ 3, @columns.length - 3 ].map { |c| c.name }
         add_chart( :cohort_line, :line, :start_date, columns )
 
-        add_edit_column
+        add_link_column
       end
 
       def add_row( date_range, column_range )
@@ -83,9 +83,9 @@ module ReportCat
         return ("%.2f" % value).to_f
       end
 
-      def add_edit_column
+      def add_link_column
         i_start = cohort.column_index( :start_date )
-        add_column( :edit, :report )
+        add_column( :link, :report )
 
         @rows.each do |row|
           start_date = row[ i_start ]

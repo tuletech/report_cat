@@ -109,6 +109,7 @@ Add the following to ApplicationController:
 
 # TODO
 
+ * Extend matchers for param and column to check value and options
  * Replace Google Charts with D3
 
  * Improve Column modelling WRT calculated ratios and moving averages
