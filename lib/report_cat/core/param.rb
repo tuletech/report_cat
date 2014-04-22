@@ -13,7 +13,7 @@ module ReportCat
 
       def value=( value )
         @value = case @type
-          when :check_box then ( value == '1' || value == true )
+          when :check_box then ( value == '1' || value == true || value == 'true' )
           when :date
             if value.kind_of?( Hash )
               Date.new( value[:year].to_i, value[:month].to_i, value[:day].to_i )

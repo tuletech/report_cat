@@ -41,10 +41,18 @@ module ReportCat::Core
         param.value.should be_nil
         param.value = true
         param.value.should be_true
-        param.value = '0'
+        param.value = false
         param.value.should be_false
       end
 
+      it 'accepts checkboxes as strings' do
+        param = Param.new( :name => :foo, :type => :check_box )
+        param.value.should be_nil
+        param.value = 'true'
+        param.value.should be_true
+        param.value = 'false'
+        param.value.should be_false
+      end
 
       it 'parses date hashes' do
         param = Param.new( :name => :foo, :type => :date )
