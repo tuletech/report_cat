@@ -89,13 +89,17 @@ module ReportCat
 
         @rows.each do |row|
           start_date = row[ i_start ]
-          row << {
-              :name => @cohort.name,
-              :start_date => start_date,
-              :stop_date => param( :stop_date ).value,
-              :period => param( :period ).value
-          }
+          row << cohort_link( start_date )
         end
+      end
+
+      def cohort_link( start_date )
+        return {
+            :name => @cohort.name,
+            :start_date => start_date,
+            :stop_date => param( :stop_date ).value,
+            :period => param( :period ).value
+        }
       end
 
     end

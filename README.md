@@ -93,7 +93,9 @@ Add the following to ApplicationController:
       before_filter :require_reports if Rails.env.development?
 
       def require_reports
-        Dir[Rails.root + 'app/reports/**/*.rb'].each { |path| require_dependency path }
+        silence_warnings do
+            Dir[Rails.root + 'app/reports/**/*.rb'].each { |path| require_dependency path }
+        end
       end
 
 
@@ -110,6 +112,8 @@ Add the following to ApplicationController:
 # TODO
 
  * Extend matchers for param and column to check value and options
+ * Add group param to date charts to control grouping behavior
+
  * Replace Google Charts with D3
 
  * Improve Column modelling WRT calculated ratios and moving averages
