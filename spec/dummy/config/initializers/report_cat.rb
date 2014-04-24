@@ -10,8 +10,6 @@ ReportCat.configure do |config|
 
   config.layout = 'admin'
 
-  config.excludes = [
-      ReportCat::Reports::CohortReport,
-      ReportCat::Reports::DateRangeReport
-  ]
+  config.excludes = [ :cohort_report, :date_range_report ]
+
 end
