@@ -14,7 +14,7 @@ module ReportCat::Core
     end
 
     #############################################################################
-    # #initialize
+    # initialize
 
     describe '#initialize' do
 
@@ -26,10 +26,45 @@ module ReportCat::Core
         @report.charts.should eql( [] )
       end
 
+      it 'accepts arrays' do
+        array = [ 'a', 'b' ]
+
+        report = Report.new(
+            :from => array,
+            :joins => array,
+            :where => array,
+            :group_by => array,
+            :order_by => array
+        )
+
+        expect( report.from ).to eql( 'a,b' )
+        expect( report.joins ).to eql( 'a b' )
+        expect( report.where ).to eql( 'a and b' )
+        expect( report.group_by ).to eql( 'a,b' )
+        expect( report.order_by ).to eql( 'a,b' )
+      end
+
     end
 
     #############################################################################
-    # #add_chart
+    # accept_array
+
+    describe '#accept_array' do
+
+      it 'joins arrays with the separator' do
+        expected = '1,2,3'
+        expect( @report.accept_array( [ '1', '2', '3' ], ',' ) ).to eql( expected )
+      end
+
+      it 'returns non arrays' do
+        expect( @report.accept_array( 1, ',' ) ).to eql( 1 )
+        expect( @report.accept_array( :foo, ',' ) ).to eql( :foo )
+      end
+
+    end
+
+    #############################################################################
+    # add_chart
 
     describe '#add_chart' do
 
@@ -57,7 +92,7 @@ module ReportCat::Core
     end
 
     #############################################################################
-    # #add_column
+    # add_column
 
     describe '#add_column' do
 
@@ -79,7 +114,7 @@ module ReportCat::Core
     end
 
     #############################################################################
-    # #add_param
+    # add_param
 
     describe '#add_param' do
 
@@ -100,7 +135,7 @@ module ReportCat::Core
     end
 
     #############################################################################
-    # #column
+    # column
 
     describe '#column' do
 
@@ -126,7 +161,7 @@ module ReportCat::Core
 
 
     #############################################################################
-    # #column_index
+    # column_index
 
     describe '#column_index' do
 
@@ -152,7 +187,7 @@ module ReportCat::Core
 
 
     #############################################################################
-    # #generate
+    # generate
 
     describe '#generate' do
 
@@ -177,7 +212,7 @@ module ReportCat::Core
     end
 
     #############################################################################
-    # #param
+    # param
 
     describe '#param' do
 
@@ -196,7 +231,7 @@ module ReportCat::Core
     end
 
     #############################################################################
-    # #to_csv
+    # to_csv
 
     describe '#to_csv' do
 
@@ -212,7 +247,7 @@ module ReportCat::Core
     end
 
     #############################################################################
-    # #query
+    # query
 
     describe '#query' do
 
@@ -265,7 +300,7 @@ module ReportCat::Core
     end
 
     #############################################################################
-    # #to_sql
+    # to_sql
 
     describe '#to_sql' do
 

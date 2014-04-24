@@ -11,17 +11,22 @@ module ReportCat
 
       def initialize( attributes = {} )
         @name = attributes[ :name ]
-        @from = attributes[ :from ]
-        @joins = attributes[ :joins ]
-        @where = attributes[ :where ]
-        @group_by = attributes[ :group_by ]
-        @order_by = attributes[ :order_by ]
+        @from = accept_array( attributes[ :from ], ',' )
+        @joins = accept_array( attributes[ :joins ], ' ' )
+        @where = accept_array( attributes[ :where ], ' and ' )
+        @group_by = accept_array( attributes[ :group_by ], ',' )
+        @order_by = accept_array( attributes[ :order_by ], ',' )
         @limit = attributes[ :limit ]
 
         @params = []
         @columns = []
         @rows = []
         @charts = []
+      end
+
+      def accept_array( array, separator )
+        return array unless array.is_a?( Array )
+        return array.join( separator )
       end
 
       def add_chart( name, type, label, values, options = {} )

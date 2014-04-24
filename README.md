@@ -129,13 +129,9 @@ Add the following to ApplicationController:
 
 # TODO
 
- * Report initialize should accept joins as an array and concat them with spaces (maybe don't concat until render)
-
+ * Fix pending spec due to Travis problem
  * Replace Google Charts with D3
-
  * Improve Column modelling WRT calculated ratios and moving averages
-
- * Cleanup
 
  * Document
    * How To
