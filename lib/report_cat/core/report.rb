@@ -65,9 +65,7 @@ module ReportCat
 
       def generate( options = {} )
         @params.each { |param| param.value = options[ param.name ] if options[ param.name ] }
-        before_query
         query
-        after_query
       end
 
       def param( name )
@@ -85,12 +83,6 @@ module ReportCat
       end
 
     protected
-
-      def before_query
-      end
-
-      def after_query
-      end
 
       def query
         @rows = []

@@ -202,13 +202,6 @@ module ReportCat::Core
         @report.param( :text_field_test ).value.should eql( 'foobar' )
       end
 
-      it 'calls before_query, query, and after_query' do
-        @report.should_receive( :before_query ).ordered.and_return( nil )
-        @report.should_receive( :query ).ordered.and_return( nil )
-        @report.should_receive( :after_query ).ordered.and_return( nil )
-        @report.generate
-      end
-
     end
 
     #############################################################################

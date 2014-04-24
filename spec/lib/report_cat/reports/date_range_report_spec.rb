@@ -30,11 +30,6 @@ module ReportCat
         DateRangeReport::PERIODS.should eql( expected )
       end
 
-      it 'defines the group by clause' do
-        expected = 'report_cat_date_ranges.start_date, report_cat_date_ranges.stop_date'
-        expect( DateRangeReport::GROUP_BY ).to eql( expected )
-      end
-
       #############################################################################
       # defaults
 
@@ -112,7 +107,8 @@ module ReportCat
 
         it 'when grouping groups by date and user' do
           @report.param( :group ).value = true
-          expect( @report.group_by ).to eql( DateRangeReport::GROUP_BY )
+          expected = 'report_cat_date_ranges.start_date, report_cat_date_ranges.stop_date'
+          expect( @report.group_by ).to eql( expected )
         end
 
       end

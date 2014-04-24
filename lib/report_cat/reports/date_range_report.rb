@@ -5,7 +5,6 @@ module ReportCat
     class DateRangeReport < Report
 
       PERIODS = [ :daily, :weekly, :monthly, :quarterly, :yearly ]
-      GROUP_BY = 'report_cat_date_ranges.start_date, report_cat_date_ranges.stop_date'
 
       def defaults
         table_name = ReportCat::DateRange.table_name
@@ -44,7 +43,7 @@ module ReportCat
       end
 
       def group_by
-        GROUP_BY if group?
+        @group_by if group?
       end
 
       # Accessors
