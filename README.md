@@ -20,6 +20,9 @@ It provides the following matchers:
  * have_column
  * have_param
 
+ Report subclasses will automatically appear under the ReportCat index controller,
+ allowing you to add a new report with custom form, columns and charts by just adding a subclass.
+
 ## Getting Started
 
 1. Add this to your `Gemfile` and `bundle install`
@@ -52,12 +55,14 @@ It provides the following matchers:
 add_param( name, type, value = nil, options = {} )
 
 types = :check_box, :date, :hidden, :select, :text_field
+options = :values
 
 ### Adding Columns
 
 add_column( name, type, options = {} )
 
 types = :date, :float, :integer, :moving_average, :ratio, :report, :string
+options = :sql
 
 ### Adding Charts
 
@@ -86,6 +91,15 @@ You can place new reports anywhere you like, but `app/reports` is the recommende
         end
     end
 
+3.  Or build one on the fly
+
+    report = ReportCat::Core::Report.new( :name => :my_report, :from => :users, :order_by => 'users.id asc' )
+    report.add_column( :total, :integer, :sql => 'count( users.id )' )
+    report.add_chart( :chart, :line, :start_date, :total )
+    report.generate
+    report.rows.each { |row| puts "Total = #{row[0]} }
+
+
 ### Reload Reports In Development Mode
 
 Add the following to ApplicationController:
@@ -112,7 +126,6 @@ Add the following to ApplicationController:
 # TODO
 
  * Add group param to date charts to control grouping behavior
- * Add pre_process and post_process methods to avoid overriding to_sql
  * Better handling for hidden fields - want to hide a bool / checkbox, but lose string -> type conversion
 
  * Report initialize should accept joins as an array and concat them with spaces (maybe don't concat until render)
