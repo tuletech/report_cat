@@ -54,8 +54,8 @@ It provides the following matchers:
 
 add_param( name, type, value = nil, options = {} )
 
-types = :check_box, :date, :hidden, :select, :text_field
-options = :values
+types = :check_box, :date, :select, :text_field
+options = :hidden, :values
 
 ### Adding Columns
 
