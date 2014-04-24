@@ -41,6 +41,7 @@ module ReportCat
       form_tag report_path( report.name ), :method => :get do
         @report.params.each do |param|
           name =  t( param.name, :scope => [ :report_cat, :params ] )
+          name = '' if param.options[ :hidden ]
           concat content_tag( :div, label_tag( name ) + report_param( param ) )
         end
         concat submit_tag( t( :report, :scope => :report_cat ) )

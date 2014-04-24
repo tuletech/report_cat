@@ -26,6 +26,9 @@ module ReportCat
         end
       end
 
+      def hide
+        @options[ :hidden ] = true
+      end
     end
   end
 end

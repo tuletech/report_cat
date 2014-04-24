@@ -6,6 +6,8 @@ module ReportCat::Core
 
   describe Param do
 
+    let( :param ) { Param.new }
+
     before( :each ) do
       @name = :test
       @type = :select
@@ -24,7 +26,6 @@ module ReportCat::Core
       end
 
       it 'initializes options to an empty hash' do
-        param = Param.new
         expect( param.options ).to eql( {} )
       end
 
@@ -75,6 +76,16 @@ module ReportCat::Core
         param = Param.new( :name => :foo, :type => :text_field )
         param.value = '2013-09-16'
         param.value.should eql( '2013-09-16' )
+      end
+
+    end
+
+    describe '#hide' do
+
+      it 'sets the hidden option to true' do
+        expect( param.options[ :hidden ] ).to be_nil
+        param.hide
+        expect( param.options[ :hidden ] ).to be_true
       end
 
     end

@@ -10,6 +10,8 @@ module ReportCat
         defaults = { :name => :cohort_report }
         super( defaults.merge( attributes ) )
 
+        param( :group ).hide
+
         add_column( :total, :integer )
 
         if @cohort = attributes[ :cohort ]

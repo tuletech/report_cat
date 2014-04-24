@@ -41,6 +41,10 @@ module ReportCat
           @report.should have_param( :bar ).with_type( :string )
         end
 
+        it 'hides the group param' do
+          expect( @report.param( :group ).options[ :hidden ] ).to be_true
+        end
+
       end
 
       #############################################################################
