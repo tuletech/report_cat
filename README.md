@@ -46,6 +46,10 @@ It provides the following matchers:
 
  _TODO: UML goes here_
 
+### Report Types
+
+
+
 ### Building a report
 
 
@@ -93,7 +97,7 @@ You can place new reports anywhere you like, but `app/reports` is the recommende
 
 3.  Or build one on the fly
 
-    report = ReportCat::Core::Report.new( :name => :my_report, :from => :users, :order_by => 'users.id asc' )
+    report = ReportCat::Core::DateRangeReport.new( :name => :my_report, :from => :users, :order_by => 'users.id asc' )
     report.add_column( :total, :integer, :sql => 'count( users.id )' )
     report.add_chart( :chart, :line, :start_date, :total )
     report.generate
@@ -124,9 +128,6 @@ Add the following to ApplicationController:
  * [Shoulda](https://github.com/thoughtbot/shoulda-matchers)
 
 # TODO
-
- * Add group param to date charts to control grouping behavior
- * Better handling for hidden fields - want to hide a bool / checkbox, but lose string -> type conversion
 
  * Report initialize should accept joins as an array and concat them with spaces (maybe don't concat until render)
 
