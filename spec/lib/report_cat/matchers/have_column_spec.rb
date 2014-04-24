@@ -6,26 +6,25 @@ describe RSpec::Matchers, 'have_column' do
 
   let( :name ) { :test }
   let( :type ) { :integer }
+  let( :options ) { { :foo => true } }
 
   before( :each ) do
     @report = Report.new
-    @column = @report.add_column( name, type )
+    @column = @report.add_column( name, type, options  )
   end
 
   it 'passes if the report has the column' do
     expect( @report ).to have_column( name )
-  end
-
-  it 'passes if the report has the column and type' do
     expect( @report ).to have_column( name ).with_type( type )
+    expect( @report ).to have_column( name ).with_options( options )
+    expect( @report ).to have_column( name ).with_type( type ).with_options( options )
   end
 
-  it 'fails when type is wrong' do
-    expect( @report ).to_not have_column( name ).with_type( :foo )
-  end
-
-  it 'fails when the column is not there' do
+  it 'fails if the report does not have the column' do
     expect( @report ).to_not have_column( :foo )
+    expect( @report ).to_not have_column( name ).with_type( :foo )
+    expect( @report ).to_not have_column( name ).with_options( :foo )
+    expect( @report ).to_not have_column( name ).with_type( :foo ).with_options( :foo )
   end
 
 end

@@ -111,8 +111,11 @@ Add the following to ApplicationController:
 
 # TODO
 
- * Extend matchers for param and column to check value and options
  * Add group param to date charts to control grouping behavior
+ * Add pre_process and post_process methods to avoid overriding to_sql
+ * Better handling for hidden fields - want to hide a bool / checkbox, but lose string -> type conversion
+
+ * Report initialize should accept joins as an array and concat them with spaces (maybe don't concat until render)
 
  * Replace Google Charts with D3
 
