@@ -23,6 +23,11 @@ module ReportCat::Core
         param.options.should eql( @options )
       end
 
+      it 'initializes options to an empty hash' do
+        param = Param.new
+        expect( param.options ).to eql( {} )
+      end
+
     end
 
     describe 'assigning value' do

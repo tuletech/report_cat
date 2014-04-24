@@ -22,7 +22,7 @@ module ReportCat
 
         add_param( :start_date, :date, Date.today - 7 )
         add_param( :stop_date, :date, Date.today )
-        add_param( :period, :select, :weekly, PERIODS )
+        add_param( :period, :select, :weekly, :values => PERIODS )
 
         table_name = ReportCat::DateRange.table_name
         add_column( :start_date, :date, :sql => "#{table_name}.start_date" )

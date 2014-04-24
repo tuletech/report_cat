@@ -8,7 +8,7 @@ module ReportCat
         @name = attributes[ :name ]
         @type = attributes[ :type ]
         @value = attributes[ :value ]
-        @options = attributes[ :options ]
+        @options = attributes[ :options ] || {}
       end
 
       def value=( value )

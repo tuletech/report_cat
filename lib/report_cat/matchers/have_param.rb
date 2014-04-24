@@ -1,4 +1,9 @@
 RSpec::Matchers.define :have_param do |name|
+
+  description do
+    "have a param named #{name}"
+  end
+
   chain :with_type do |type|
     @type = type
   end
@@ -21,4 +26,27 @@ RSpec::Matchers.define :have_param do |name|
 
     @has_param
   end
+
+  failure_message_for_should do |report|
+    message = "expected that report would have a param named #{name}"
+
+    param = report.params.select{ |param| param.name == name }.first
+    message << " with type #{@type} but got #{param.type}" if param && param.type != @type
+    message << " with value #{@value} but got #{param.value}" if param && param.value != @value
+    message << " with options #{@options} but got #{param.options}" if param && param.options != @options
+
+    message
+  end
+
+  failure_message_for_should_not do |report|
+    message = "expected that report would not have a param named #{name}"
+
+    param = report.params.select{ |param| param.name == name }.first
+    message << " with type #{@type} but got #{param.type}" if param && param.type != @type
+    message << " with value #{@value} but got #{param.value}" if param && param.value != @value
+    message << " with options #{@options} but got #{param.options}" if param && param.options != @options
+
+    message
+  end
+
 end
