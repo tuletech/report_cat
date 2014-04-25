@@ -87,22 +87,19 @@ module ReportCat
         i_start = cohort.column_index( :start_date )
         add_column( :link, :report )
 
-        @rows.each do |row|
+        rows.each do |row|
           start_date = row[ i_start ]
           row << cohort_link( start_date )
         end
       end
 
       def cohort_link( start_date )
-        common = {
-          :start_date => start_date,
-          :stop_date => param( :stop_date ).value,
-          :period => param( :period ).value
-        }
+        @cohort.param( :start_date ).value = param( :start_date ).value
+        @cohort.param( :stop_date ).value = param( :stop_date ).value
+        @cohort.param( :period ).value = param( :period ).value
+        @cohort.back = attributes
 
-        back = common.merge( :name => name )
-        back[ :back ] = @back if @back
-        return common.merge( :name => @cohort.name, :back => back )
+        return @cohort.attributes
       end
 
     end

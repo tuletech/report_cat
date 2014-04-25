@@ -156,6 +156,7 @@ module ReportCat
       describe '#add_link_column' do
 
         before( :each ) do
+          @report.stub( :rows ).and_return( [ [ Date.parse( '2014-04-22' ), nil, nil ] ] )
           @report.add_link_column
         end
 
@@ -168,12 +169,24 @@ module ReportCat
           i_start = @report.column_index( :start_date )
 
           @report.rows.each do |row|
-            cell = row[ i_link ]
-            expect( cell[ :name ] ).to eql( weight_report.name )
-            expect( cell[ :start_date ] ).to eql( row[ i_start ] )
-            expect( cell[ :stop_date ] ).to eql( @report.param( :stop_date ).value )
-            expect( cell[ :period ] ).to eql( @report.param( :period ).value )
+            expect( row[ i_link ] ).to eql( @report.cohort_link( nil ) )
           end
+        end
+
+      end
+
+      #############################################################################
+      # cohort_link
+
+      describe '#cohort_link' do
+
+        it 'gets the cohort attributes as a hash' do
+          expect( @report.cohort_link( nil )[ :name ] ).to eql( @report.cohort.name )
+          expect( @report.cohort_link( nil )[ :id ] ).to eql( @report.cohort.name )
+          expect( @report.cohort_link( nil )[ :start_date ] ).to eql(  @report.param( :start_date ).value )
+          expect( @report.cohort_link( nil )[ :stop_date ] ).to eql(  @report.param( :stop_date ).value )
+          expect( @report.cohort_link( nil )[ :period ] ).to eql(  @report.param( :period ).value )
+          expect( @report.cohort_link( nil )[ :back ] ).to eql( @report.attributes )
         end
 
       end

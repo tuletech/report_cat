@@ -240,6 +240,35 @@ module ReportCat::Core
     end
 
     #############################################################################
+    # attributes
+
+    describe '#attributes' do
+
+      before( :each ) do
+        setup_reports
+      end
+
+      it 'includes the name as both name and id' do
+        expect( @report.attributes[ :id ] ).to eql( @report.name )
+        expect( @report.attributes[ :name ] ).to eql( @report.name )
+      end
+
+      it 'includes back if defined' do
+        back = @report.attributes
+        expect( @report.attributes.has_key?( :back ) ).to be_false
+        @report.back = back
+        expect( @report.attributes[ :back ] ).to eql( back )
+      end
+
+      it 'returns a hash of param names to values' do
+        @report.params.each do |param|
+          expect( @report.attributes[ param.name ] ).to eql( param.value )
+        end
+      end
+
+    end
+
+    #############################################################################
     # query
 
     describe '#query' do

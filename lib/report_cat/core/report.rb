@@ -1,3 +1,5 @@
+# This is the most basic report, a simple wrapped around an SQL generator
+
 require 'csv'
 
 module ReportCat
@@ -83,6 +85,13 @@ module ReportCat
           csv << @columns.map { |column| column.name }
           @rows.each { |row| csv << row }
         end
+      end
+
+      def attributes
+        hash = { :id => name, :name => name }
+        hash[ :back ] = @back if @back
+        @params.each { |param| hash[ param.name ] = param.value }
+        return hash
       end
 
     protected
