@@ -131,8 +131,12 @@ without restarting the server.  Please let me know if you find a better way to d
 
 # TODO
 
+ * Give base report ability to export all params as hash for use in linking
  * Change cohort reports to identify cohort by sym and use factory, rather than instance of class
  * Fix pending spec due to Travis problem
+
+
+
  * Replace Google Charts with D3
  * Improve Column modelling WRT calculated ratios and moving averages
 

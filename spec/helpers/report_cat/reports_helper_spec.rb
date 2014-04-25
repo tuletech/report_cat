@@ -110,6 +110,24 @@ describe ReportCat::ReportsHelper do
   end
 
   #############################################################################
+  # report_form_param
+
+  describe '#report_form_param' do
+
+    it 'returns a div with the form element' do
+      param = @report.param( :check_box_test )
+      expect( helper.report_form_param( param ) ).to eql_file( 'spec/data/helpers/report_form_param.html' )
+    end
+
+    it 'returns hidden params' do
+      param = @report.param( :hidden_test )
+      expected = "<input id=\"hidden_test\" name=\"hidden_test\" type=\"hidden\" value=\"true\" />"
+      expect( helper.report_form_param( param ) ).to eql( expected )
+    end
+
+  end
+
+  #############################################################################
   # report_link
 
   describe '#report_link' do
