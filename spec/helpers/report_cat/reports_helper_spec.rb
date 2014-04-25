@@ -8,6 +8,8 @@ describe ReportCat::ReportsHelper do
     setup_reports
   end
 
+  it 'report_back'
+
   #############################################################################
   # report_chart_partial
 

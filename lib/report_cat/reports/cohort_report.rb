@@ -96,12 +96,15 @@ module ReportCat
       end
 
       def cohort_link( start_date )
-        return {
-            :name => @cohort.name,
-            :start_date => start_date,
-            :stop_date => param( :stop_date ).value,
-            :period => param( :period ).value
+        common = {
+          :start_date => start_date,
+          :stop_date => param( :stop_date ).value,
+          :period => param( :period ).value
         }
+
+        back = common.merge( :name => name, :group => param( :group ).value )
+        back[ :back ] = @back if @back
+        return common.merge( :name => @cohort.name, :back => back )
       end
 
     end

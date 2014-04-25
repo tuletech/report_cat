@@ -1,5 +1,6 @@
 en:
   report_cat:
+    back: Back
     count: "%{count} rows"
     export_as_csv: Export as CSV
     report: Report

@@ -7,6 +7,7 @@ module ReportCat
 
       attr_reader :name, :params, :columns, :rows, :charts
       attr_reader :from, :joins, :where, :group_by, :order_by, :limit
+      attr_accessor :back
       attr_reader :abstract
 
       def initialize( attributes = {} )
@@ -17,6 +18,8 @@ module ReportCat
         @group_by = accept_array( attributes[ :group_by ], ',' )
         @order_by = accept_array( attributes[ :order_by ], ',' )
         @limit = attributes[ :limit ]
+
+        @back = attributes[ :back ]
 
         @params = []
         @columns = []
@@ -76,7 +79,7 @@ module ReportCat
       end
 
       def to_csv
-        CSV.generate(:force_quotes => true ) do |csv|
+        CSV.generate( :force_quotes => true ) do |csv|
           csv << @columns.map { |column| column.name }
           @rows.each { |row| csv << row }
         end

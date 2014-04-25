@@ -129,10 +129,6 @@ Add the following to ApplicationController:
 
 # TODO
 
- * Hidden columns
- * Support back link on report
- * Better report linking handling, in general
-
  * Fix pending spec due to Travis problem
  * Replace Google Charts with D3
  * Improve Column modelling WRT calculated ratios and moving averages

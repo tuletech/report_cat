@@ -12,6 +12,7 @@ module ReportCat
 
     def show
       @report = @reports[ params[ :id ] ]
+      @report.back = params[ :back ]
       @report.generate( params )
 
       respond_to do |format|

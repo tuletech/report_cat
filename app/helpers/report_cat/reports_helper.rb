@@ -1,6 +1,14 @@
 module ReportCat
   module ReportsHelper
 
+    def report_back( report )
+      if report.back
+        report_link( report.back )
+      else
+        link_to report_title, root_path
+      end
+    end
+
     def report_chart_name( report, chart )
       t( chart.name.to_sym, :scope => [ :report_cat, :charts ] )
     end
