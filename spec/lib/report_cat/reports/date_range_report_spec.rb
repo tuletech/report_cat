@@ -53,11 +53,10 @@ module ReportCat
         end
 
         it 'defines params' do
-          @report.params.size.should eql( 4 )
+          @report.params.size.should eql( 3 )
           @report.should have_param( :start_date ).with_type( :date ).with_value( @start_date )
           @report.should have_param( :stop_date ).with_type( :date ).with_value( @stop_date )
           @report.should have_param( :period ).with_type( :select ).with_value( :weekly ).with_options( :values => DateRangeReport::PERIODS )
-          @report.should have_param( :group ).with_type( :check_box )
         end
 
         it 'defines columns' do
@@ -96,24 +95,6 @@ module ReportCat
       end
 
       #############################################################################
-      # group_by
-
-      describe 'group_by' do
-
-        it 'when not grouping does nothing' do
-          @report.param( :group ).value = false
-          expect( @report.group_by ).to be_nil
-        end
-
-        it 'when grouping groups by date and user' do
-          @report.param( :group ).value = true
-          expected = 'report_cat_date_ranges.start_date, report_cat_date_ranges.stop_date'
-          expect( @report.group_by ).to eql( expected )
-        end
-
-      end
-
-      #############################################################################
       # accessors
 
       describe 'accessors' do
@@ -122,13 +103,6 @@ module ReportCat
           expect( @report.period ).to eql( @report.param( :period ).value.to_sym )
           expect( @report.start_date ).to eql( @report.param( :start_date ).value )
           expect( @report.stop_date ).to eql( @report.param( :stop_date ).value )
-        end
-
-        it '#group? provides an accessor for the group value' do
-          [ true, false ].each do |bool|
-            @report.param( :group ).value = bool
-            expect( @report.group? ).to eql( bool )
-          end
         end
 
         it 'has a first_period accessor' do

@@ -8,7 +8,32 @@ describe ReportCat::ReportsHelper do
     setup_reports
   end
 
-  it 'report_back'
+  #############################################################################
+  # report_back
+
+  describe '#report_back' do
+
+    context 'when back is set' do
+
+      it 'returns a link to the back report' do
+        @report.back = { :name => :user_report }
+        expected = "<a href=\"/report_cat/reports/user_report\">User Report</a>"
+        expect( helper.report_back( @report ) ).to eql( expected )
+      end
+
+    end
+
+    context 'when back is not set' do
+
+      it 'returns a link to the report root path' do
+        @report.back = nil
+        expected = "<a href=\"/\">Reports</a>"
+        expect( helper.report_back( @report ) ).to eql( expected )
+      end
+
+    end
+
+  end
 
   #############################################################################
   # report_chart_partial
@@ -146,8 +171,6 @@ describe ReportCat::ReportsHelper do
     end
 
     it 'returns a select' do
-      pending 'is broken on Travis CI'
-
       param = @report.param( :select_test )
       path = 'spec/data/helpers/report_param_select.html'
       report_param( param ).should eql_file( path )
@@ -173,7 +196,11 @@ describe ReportCat::ReportsHelper do
         report_table( @report ).should eql_file( 'spec/data/helpers/report_table.html' )
       end
 
-      it 'excludes hidden columns'
+      it 'excludes hidden columns'do
+        @report.column( :day ).options[ :hidden ] = true
+        @report.column( :total ).options[ :hidden ] = true
+        report_table( @report ).should eql_file( 'spec/data/helpers/report_table_hidden.html' )
+      end
 
     end
 

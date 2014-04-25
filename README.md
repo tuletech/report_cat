@@ -112,10 +112,12 @@ Add the following to ApplicationController:
 
       def require_reports
         silence_warnings do
-            Dir[Rails.root + 'app/reports/**/*.rb'].each { |path| require_dependency path }
+          Dir[Rails.root + 'app/reports/**/*.rb'].each { |path| require_dependency path }
         end
       end
 
+NOTE: This is a rank hack and causes some weird behavior if you change a report's base class or override methods
+without restarting the server.  Please let me know if you find a better way to dynamically force reload in development.
 
 ## Reference
 

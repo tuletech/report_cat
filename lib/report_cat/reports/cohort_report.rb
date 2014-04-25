@@ -10,8 +10,6 @@ module ReportCat
         defaults = { :name => :cohort_report }
         super( defaults.merge( attributes ) )
 
-        param( :group ).hide
-
         add_column( :total, :integer )
 
         if @cohort = attributes[ :cohort ]
@@ -102,7 +100,7 @@ module ReportCat
           :period => param( :period ).value
         }
 
-        back = common.merge( :name => name, :group => param( :group ).value )
+        back = common.merge( :name => name )
         back[ :back ] = @back if @back
         return common.merge( :name => @cohort.name, :back => back )
       end

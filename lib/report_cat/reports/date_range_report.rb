@@ -23,7 +23,6 @@ module ReportCat
         add_param( :start_date, :date, Date.today - 7 )
         add_param( :stop_date, :date, Date.today )
         add_param( :period, :select, :weekly, :values => PERIODS )
-        add_param( :group, :check_box )
 
         table_name = ReportCat::DateRange.table_name
         add_column( :start_date, :date, :sql => "#{table_name}.start_date" )
@@ -42,10 +41,6 @@ module ReportCat
         ].join( ' and ' )
       end
 
-      def group_by
-        @group_by if group?
-      end
-
       # Accessors
 
       def period
@@ -58,10 +53,6 @@ module ReportCat
 
       def stop_date
         param( :stop_date ).value
-      end
-
-      def group?
-        param( :group ).value
       end
 
       def first_period
