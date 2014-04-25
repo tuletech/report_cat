@@ -4,7 +4,7 @@ module ReportCat
 
     class DateRangeReport < Report
 
-      PERIODS = [ :daily, :weekly, :monthly, :quarterly, :yearly ]
+      PERIODS = [ :daily, :weekly, :monthly, :quarterly, :yearly ].freeze
 
       def defaults
         table_name = ReportCat::DateRange.table_name

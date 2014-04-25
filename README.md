@@ -66,7 +66,7 @@ options = :hidden, :values
 add_column( name, type, options = {} )
 
 types = :date, :float, :integer, :moving_average, :ratio, :report, :string
-options = :sql
+options = :hidden, :sql
 
 ### Adding Charts
 
@@ -128,6 +128,10 @@ Add the following to ApplicationController:
  * [Shoulda](https://github.com/thoughtbot/shoulda-matchers)
 
 # TODO
+
+ * Hidden columns
+ * Support back link on report
+ * Better report linking handling, in general
 
  * Fix pending spec due to Travis problem
  * Replace Google Charts with D3

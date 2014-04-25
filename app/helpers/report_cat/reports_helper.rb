@@ -51,7 +51,9 @@ module ReportCat
     def report_link( attributes )
       attributes = attributes.dup
       attributes[ :id ] = name = attributes.delete( :name )
-      link_to t( :name, :scope => [ :report_cat, :instances, name ] ), report_cat.report_path( attributes )
+      name = t( :name, :scope => [ :report_cat, :instances, name ] )
+      path = defined?( report_cat ) ? report_cat.report_path( attributes ) : report_path( attributes )
+      link_to name, path
     end
 
     def report_list( reports )
@@ -86,22 +88,27 @@ module ReportCat
       content_tag( :table, :border => 1 ) do
         output = content_tag( :tr ) do
           report.columns.each do |column|
-            concat content_tag( :th, column.name.to_s )
+            concat content_tag( :th, column.name.to_s ) unless column.options[ :hidden ]
           end
         end
 
         report.rows.each do |row|
           output += content_tag( :tr ) do
             row.each_index do |index|
+              column = report.columns[ index ]
               data = row[ index ]
-              data = report_link( data ) if ( :report == report.columns[ index ].type )
-              concat content_tag( :td, data )
+              data = report_link( data ) if ( column.type == :report )
+              concat content_tag( :td, data ) unless column.options[ :hidden ]
             end
           end
         end
 
         output
       end
+    end
+
+    def report_title
+      t :reports, :scope => :report_cat
     end
 
   end

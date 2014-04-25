@@ -171,6 +171,8 @@ describe ReportCat::ReportsHelper do
         report_table( @report ).should eql_file( 'spec/data/helpers/report_table.html' )
       end
 
+      it 'excludes hidden columns'
+
     end
 
   end
