@@ -131,7 +131,6 @@ without restarting the server.  Please let me know if you find a better way to d
 
 # TODO
 
- * Change cohort reports to identify cohort by sym and use factory, rather than instance of class
  * Fix pending spec due to Travis problem
 
  * Add a AnnotatedReport class - base report left joined to an "annotation" report
