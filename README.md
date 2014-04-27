@@ -21,7 +21,7 @@ It provides the following matchers:
  * have_param
 
  Report subclasses will automatically appear under the ReportCat index controller,
- allowing you to add a new report with custom form, columns and charts by just adding a subclass.
+ allowing you to add a new report with custom form, columns and charts by just adding a single ReportCat::Report subclass.
 
 ## Getting Started
 

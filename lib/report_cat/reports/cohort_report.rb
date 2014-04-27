@@ -94,7 +94,7 @@ module ReportCat
       end
 
       def cohort_link( start_date )
-        @cohort.param( :start_date ).value = param( :start_date ).value
+        @cohort.param( :start_date ).value = start_date
         @cohort.param( :stop_date ).value = param( :stop_date ).value
         @cohort.param( :period ).value = param( :period ).value
         @cohort.back = attributes

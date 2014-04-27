@@ -169,7 +169,8 @@ module ReportCat
           i_start = @report.column_index( :start_date )
 
           @report.rows.each do |row|
-            expect( row[ i_link ] ).to eql( @report.cohort_link( nil ) )
+            start_date = row[ i_start ]
+            expect( row[ i_link ] ).to eql( @report.cohort_link( start_date ) )
           end
         end
 
@@ -181,12 +182,15 @@ module ReportCat
       describe '#cohort_link' do
 
         it 'gets the cohort attributes as a hash' do
-          expect( @report.cohort_link( nil )[ :name ] ).to eql( @report.cohort.name )
-          expect( @report.cohort_link( nil )[ :id ] ).to eql( @report.cohort.name )
-          expect( @report.cohort_link( nil )[ :start_date ] ).to eql(  @report.param( :start_date ).value )
-          expect( @report.cohort_link( nil )[ :stop_date ] ).to eql(  @report.param( :stop_date ).value )
-          expect( @report.cohort_link( nil )[ :period ] ).to eql(  @report.param( :period ).value )
-          expect( @report.cohort_link( nil )[ :back ] ).to eql( @report.attributes )
+          start_date =  @report.param( :start_date ).value
+          cohort_link = @report.cohort_link( start_date )
+
+          expect( cohort_link[ :name ] ).to eql( @report.cohort.name )
+          expect( cohort_link[ :id ] ).to eql( @report.cohort.name )
+          expect( cohort_link[ :start_date ] ).to eql( start_date )
+          expect( cohort_link[ :stop_date ] ).to eql( @report.param( :stop_date ).value )
+          expect( cohort_link[ :period ] ).to eql( @report.param( :period ).value )
+          expect( cohort_link[ :back ] ).to eql( @report.attributes )
         end
 
       end
