@@ -5,10 +5,13 @@ module ReportCat
     class CohortReport < DateRangeReport
 
       attr_reader :cohort
+      attr_reader :cohort_column
 
       def initialize( attributes = {} )
         defaults = { :name => :cohort_report }
         super( defaults.merge( attributes ) )
+
+        @cohort_column = attributes[ :cohort_column ] || :total
 
         add_column( :total, :integer )
 
@@ -69,13 +72,13 @@ module ReportCat
       end
 
       def raw_cohort( row )
-        i_total = cohort.column_index( :total )
+        i_total = cohort.column_index( cohort_column )
         value = row[ i_total ].to_f
         return ("%.2f" % value).to_f
       end
 
       def fractional_cohort( row )
-        i_total = cohort.column_index( :total )
+        i_total = cohort.column_index( cohort_column )
         total = cohort.rows.empty? ? 0 : cohort.rows[ 0 ][ i_total ]
 
         value = row[ i_total ].to_f

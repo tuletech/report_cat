@@ -41,6 +41,14 @@ module ReportCat
           @report.should have_param( :bar ).with_type( :string )
         end
 
+        it 'defaults cohort_column to :total' do
+          expect( @report.cohort_column ).to eql( :total )
+        end
+
+        it 'accepts cohort_column as an attribute' do
+          @report = CohortReport.new( :cohort_column => :test )
+          expect( @report.cohort_column ).to eql( :test )
+        end
       end
 
       #############################################################################
