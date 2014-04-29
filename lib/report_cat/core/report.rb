@@ -56,6 +56,13 @@ module ReportCat
         return param
       end
 
+      def attributes
+        hash = { :id => name, :name => name }
+        hash[ :back ] = @back if @back
+        @params.each { |param| hash[ param.name ] = param.value }
+        return hash
+      end
+
       def column( name )
         if index = columns.index { |c| c.name.to_s == name.to_s }
           return columns[ index ]
@@ -85,13 +92,6 @@ module ReportCat
           csv << @columns.map { |column| column.name }
           @rows.each { |row| csv << row }
         end
-      end
-
-      def attributes
-        hash = { :id => name, :name => name }
-        hash[ :back ] = @back if @back
-        @params.each { |param| hash[ param.name ] = param.value }
-        return hash
       end
 
     protected

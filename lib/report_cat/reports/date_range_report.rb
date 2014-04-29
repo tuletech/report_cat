@@ -39,7 +39,7 @@ module ReportCat
             super,
             DateRange.sql_intersect( start_date, stop_date ),
             DateRange.sql_period( period )
-        ].join( ' and ' )
+        ].compact.join( ' and ' )
       end
 
       # Accessors
