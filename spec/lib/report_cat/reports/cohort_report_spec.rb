@@ -201,6 +201,13 @@ module ReportCat
           expect( cohort_link[ :back ] ).to eql( @report.attributes )
         end
 
+        it 'accepts link attributes to override the report values' do
+          link_attributes = { :period => :foobar }
+          start_date =  @report.param( :start_date ).value
+          cohort_link = @report.cohort_link( start_date, link_attributes )
+          expect( cohort_link[ :period ] ).to eql( :foobar )
+        end
+
       end
 
     end
