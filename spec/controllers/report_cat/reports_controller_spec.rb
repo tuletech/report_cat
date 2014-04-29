@@ -49,7 +49,7 @@ describe ReportCat::ReportsController do
 
     before( :each ) do
       @report.stub( :query )
-      controller.stub( :get_reports ).and_return( @reports )
+      ReportCat.stub( :reports ).and_return( @reports )
     end
 
     it 'gets successfully' do
@@ -90,33 +90,11 @@ describe ReportCat::ReportsController do
   describe '#set_reports' do
 
     it 'memoizes get_reports in @reports' do
-      controller.should_receive( :get_reports ).and_return( @reports )
+      expect( ReportCat ).to receive( :reports ).and_return( @reports )
       controller.send( :set_reports )
       assigns( :reports ).should eql( @reports )
     end
 
   end
-
-
-  #############################################################################
-  # get_reports
-
-  describe '#get_reports' do
-
-    it 'returns a HashWithIndifferentAccess' do
-      @controller.send( :get_reports ).should be_an_instance_of( HashWithIndifferentAccess )
-    end
-
-    it 'adds Report subclasses to the hash' do
-      reports = @controller.send( :get_reports )
-
-      Report.descendants.each do |klass|
-        report = klass.new
-        expect( reports[ report.name.to_sym ] ).to_not be_nil
-      end
-    end
-
-  end
-
 
 end

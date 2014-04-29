@@ -131,8 +131,7 @@ without restarting the server.  Please let me know if you find a better way to d
 
 # TODO
 
- * Expose report list and factory method
- * Pre and post to_sql hooks
+ * Ability to register "anonymous" reports of generic Report classes with factory
 
  * Fix pending spec due to Travis problem
 

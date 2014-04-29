@@ -24,18 +24,7 @@ module ReportCat
   protected
 
     def set_reports
-      @reports = get_reports
-    end
-
-    def get_reports
-      reports = HashWithIndifferentAccess.new
-
-      ReportCat::Core::Report.descendants.map do |klass|
-        report = klass.new
-        reports[ report.name.to_sym ] = report
-      end
-
-      return reports
+      @reports = ReportCat.reports
     end
 
     def set_layout
