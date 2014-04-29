@@ -131,6 +131,9 @@ without restarting the server.  Please let me know if you find a better way to d
 
 # TODO
 
+ * Expose report list and factory method
+ * Pre and post to_sql hooks
+
  * Fix pending spec due to Travis problem
 
  * Add a AnnotatedReport class - base report left joined to an "annotation" report

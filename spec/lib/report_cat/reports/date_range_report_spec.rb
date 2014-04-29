@@ -92,6 +92,13 @@ module ReportCat
         it 'generates sql' do
           @report.where.should eql_file( 'spec/data/lib/date_range_report_where.sql')
         end
+
+        it 'includes the preconfigured where clause' do
+          where = '1 = 1'
+          @report = DateRangeReport.new( :where => where )
+          expect( @report.where ).to include( where )
+        end
+
       end
 
       #############################################################################

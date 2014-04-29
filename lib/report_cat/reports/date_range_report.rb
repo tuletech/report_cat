@@ -36,6 +36,7 @@ module ReportCat
 
       def where
         return [
+            super,
             DateRange.sql_intersect( start_date, stop_date ),
             DateRange.sql_period( period )
         ].join( ' and ' )
