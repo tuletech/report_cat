@@ -75,7 +75,9 @@ module ReportCat
       content_tag( :ul ) do
         reports.values.sort { |a,b| a.name <=> b.name }.each do |report|
           unless ReportCat.config.excludes.include?( report.name.to_sym )
-            link = link_to( report_name( report ), { :controller => :reports, :action => :show, :id => report.name } )
+            attributes = { :id => report.name }
+            path = defined?( report_cat ) ? report_cat.report_path( attributes ) : report_path( attributes )
+            link = link_to( report_name( report ), path)
             concat content_tag( :li, link + ' - ' + report_description( report ) )
           end
         end
