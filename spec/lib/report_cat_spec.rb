@@ -5,11 +5,11 @@ include ReportCat
 describe ReportCat do
 
   it 'requires the engine' do
-    ReportCat::Engine.should_not be_nil
+    expect( ReportCat::Engine ).to_not be_nil
   end
 
   it 'defines the ReportCat module' do
-    ReportCat.should_not be_nil
+    expect( ReportCat ).to_not be_nil
   end
 
   #############################################################################
@@ -18,7 +18,7 @@ describe ReportCat do
   describe '::config' do
 
     it 'returns the configuration' do
-      ReportCat.config.should be_an_instance_of( ReportCat::Config )
+      expect( ReportCat.config ).to be_an_instance_of( ReportCat::Config )
     end
 
   end
@@ -31,7 +31,7 @@ describe ReportCat do
     it 'yields the configuration' do
       yielded = false
       ReportCat.configure do |config|
-        config.should be_an_instance_of( ReportCat::Config )
+        expect( config ).to be_an_instance_of( ReportCat::Config )
         yielded = true
       end
       expect( yielded ).to be( true )

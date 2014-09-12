@@ -68,7 +68,7 @@ module ReportCat
 
         it 'adds a line chart of all its columns' do
           @report.query
-          @report.charts.size.should eql( 1 )
+          expect( @report.charts.size ).to eql( 1 )
           expect( @report ).to have_chart( :cohort_line ).with_type( :line )
         end
 
@@ -89,7 +89,7 @@ module ReportCat
         end
 
         it 'returns the generates row' do
-          @report.add_row( @range.first, @range ).should be_an_instance_of( Array )
+          expect( @report.add_row( @range.first, @range ) ).to be_an_instance_of( Array )
         end
 
         it 'generates the report for this cohort' do
@@ -117,13 +117,13 @@ module ReportCat
         end
 
         it 'fills with the total value' do
-          @report.cohort.stub( :rows ).and_return( [ [ '', '', 30 ], [ '', '', 20 ], [ '', '', 10 ] ] )
+          allow( @report.cohort ).to receive( :rows ).and_return( [ [ '', '', 30 ], [ '', '', 20 ], [ '', '', 10 ] ] )
           row = @report.add_row( @range.first, @range )
           expect( row[ 3 ] ).to eql( 30.0 )
         end
 
         it 'tolerates total being 0' do
-          @report.cohort.stub( :rows ).and_return( [ [ '', '', 0 ], [ '', '', 20 ], [ '', '', 10 ] ] )
+          allow( @report.cohort ).to receive( :rows ).and_return( [ [ '', '', 0 ], [ '', '', 20 ], [ '', '', 10 ] ] )
           row = @report.add_row( @range.first, @range )
           expect( row[ 3 ] ).to eql( 0.0 )
         end
@@ -146,9 +146,9 @@ module ReportCat
 
           @report.generate_cohort( @range.first )
 
-          @report.cohort.param( :period ).value.should eql( @report.param( :period ).value )
-          @report.cohort.param( :start_date ).value.should eql( @range.first.start_date )
-          @report.cohort.param( :stop_date ).value.should eql( @report.param( :stop_date ).value )
+          expect( @report.cohort.param( :period ).value ).to eql( @report.param( :period ).value )
+          expect( @report.cohort.param( :start_date ).value ).to eql( @range.first.start_date )
+          expect( @report.cohort.param( :stop_date ).value ).to eql( @report.param( :stop_date ).value )
         end
 
         it 'generates the cohort report' do

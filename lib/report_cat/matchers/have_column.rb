@@ -22,7 +22,7 @@ RSpec::Matchers.define :have_column do |name|
     @has_column
   end
 
-  failure_message_for_should do |report|
+  failure_message do |report|
     message = "expected that report would have a column named #{name}"
 
     column = report.columns.select{ |column| column.name == name }.first
@@ -32,7 +32,7 @@ RSpec::Matchers.define :have_column do |name|
     message
   end
 
-  failure_message_for_should_not do |report|
+  failure_message_when_negated do |report|
     message = "expected that report would not have a column named #{name}"
 
     column = report.columns.select{ |column| column.name == name }.first

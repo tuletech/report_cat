@@ -5,7 +5,7 @@ describe ReportCat::Config do
   let( :config ) { ReportCat::Config.instance }
 
   it 'is a singleton' do
-    config.should be( ReportCat::Config.instance )
+    expect( config ).to be( ReportCat::Config.instance )
   end
 
   describe 'attributes' do
@@ -13,25 +13,25 @@ describe ReportCat::Config do
     it 'has an #authenticate accessor' do
       config.authenticate = ReportCat::Config::NIL_PROC
       config.authenticate = config.authenticate
-      config.authenticate.should eql( config.authenticate )
+      expect( config.authenticate ).to eql( config.authenticate )
     end
 
     it 'has an #authorize accessor' do
       config.authorize = ReportCat::Config::NIL_PROC
       config.authorize = config.authorize
-      config.authorize.should eql( config.authorize )
+      expect( config.authorize ).to eql( config.authorize )
     end
 
     it 'has an #layout excludes' do
-      config.excludes.should_not be_nil
+      expect( config.excludes ).to_not be_nil
       config.excludes = config.excludes
-      config.excludes.should eql( config.excludes )
+      expect( config.excludes ).to eql( config.excludes )
     end
 
     it 'has a #layout accessor' do
-      config.layout.should_not be_nil
+      expect( config.layout ).to_not be_nil
       config.layout = config.layout
-      config.layout.should eql( config.layout )
+      expect( config.layout ).to eql( config.layout )
     end
 
   end

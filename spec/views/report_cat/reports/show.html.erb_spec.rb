@@ -6,8 +6,8 @@ describe 'report_cat/reports/show.html.erb' do
 
   before( :each ) do
     setup_reports
-    view.stub( :report_path ).and_return( '/report_cat/reports/foo' )
-    view.stub( :reports_path ).and_return( '/report_cat' )
+    allow( view ).to receive( :report_path ).and_return( '/report_cat/reports/foo' )
+    allow( view ).to receive( :reports_path ).and_return( '/report_cat' )
   end
 
   it 'renders without exception' do

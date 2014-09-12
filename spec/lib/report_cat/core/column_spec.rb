@@ -19,9 +19,9 @@ module ReportCat::Core
 
       it 'initializes accessor values' do
         column = Column.new( :name => @name, :type => @type, :options => @options )
-        column.name.should eql( @name )
-        column.type.should eql( @type )
-        column.options.should eql( @options )
+        expect( column.name ).to eql( @name )
+        expect( column.type ).to eql( @type )
+        expect( column.options ).to eql( @options )
       end
 
     end
@@ -35,7 +35,7 @@ module ReportCat::Core
         value = 22.0 / 7.0
         expected = ("%.2f" % value).to_f
         column = Column.new( :name => @name, :type => :float )
-        column.format( value ).should eql( expected )
+        expect( column.format( value ) ).to eql( expected )
       end
 
 
@@ -43,14 +43,14 @@ module ReportCat::Core
         value = '727'
         expected = value.to_i
         column = Column.new( :name => @name, :type => :integer )
-        column.format( value ).should eql( expected )
+        expect( column.format( value ) ).to eql( expected )
 
       end
 
       it 'passes everything else through' do
         value = '727'
         column = Column.new( :name => @name, :type => :string )
-        column.format( value ).should eql( value )
+        expect( column.format( value ) ).to eql( value )
       end
 
     end
@@ -66,13 +66,13 @@ module ReportCat::Core
 
       it 'handles moving averages' do
         column = Column.new( :name => @name, :type => :moving_average )
-        column.should_receive( :post_process_moving_average ).with( @report )
+        expect( column ).to receive( :post_process_moving_average ).with( @report )
         column.post_process( @report )
       end
 
       it 'handles ratios' do
         column = Column.new( :name => @name, :type => :ratio )
-        column.should_receive( :post_process_ratio ).with( @report )
+        expect( column ).to receive( :post_process_ratio ).with( @report )
         column.post_process( @report )
       end
 
@@ -94,9 +94,9 @@ module ReportCat::Core
         column =  @report.add_column( :ma, :moving_average, :target => :value, :interval => 2 )
         column.post_process( @report )
 
-        @report.rows[ 0 ][ 1 ].should eql( 0 )
-        @report.rows[ 1 ][ 1 ].should eql( 1.5 )
-        @report.rows[ 2 ][ 1 ].should eql( 3.0 )
+        expect( @report.rows[ 0 ][ 1 ] ).to eql( 0 )
+        expect( @report.rows[ 1 ][ 1 ] ).to eql( 1.5 )
+        expect( @report.rows[ 2 ][ 1 ] ).to eql( 3.0 )
       end
 
     end
@@ -118,9 +118,9 @@ module ReportCat::Core
         column =  @report.add_column( :r, :ratio, :numerator => :n, :denominator => :d )
         column.post_process( @report )
 
-        @report.rows[ 0 ][ 2 ].should eql( 0.5 )
-        @report.rows[ 1 ][ 2 ].should eql( 0.75 )
-        @report.rows[ 2 ][ 2 ].should eql( 0.0 )
+        expect( @report.rows[ 0 ][ 2 ] ).to eql( 0.5 )
+        expect( @report.rows[ 1 ][ 2 ] ).to eql( 0.75 )
+        expect( @report.rows[ 2 ][ 2 ] ).to eql( 0.0 )
       end
 
     end
@@ -133,21 +133,21 @@ module ReportCat::Core
       it 'uses raw sql if provided in options' do
         sql = 'count( id )'
         column = Column.new( :name => @name, :type => :integer, :options => { :sql => sql } )
-        column.to_sql.should eql( "#{sql} as #{@name}" )
+        expect( column.to_sql ).to eql( "#{sql} as #{@name}" )
       end
 
 
       it 'uses 0 for calculated columns' do
         column = Column.new( :name => @name, :type => :moving_average )
-        column.to_sql.should eql( "0 as #{@name}" )
+        expect( column.to_sql ).to eql( "0 as #{@name}" )
 
         column = Column.new( :name => @name, :type => :ratio )
-        column.to_sql.should eql( "0 as #{@name}" )
+        expect( column.to_sql ).to eql( "0 as #{@name}" )
       end
 
       it 'uses the column name as a last resort' do
         column = Column.new( :name => @name, :type => :integer )
-        column.to_sql.should eql( @name )
+        expect( column.to_sql ).to eql( @name )
       end
 
     end

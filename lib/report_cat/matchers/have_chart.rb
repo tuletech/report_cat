@@ -32,7 +32,7 @@ RSpec::Matchers.define :have_chart do |name|
     @has_chart
   end
 
-  failure_message_for_should do |report|
+  failure_message do |report|
     message = "expected that report would have a chart named #{name}"
 
     chart = report.charts.select{ |chart| chart.name == name }.first
@@ -44,7 +44,7 @@ RSpec::Matchers.define :have_chart do |name|
     message
   end
 
-  failure_message_for_should_not do |report|
+  failure_message_when_negated do |report|
     message = "expected that report would not chart a param named #{name}"
 
     chart = report.charts.select{ |chart| chart.name == name }.first

@@ -27,7 +27,7 @@ RSpec::Matchers.define :have_param do |name|
     @has_param
   end
 
-  failure_message_for_should do |report|
+  failure_message do |report|
     message = "expected that report would have a param named #{name}"
 
     param = report.params.select{ |param| param.name == name }.first
@@ -38,7 +38,7 @@ RSpec::Matchers.define :have_param do |name|
     message
   end
 
-  failure_message_for_should_not do |report|
+  failure_message_when_negated do |report|
     message = "expected that report would not have a param named #{name}"
 
     param = report.params.select{ |param| param.name == name }.first

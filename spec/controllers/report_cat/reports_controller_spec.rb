@@ -26,7 +26,7 @@ describe ReportCat::ReportsController do
 
     it 'assigns reports' do
       get :index
-      assigns( :reports ).should be_an_instance_of( HashWithIndifferentAccess )
+      expect( assigns( :reports ) ).to be_an_instance_of( HashWithIndifferentAccess )
     end
 
     pending 'uses the configured before authentication filter' do
@@ -59,7 +59,7 @@ describe ReportCat::ReportsController do
 
     it 'assigns report' do
       get :show, :id => @report.name
-      assigns( :report ).should be_an_instance_of( Report )
+      expect( assigns( :report ) ).to be_an_instance_of( Report )
     end
 
     context 'formatting CSV' do
@@ -92,7 +92,7 @@ describe ReportCat::ReportsController do
     it 'memoizes get_reports in @reports' do
       expect( ReportCat ).to receive( :reports ).and_return( @reports )
       controller.send( :set_reports )
-      assigns( :reports ).should eql( @reports )
+      expect( assigns( :reports ) ).to eql( @reports )
     end
 
   end

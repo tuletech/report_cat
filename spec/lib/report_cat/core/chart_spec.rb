@@ -31,11 +31,11 @@ module ReportCat::Core
     describe '#initialize' do
 
       it 'initializes accessor values' do
-        @chart.name.should eql( @name )
-        @chart.type.should eql( @type )
-        @chart.label.should eql( @label )
-        @chart.values.should eql( @values )
-        @chart.options.should eql( @options )
+        expect( @chart.name ).to eql( @name )
+        expect( @chart.type ).to eql( @type )
+        expect( @chart.label ).to eql( @label )
+        expect( @chart.values ).to eql( @values )
+        expect( @chart.options ).to eql( @options )
       end
 
     end
@@ -46,7 +46,7 @@ module ReportCat::Core
     describe '#columns' do
 
       it 'generates json' do
-        @chart.columns( @report ).should eql_file( 'spec/data/lib/chart_columns.json' )
+        expect( @chart.columns( @report ) ).to eql_file( 'spec/data/lib/chart_columns.json' )
       end
 
     end
@@ -58,7 +58,7 @@ module ReportCat::Core
 
       it 'generates json' do
         setup_reports
-        @chart.data( @report ).should eql_file( 'spec/data/lib/chart_data.json' )
+        expect( @chart.data( @report ) ).to eql_file( 'spec/data/lib/chart_data.json' )
       end
 
     end

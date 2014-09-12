@@ -49,18 +49,18 @@ module ReportCat
         it 'merges default values' do
           name = :test
           @report = DateRangeReport.new( :name => name )
-          @report.name.should be( name )
+          expect( @report.name ).to be( name )
         end
 
         it 'defines params' do
-          @report.params.size.should eql( 3 )
+          expect( @report.params.size ).to eql( 3 )
           expect( @report ).to have_param( :start_date ).with_type( :date ).with_value( @start_date )
           expect( @report ).to have_param( :stop_date ).with_type( :date ).with_value( @stop_date )
           expect( @report ).to have_param( :period ).with_type( :select ).with_value( :weekly ).with_options( :values => DateRangeReport::PERIODS )
         end
 
         it 'defines columns' do
-          @report.columns.size.should eql( 2 )
+          expect( @report.columns.size ).to eql( 2 )
           expect( @report ).to have_column( :start_date ).with_type( :date ).with_options( :sql => "report_cat_date_ranges.start_date" )
           expect( @report ).to have_column( :stop_date ).with_type( :date ).with_options( :sql => "report_cat_date_ranges.stop_date" )
         end

@@ -16,29 +16,29 @@ module ReportCat
     describe '::generate' do
 
       it 'iterates the periods in the date range' do
-        DateRange.should_receive( :iterate ).with( @period, @start_date, @stop_date )
+        expect( DateRange ).to receive( :iterate ).with( @period, @start_date, @stop_date )
         DateRange.generate( @period, @start_date, @stop_date )
       end
 
       it 'creates entries for each period' do
         expected = ( @stop_date - @start_date ).to_i + 1
 
-        DateRange.count.should eql( 0 )
+        expect( DateRange.count ).to eql( 0 )
         DateRange.generate( @period, @start_date, @stop_date )
-        DateRange.count.should eql( expected )
+        expect( DateRange.count ).to eql( expected )
 
         (@start_date..@stop_date).each do |date|
           date_range = DateRange.where( :period => @period, :start_date => date, :stop_date => date ).first
-          date_range.should be_present
-          date_range.period.should eql( @period.to_s )
-          date_range.start_date.should eql( date )
-          date_range.stop_date.should eql( date )
+          expect( date_range ).to be_present
+          expect( date_range.period ).to eql( @period.to_s )
+          expect( date_range.start_date ).to eql( date )
+          expect( date_range.stop_date ).to eql( date )
         end
       end
 
       it 'does not create entries that already exist' do
         DateRange.generate( @period, @start_date, @stop_date )
-        DateRange.should_not_receive( :create )
+        expect( DateRange ).to_not receive( :create )
         DateRange.generate( @period, @start_date, @stop_date )
       end
 
@@ -94,7 +94,7 @@ module ReportCat
 
         it 'generates a join string' do
           expected = "join users on date( users.created_at ) between report_cat_date_ranges.start_date and report_cat_date_ranges.stop_date"
-          DateRange.join_to( @table, @column ).should eql( expected )
+          expect( DateRange.join_to( @table, @column ) ).to eql( expected )
         end
 
       end
@@ -103,7 +103,7 @@ module ReportCat
 
         it 'generates a join string' do
           expected = "join users on date( users.created_at ) <= report_cat_date_ranges.stop_date"
-          DateRange.join_before( @table, @column ).should eql( expected )
+          expect( DateRange.join_before( @table, @column ) ).to eql( expected )
         end
 
       end
@@ -112,7 +112,7 @@ module ReportCat
 
         it 'generates a join string' do
           expected = "join users on date( users.created_at ) > report_cat_date_ranges.stop_date"
-          DateRange.join_after( @table, @column ).should eql( expected )
+          expect( DateRange.join_after( @table, @column ) ).to eql( expected )
         end
 
       end
@@ -125,7 +125,7 @@ module ReportCat
     describe '::sql_intersect' do
 
       it 'generates date intersection sql' do
-        DateRange.sql_intersect( '2013-09-01', '2013-09-18' ).should eql_file( 'spec/data/models/sql_intersect.sql')
+        expect( DateRange.sql_intersect( '2013-09-01', '2013-09-18' ) ).to eql_file( 'spec/data/models/sql_intersect.sql')
       end
 
     end
@@ -134,7 +134,7 @@ module ReportCat
 
       it 'generate query sql' do
         expected = "report_cat_date_ranges.period = 'weekly'"
-        DateRange.sql_period( :weekly ).should eql( expected )
+        expect( DateRange.sql_period( :weekly ) ).to eql( expected )
       end
 
     end

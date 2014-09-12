@@ -41,7 +41,7 @@ describe ReportCat::ReportsHelper do
   describe '#report_chart_partial' do
 
     it 'renders the google charts partial' do
-      helper.should_receive( :render ).with( :partial => 'report_cat/reports/google_charts' )
+      expect( helper ).to receive( :render ).with( :partial => 'report_cat/reports/google_charts' )
       helper.report_chart_partial
     end
 
@@ -53,7 +53,7 @@ describe ReportCat::ReportsHelper do
   describe '#report_charts' do
 
     it 'renders the configured charts' do
-      helper.report_charts( @report ).should eql_file( 'spec/data/helpers/report_charts.html' )
+      expect( helper.report_charts( @report ) ).to eql_file( 'spec/data/helpers/report_charts.html' )
     end
 
   end
@@ -79,7 +79,7 @@ describe ReportCat::ReportsHelper do
       url = '/foo/bar?format=csv'
       expect( helper ).to receive( :url_for ).with( { :params => { :format => :csv } } ).and_return( url )
       expected = "<a href=\"#{url}\">Export as CSV</a>"
-      helper.report_csv_link( @report ).should eql( expected )
+      expect( helper.report_csv_link( @report ) ).to eql( expected )
     end
 
   end
@@ -91,7 +91,7 @@ describe ReportCat::ReportsHelper do
 
     it 'renders the localized description for the report' do
       expected = t( :description, :scope => [ :report_cat, :instances, @report.name.to_sym ] )
-      helper.report_description( @report ).should eql( expected )
+      expect( helper.report_description( @report ) ).to eql( expected )
     end
 
   end
@@ -103,8 +103,8 @@ describe ReportCat::ReportsHelper do
 
     it 'renders a form for the report params' do
       pending 'broken on Travis in a non-obvious way.  need build artifact. http://blog.travis-ci.com/2012-12-18-travis-artifacts/ '
-      helper.should_receive( :report_path ).and_return( '' )
-      helper.report_form( @report ).should eql_file( 'spec/data/helpers/report_form.html' )
+      expect( helper ).to receive( :report_path ).and_return( '' )
+      expect( helper.report_form( @report ) ).to eql_file( 'spec/data/helpers/report_form.html' )
     end
 
   end
@@ -146,7 +146,7 @@ describe ReportCat::ReportsHelper do
   describe '#report_list' do
 
     it 'renders a list of reports in HTML' do
-      helper.report_list( @reports ).should eql_file( 'spec/data/helpers/report_list.html' )
+      expect( helper.report_list( @reports ) ).to eql_file( 'spec/data/helpers/report_list.html' )
     end
 
   end
@@ -158,7 +158,7 @@ describe ReportCat::ReportsHelper do
 
     it 'renders the localized description for the report' do
       expected = t( :name, :scope => [ :report_cat, :instances, @report.name.to_sym ] )
-      helper.report_name( @report ).should eql( expected )
+      expect( helper.report_name( @report ) ).to eql( expected )
     end
 
   end
@@ -171,36 +171,36 @@ describe ReportCat::ReportsHelper do
     it 'returns a checkbox' do
       param = @report.param( :check_box_test )
       path = 'spec/data/helpers/report_param_checkbox.html'
-      report_param( param ).should eql_file( path )
+      expect( report_param( param ) ).to eql_file( path )
     end
 
     it 'returns a date' do
       param = @report.param( :date_test )
       path = 'spec/data/helpers/report_param_date.html'
-      report_param( param ).should eql_file( path )
+      expect( report_param( param ) ).to eql_file( path )
     end
 
     it 'returns a hidden' do
       param = @report.param( :hidden_test )
       path = 'spec/data/helpers/report_param_hidden.html'
-      report_param( param ).should eql_file( path )
+      expect( report_param( param ) ).to eql_file( path )
     end
 
     it 'returns a select' do
       param = @report.param( :select_test )
       path = 'spec/data/helpers/report_param_select.html'
-      report_param( param ).should eql_file( path )
+      expect( report_param( param ) ).to eql_file( path )
     end
 
     it 'returns a text_field' do
       param = @report.param( :text_field_test )
       path = 'spec/data/helpers/report_param_text_field.html'
-      report_param( param ).should eql_file( path )
+      expect( report_param( param ) ).to eql_file( path )
     end
 
     it 'raises an exception for unknown types' do
       param = Param.new( :name => :foo, :type => :bar )
-      lambda { report_param( param ) }.should raise_error
+      expect { report_param( param ) }.to raise_error
     end
 
     #############################################################################
@@ -209,13 +209,13 @@ describe ReportCat::ReportsHelper do
     describe '#report_table' do
 
       it 'renders a table of report rows' do
-        report_table( @report ).should eql_file( 'spec/data/helpers/report_table.html' )
+        expect( report_table( @report ) ).to eql_file( 'spec/data/helpers/report_table.html' )
       end
 
       it 'excludes hidden columns'do
         @report.column( :day ).options[ :hidden ] = true
         @report.column( :total ).options[ :hidden ] = true
-        report_table( @report ).should eql_file( 'spec/data/helpers/report_table_hidden.html' )
+        expect( report_table( @report ) ).to eql_file( 'spec/data/helpers/report_table_hidden.html' )
       end
 
     end
