@@ -27,7 +27,7 @@ module ReportCat
 
       it 'defines supported time periods' do
         expected = [ :daily, :weekly, :monthly, :quarterly, :yearly ]
-        DateRangeReport::PERIODS.should eql( expected )
+        expect(  DateRangeReport::PERIODS ).to eql( expected )
       end
 
       #############################################################################
@@ -36,7 +36,7 @@ module ReportCat
       describe '#defaults' do
 
         it 'defines default report values' do
-          @report.defaults.should eql( @defaults )
+          expect( @report.defaults ).to eql( @defaults )
         end
 
       end
@@ -54,15 +54,15 @@ module ReportCat
 
         it 'defines params' do
           @report.params.size.should eql( 3 )
-          @report.should have_param( :start_date ).with_type( :date ).with_value( @start_date )
-          @report.should have_param( :stop_date ).with_type( :date ).with_value( @stop_date )
-          @report.should have_param( :period ).with_type( :select ).with_value( :weekly ).with_options( :values => DateRangeReport::PERIODS )
+          expect( @report ).to have_param( :start_date ).with_type( :date ).with_value( @start_date )
+          expect( @report ).to have_param( :stop_date ).with_type( :date ).with_value( @stop_date )
+          expect( @report ).to have_param( :period ).with_type( :select ).with_value( :weekly ).with_options( :values => DateRangeReport::PERIODS )
         end
 
         it 'defines columns' do
           @report.columns.size.should eql( 2 )
-          @report.should have_column( :start_date ).with_type( :date ).with_options( :sql => "report_cat_date_ranges.start_date" )
-          @report.should have_column( :stop_date ).with_type( :date ).with_options( :sql => "report_cat_date_ranges.stop_date" )
+          expect( @report ).to have_column( :start_date ).with_type( :date ).with_options( :sql => "report_cat_date_ranges.start_date" )
+          expect( @report ).to have_column( :stop_date ).with_type( :date ).with_options( :sql => "report_cat_date_ranges.stop_date" )
         end
 
       end
@@ -73,12 +73,12 @@ module ReportCat
       describe '#query' do
 
         it 'generates the required date ranges' do
-          DateRange.should_receive( :generate ).with( @period, @start_date, @stop_date )
+          expect( DateRange ).to receive( :generate ).with( @period, @start_date, @stop_date )
           @report.query
         end
 
         it 'calls query on its super' do
-          @report.should_receive( :to_sql ).and_return( 'select 1' )
+          expect( @report ).to receive( :to_sql ).and_return( 'select 1' )
           @report.query
         end
 
@@ -90,7 +90,7 @@ module ReportCat
       describe '#where' do
 
         it 'generates sql' do
-          @report.where.should eql_file( 'spec/data/lib/date_range_report_where.sql')
+          expect( @report.where ).to eql_file( 'spec/data/lib/date_range_report_where.sql')
         end
 
         it 'includes the preconfigured where clause' do

@@ -37,27 +37,27 @@ module ReportCat::Core
         param = Param.new( :name => :foo, :type => :check_box )
         param.value.should be_nil
         param.value = '1'
-        param.value.should be_true
+        param.value.should be( true )
         param.value = '0'
-        param.value.should be_false
+        param.value.should be( false )
       end
 
       it 'accepts checkboxes as booleans' do
         param = Param.new( :name => :foo, :type => :check_box )
         param.value.should be_nil
         param.value = true
-        param.value.should be_true
+        param.value.should be( true )
         param.value = false
-        param.value.should be_false
+        param.value.should be( false )
       end
 
       it 'accepts checkboxes as strings' do
         param = Param.new( :name => :foo, :type => :check_box )
         param.value.should be_nil
         param.value = 'true'
-        param.value.should be_true
+        param.value.should be( true )
         param.value = 'false'
-        param.value.should be_false
+        param.value.should be( false )
       end
 
       it 'parses date hashes' do
@@ -85,7 +85,7 @@ module ReportCat::Core
       it 'sets the hidden option to true' do
         expect( param.options[ :hidden ] ).to be_nil
         param.hide
-        expect( param.options[ :hidden ] ).to be_true
+        expect( param.options[ :hidden ] ).to be( true )
       end
 
     end

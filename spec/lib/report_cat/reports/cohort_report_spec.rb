@@ -29,16 +29,16 @@ module ReportCat
       describe '#initialize' do
 
         it 'uses a default name'  do
-          @report.name.should eql( :cohort_report )
+          expect( @report.name ).to eql( :cohort_report )
         end
 
         it 'adds a total column' do
-          @report.should have_column( :total ).with_type( :integer )
+          expect( @report ).to have_column( :total ).with_type( :integer )
         end
 
         it 'merges in any non-duplicate params from the cohort report' do
-          @report.should have_param( :foo ).with_type( :integer )
-          @report.should have_param( :bar ).with_type( :string )
+          expect( @report ).to have_param( :foo ).with_type( :integer )
+          expect( @report ).to have_param( :bar ).with_type( :string )
         end
 
         it 'defaults cohort_column to :total' do
@@ -58,18 +58,18 @@ module ReportCat
 
         it 'adds columns for each date range' do
           @report.query
-          @report.columns.size.should eql( 4 + @range.size )
+          expect( @report.columns.size ).to eql( 4 + @range.size )
         end
 
         it 'adds rows for each date range' do
           @report.query
-          @report.rows.size.should eql( @range.size )
+          expect( @report.rows.size ).to eql( @range.size )
         end
 
         it 'adds a line chart of all its columns' do
           @report.query
           @report.charts.size.should eql( 1 )
-          @report.should have_chart( :cohort_line ).with_type( :line )
+          expect( @report ).to have_chart( :cohort_line ).with_type( :line )
         end
 
         it 'adds an link column' do
@@ -93,39 +93,39 @@ module ReportCat
         end
 
         it 'generates the report for this cohort' do
-          @report.should_receive( :generate_cohort )
+          expect(  @report ).to receive( :generate_cohort )
           @report.add_row( @range.first, @range )
         end
 
         it 'sets the first three columns to start, stop, total' do
           @report.add_row( @range.first, @range )
-          @report.columns[ 0 ].name.should eql( :start_date )
-          @report.columns[ 1 ].name.should eql( :stop_date )
-          @report.columns[ 2 ].name.should eql( :total )
+          expect( @report.columns[ 0 ].name ).to eql( :start_date )
+          expect( @report.columns[ 1 ].name ).to eql( :stop_date )
+          expect( @report.columns[ 2 ].name ).to eql( :total )
         end
 
         it 'fills in the columns by date range' do
           row = @report.add_row( @range.first, @range )
-          row.should be_an_instance_of( Array )
-          row.size.should eql( @range.size + 3 )
+          expect( row ).to be_an_instance_of( Array )
+          expect( row.size ).to eql( @range.size + 3 )
         end
 
         it 'fills nil when there is no data' do
-          @report.cohort.stub( :rows ).and_return( [] )
+          allow( @report.cohort ).to receive( :rows ).and_return( [] )
           row = @report.add_row( @range.first, @range )
-          row[ 3 ].should be_nil
+          expect( row[ 3 ] ).to be_nil
         end
 
         it 'fills with the total value' do
           @report.cohort.stub( :rows ).and_return( [ [ '', '', 30 ], [ '', '', 20 ], [ '', '', 10 ] ] )
           row = @report.add_row( @range.first, @range )
-          row[ 3 ].should eql( 30.0 )
+          expect( row[ 3 ] ).to eql( 30.0 )
         end
 
         it 'tolerates total being 0' do
           @report.cohort.stub( :rows ).and_return( [ [ '', '', 0 ], [ '', '', 20 ], [ '', '', 10 ] ] )
           row = @report.add_row( @range.first, @range )
-          row[ 3 ].should eql( 0.0 )
+          expect( row[ 3 ] ).to eql( 0.0 )
         end
 
       end
@@ -152,7 +152,7 @@ module ReportCat
         end
 
         it 'generates the cohort report' do
-          @report.cohort.should_receive( :generate )
+          expect( @report.cohort ).to receive( :generate )
           @report.generate_cohort( @range.first )
         end
 
@@ -164,7 +164,7 @@ module ReportCat
       describe '#add_link_column' do
 
         before( :each ) do
-          @report.stub( :rows ).and_return( [ [ Date.parse( '2014-04-22' ), nil, nil ] ] )
+          allow( @report ).to receive( :rows ).and_return( [ [ Date.parse( '2014-04-22' ), nil, nil ] ] )
           @report.add_link_column
         end
 

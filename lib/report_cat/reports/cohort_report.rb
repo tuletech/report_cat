@@ -15,6 +15,8 @@ module ReportCat
 
         add_column( :total, :integer )
 
+        # Assume any params the child report has
+
         if @cohort = attributes[ :cohort ]
           @cohort.params.each { |p| @params << p unless param( p.name ) }
         end

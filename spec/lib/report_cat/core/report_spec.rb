@@ -255,7 +255,7 @@ module ReportCat::Core
 
       it 'includes back if defined' do
         back = @report.attributes
-        expect( @report.attributes.has_key?( :back ) ).to be_false
+        expect( @report.attributes.has_key?( :back ) ).to be( false )
         @report.back = back
         expect( @report.attributes[ :back ] ).to eql( back )
       end

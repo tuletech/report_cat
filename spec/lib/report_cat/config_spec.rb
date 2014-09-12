@@ -54,7 +54,7 @@ describe ReportCat::Config do
       end
 
       instance_eval( &config.authenticate_with )
-      expect( @test ).to be_true
+      expect( @test ).to be( true )
     end
 
     it 'returns a nil proc if none has been set' do
@@ -82,7 +82,7 @@ describe ReportCat::Config do
       end
 
       instance_eval( &config.authorize_with )
-      expect( @test ).to be_true
+      expect( @test ).to be( true )
     end
 
     it 'returns a nil proc if none has been set' do

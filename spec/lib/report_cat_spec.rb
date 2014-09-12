@@ -34,7 +34,7 @@ describe ReportCat do
         config.should be_an_instance_of( ReportCat::Config )
         yielded = true
       end
-      expect( yielded ).to be_true
+      expect( yielded ).to be( true )
     end
 
   end

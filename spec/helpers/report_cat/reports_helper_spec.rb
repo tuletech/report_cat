@@ -146,7 +146,7 @@ describe ReportCat::ReportsHelper do
   describe '#report_list' do
 
     it 'renders a list of reports in HTML' do
-      report_list( @reports ).should eql_file( 'spec/data/helpers/report_list.html' )
+      helper.report_list( @reports ).should eql_file( 'spec/data/helpers/report_list.html' )
     end
 
   end
