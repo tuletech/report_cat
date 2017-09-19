@@ -1,4 +1,4 @@
-class CreateDateRanges < ActiveRecord::Migration
+class CreateDateRanges < ActiveRecord::Migration[4.2]
   def change
     create_table :report_cat_date_ranges do |t|
       t.date :start_date
