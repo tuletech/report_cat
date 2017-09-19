@@ -108,7 +108,7 @@ You can place new reports anywhere you like, but `app/reports` is the recommende
 
 Add the following to ApplicationController:
 
-      before_filter :require_reports if Rails.env.development?
+      before_action :require_reports if Rails.env.development?
 
       def require_reports
         silence_warnings do

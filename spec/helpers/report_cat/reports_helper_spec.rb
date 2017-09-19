@@ -185,7 +185,7 @@ describe ReportCat::ReportsHelper do
 
     it 'raises an exception for unknown types' do
       param = Param.new( :name => :foo, :type => :bar )
-      expect { report_param( param ) }.to raise_error
+      expect { report_param( param ) }.to raise_error("Unknown param: bar")
     end
 
     #############################################################################

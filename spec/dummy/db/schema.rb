@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,16 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130918075200) do
-
-  create_table "report_cat_date_ranges", force: true do |t|
-    t.date   "start_date"
-    t.date   "stop_date"
-    t.string "period"
-  end
-
-  add_index "report_cat_date_ranges", ["period", "start_date", "stop_date"], name: "index_report_cat_date_ranges_on_period_and_dates", unique: true
-  add_index "report_cat_date_ranges", ["period", "start_date"], name: "index_report_cat_date_ranges_on_period_and_start_date", unique: true
-  add_index "report_cat_date_ranges", ["period", "stop_date"], name: "index_report_cat_date_ranges_on_period_and_stop_date", unique: true
+ActiveRecord::Schema.define(version: 0) do
 
 end

@@ -5,10 +5,10 @@ class ApplicationController < ActionController::Base
 
   # This just makes the reports reload in development
 
-  before_filter :require_reports if Rails.env.development?
+  before_action :require_reports if Rails.env.development?
 
   def authenticate!
-    render :text => 'forbidden' unless cookies[ :login ]
+    render :plain => 'forbidden' unless cookies[ :login ]
   end
 
   def authorize!
