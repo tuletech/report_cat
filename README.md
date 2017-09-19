@@ -129,6 +129,11 @@ without restarting the server.  Please let me know if you find a better way to d
  * [The Semi-Isolated Rails Engine](http://bibwild.wordpress.com/2012/05/10/the-semi-isolated-rails-engine/)
  * [Shoulda](https://github.com/thoughtbot/shoulda-matchers)
 
+## History
+
+ * Version 0.2.1 = Rails 4 compatible
+ * Version 5.0.0 = Rails 5 compatible
+
 # TODO
 
  * Ability to register "anonymous" reports of generic Report classes with factory
