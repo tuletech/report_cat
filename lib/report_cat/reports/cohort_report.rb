@@ -33,7 +33,7 @@ module ReportCat
         DateRange.generate( period, start_date, stop_date )
         range = DateRange.range( period, start_date, stop_date )
 
-        range.each_index { |i| add_column( "#{name}_#{i+1}", :float ) }
+        range.each_with_index { |v, i| add_column( "#{name}_#{i+1}", :float ) }
         range.each { |r| @rows << add_row( r, range ) }
 
         columns = @columns[ 3, @columns.length - 3 ].map { |c| c.name }
@@ -51,7 +51,7 @@ module ReportCat
         total = cohort.rows.empty? ? 0 : cohort.rows[ 0 ][ i_total ]
         row = [ date_range.start_date, date_range.stop_date, total ]
 
-        column_range.each_index do |i|
+        column_range.each_with_index do |v, i|
           if i >= cohort.rows.size
             row << nil
           else

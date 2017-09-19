@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe ReportCat::ReportsController do
 
   include SetupReports
@@ -39,7 +37,6 @@ describe ReportCat::ReportsController do
       get :index
       expect( response ).to render_template( ReportCat.config.layout )
     end
-
   end
 
   #############################################################################
@@ -53,35 +50,32 @@ describe ReportCat::ReportsController do
     end
 
     it 'gets successfully' do
-      get :show, :id => @report.name
+      get :show, params: { :id => @report.name }
       expect( response ).to be_success
     end
 
     it 'assigns report' do
-      get :show, :id => @report.name
+      get :show, params: { :id => @report.name }
       expect( assigns( :report ) ).to be_an_instance_of( Report )
     end
 
     context 'formatting CSV' do
 
       it 'renders CSV' do
-        get :show, :id => @report.name, :format => 'csv'
+        get :show, params: { :id => @report.name, :format => 'csv' }
         expect( response ).to be_success
         expect( response.content_type ).to eql( 'text/csv' )
       end
-
    end
 
     context 'formatting HTML' do
 
       it 'renders HTML' do
-        get :show, :id => @report.name, :format => 'html'
+        get :show, params: { :id => @report.name, :format => 'html' }
         expect( response ).to be_success
         expect( response.content_type ).to eql( 'text/html' )
       end
-
     end
-
   end
 
   #############################################################################
@@ -94,7 +88,5 @@ describe ReportCat::ReportsController do
       controller.send( :set_reports )
       expect( assigns( :reports ) ).to eql( @reports )
     end
-
   end
-
 end

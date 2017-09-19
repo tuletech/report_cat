@@ -121,7 +121,7 @@ describe ReportCat::ReportsHelper do
 
     it 'returns hidden params' do
       param = @report.param( :hidden_test )
-      expected = "<input id=\"hidden_test\" name=\"hidden_test\" type=\"hidden\" value=\"true\" />"
+      expected = "<input type=\"hidden\" name=\"hidden_test\" id=\"hidden_test\" value=\"true\" />"
       expect( helper.report_form_param( param ) ).to eql( expected )
     end
 
