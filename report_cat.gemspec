@@ -1,12 +1,13 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require 'report_cat/version'
+require 'system_cat/version'
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = 'report_cat'
-  s.version     = ReportCat::VERSION
+  s.version     = SystemCat::Version.new.to_s
+  s.date        = Date.today.to_s
   s.authors     = ['Rich Humphrey']
   s.email       = ['rich@schrodingersbox.com']
   s.homepage    = 'https://github.com/schrodingersbox/report_cat'
