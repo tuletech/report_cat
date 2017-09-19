@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 include ReportCat::Core
 
 describe RSpec::Matchers, 'have_column' do
@@ -26,5 +24,4 @@ describe RSpec::Matchers, 'have_column' do
     expect( @report ).to_not have_column( name ).with_options( :foo )
     expect( @report ).to_not have_column( name ).with_type( :foo ).with_options( :foo )
   end
-
 end

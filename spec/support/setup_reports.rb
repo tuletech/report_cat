@@ -24,5 +24,4 @@ module SetupReports
     @reports = HashWithIndifferentAccess.new
     @reports[ @report.name.to_sym ] = @report
   end
-
 end

@@ -60,7 +60,6 @@ describe ReportCat::ReportsController do
     end
 
     context 'formatting CSV' do
-
       it 'renders CSV' do
         get :show, params: { :id => @report.name, :format => 'csv' }
         expect( response ).to be_success

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 include ReportCat::Core
 
 describe RSpec::Matchers, 'have_param' do
@@ -29,5 +27,4 @@ describe RSpec::Matchers, 'have_param' do
     expect( @report ).to_not have_param( name ).with_options( :foo )
     expect( @report ).to_not have_param( name ).with_type( :foo ).with_value( :foo ).with_options( :foo )
   end
-
 end

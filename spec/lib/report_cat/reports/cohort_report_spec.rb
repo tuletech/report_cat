@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 module ReportCat
   module Reports
 
@@ -127,7 +125,6 @@ module ReportCat
           row = @report.add_row( @range.first, @range )
           expect( row[ 3 ] ).to eql( 0.0 )
         end
-
       end
 
       #############################################################################
@@ -155,7 +152,6 @@ module ReportCat
           expect( @report.cohort ).to receive( :generate )
           @report.generate_cohort( @range.first )
         end
-
       end
 
       #############################################################################
@@ -181,7 +177,6 @@ module ReportCat
             expect( row[ i_link ] ).to eql( @report.cohort_link( start_date ) )
           end
         end
-
       end
 
       #############################################################################
@@ -207,9 +202,7 @@ module ReportCat
           cohort_link = @report.cohort_link( start_date, link_attributes )
           expect( cohort_link[ :period ] ).to eql( :foobar )
         end
-
       end
-
     end
   end
 end
