@@ -10,6 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20130918075200) do
+
+  create_table "report_cat_date_ranges", force: :cascade do |t|
+    t.date "start_date"
+    t.date "stop_date"
+    t.string "period"
+    t.index ["period", "start_date", "stop_date"], name: "index_report_cat_date_ranges_on_period_and_dates", unique: true
+    t.index ["period", "start_date"], name: "index_report_cat_date_ranges_on_period_and_start_date", unique: true
+    t.index ["period", "stop_date"], name: "index_report_cat_date_ranges_on_period_and_stop_date", unique: true
+  end
 
 end

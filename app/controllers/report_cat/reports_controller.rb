@@ -13,7 +13,7 @@ module ReportCat
     def show
       @report = @reports[ params[ :id ] ]
       @report.back = params[ :back ]
-      @report.generate( params )
+      @report.generate( params.to_unsafe_hash )
 
       respond_to do |format|
         format.html

@@ -27,7 +27,7 @@ It provides the following matchers:
 
 1. Add this to your `Gemfile` and `bundle install`
 
-		gem 'report_cat', :git => 'https://github.com/schrodingersbox/report_cat.git'
+		gem 'report_cat'
 
 2. Add this to your `config/routes.rb`
 
