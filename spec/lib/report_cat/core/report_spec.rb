@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 include ReportCat::Core
 
 module ReportCat::Core
@@ -30,11 +28,11 @@ module ReportCat::Core
         array = [ 'a', 'b' ]
 
         report = Report.new(
-            :from => array,
-            :joins => array,
-            :where => array,
-            :group_by => array,
-            :order_by => array
+          :from => array,
+          :joins => array,
+          :where => array,
+          :group_by => array,
+          :order_by => array
         )
 
         expect( report.from ).to eql( 'a,b' )
@@ -43,7 +41,6 @@ module ReportCat::Core
         expect( report.group_by ).to eql( 'a,b' )
         expect( report.order_by ).to eql( 'a,b' )
       end
-
     end
 
     #############################################################################
@@ -60,7 +57,6 @@ module ReportCat::Core
         expect( @report.accept_array( 1, ',' ) ).to eql( 1 )
         expect( @report.accept_array( :foo, ',' ) ).to eql( :foo )
       end
-
     end
 
     #############################################################################
@@ -88,7 +84,6 @@ module ReportCat::Core
         expect( chart.values ).to eql( values )
         expect( chart.options ).to eql( options )
       end
-
     end
 
     #############################################################################
@@ -110,7 +105,6 @@ module ReportCat::Core
         expect( column.type ).to eql( type )
         expect( column.options ).to eql( options )
       end
-
     end
 
     #############################################################################
@@ -131,7 +125,6 @@ module ReportCat::Core
         expect( param.name ).to eql( name )
         expect( param.type ).to eql( type )
       end
-
     end
 
     #############################################################################
@@ -149,16 +142,12 @@ module ReportCat::Core
           column = @report.columns[ i ]
           expect( @report.column( column.name ) ).to eql( column )
         end
-
       end
-
 
       it 'returns nil if it is unable to find the column' do
         expect( @report.column( :does_not_exist ) ).to be_nil
       end
-
     end
-
 
     #############################################################################
     # column_index
@@ -175,16 +164,13 @@ module ReportCat::Core
           column = @report.columns[ i ]
           expect( @report.column_index( column.name ) ).to eql( i )
         end
-
       end
 
 
       it 'returns nil if it is unable to find the column' do
         expect( @report.column_index( :does_not_exist ) ).to be_nil
       end
-
     end
-
 
     #############################################################################
     # generate
@@ -201,7 +187,6 @@ module ReportCat::Core
         @report.generate( :text_field_test => 'foobar' )
         expect( @report.param( :text_field_test ).value ).to eql( 'foobar' )
       end
-
     end
 
     #############################################################################
@@ -220,7 +205,6 @@ module ReportCat::Core
       it 'returns nil if it can not find it' do
         expect( @report.param( :bar ) ).to be_nil
       end
-
     end
 
     #############################################################################
@@ -236,7 +220,6 @@ module ReportCat::Core
       it 'generates CSV' do
         expect( @report.to_csv ).to eql_file( 'spec/data/lib/report.csv' )
       end
-
     end
 
     #############################################################################
@@ -265,7 +248,6 @@ module ReportCat::Core
           expect( @report.attributes[ param.name ] ).to eql( param.value )
         end
       end
-
     end
 
     #############################################################################
@@ -318,7 +300,6 @@ module ReportCat::Core
         @report.columns.each { |c| expect( c ).to receive( :post_process ).with( @report ) }
         @report.send( :query )
       end
-
     end
 
     #############################################################################
@@ -334,9 +315,6 @@ module ReportCat::Core
       it 'generates SQL' do
         expect( @report.send( :to_sql ) ).to eql_file( 'spec/data/lib/report.sql' )
       end
-
     end
-
   end
-
 end

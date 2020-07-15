@@ -3,9 +3,9 @@ module ReportCat
 
     layout :set_layout
 
-    before_filter :_authenticate!
-    before_filter :_authorize!
-    before_filter :set_reports
+    before_action :_authenticate!
+    before_action :_authorize!
+    before_action :set_reports
 
     def index
     end
@@ -13,11 +13,11 @@ module ReportCat
     def show
       @report = @reports[ params[ :id ] ]
       @report.back = params[ :back ]
-      @report.generate( params )
+      @report.generate( params.to_unsafe_hash )
 
       respond_to do |format|
         format.html
-        format.csv { render :text => @report.to_csv, :content_type => 'text/csv' }
+        format.csv { render :plain => @report.to_csv, :content_type => 'text/csv' }
       end
     end
 

@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 include ReportCat::Core
 
 module ReportCat::Core
@@ -28,7 +26,6 @@ module ReportCat::Core
       it 'initializes options to an empty hash' do
         expect( param.options ).to eql( {} )
       end
-
     end
 
     describe 'assigning value' do
@@ -77,7 +74,6 @@ module ReportCat::Core
         param.value = '2013-09-16'
         expect( param.value ).to eql( '2013-09-16' )
       end
-
     end
 
     describe '#hide' do
@@ -87,9 +83,6 @@ module ReportCat::Core
         param.hide
         expect( param.options[ :hidden ] ).to be( true )
       end
-
     end
-
   end
-
 end

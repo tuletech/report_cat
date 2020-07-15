@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'rake'
 
 describe 'rake_cat rake tasks' do
@@ -9,5 +8,4 @@ describe 'rake_cat rake tasks' do
     Rake::Task.define_task(:environment)
     load 'lib/tasks/rake_cat.rake'
   end
-
 end

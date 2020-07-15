@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 include ReportCat::Core
 
 module ReportCat::Core
@@ -18,11 +16,12 @@ module ReportCat::Core
       @options = {}
 
       @chart = Chart.new(
-                  :name => @name,
-                  :type => @type,
-                  :label => @label,
-                  :values => @values,
-                  :options => @options )
+        :name => @name,
+        :type => @type,
+        :label => @label,
+        :values => @values,
+        :options => @options
+      )
     end
 
     #############################################################################
@@ -37,7 +36,6 @@ module ReportCat::Core
         expect( @chart.values ).to eql( @values )
         expect( @chart.options ).to eql( @options )
       end
-
     end
 
     #############################################################################
@@ -48,7 +46,6 @@ module ReportCat::Core
       it 'generates json' do
         expect( @chart.columns( @report ) ).to eql_file( 'spec/data/lib/chart_columns.json' )
       end
-
     end
 
     #############################################################################
@@ -60,8 +57,6 @@ module ReportCat::Core
         setup_reports
         expect( @chart.data( @report ) ).to eql_file( 'spec/data/lib/chart_data.json' )
       end
-
     end
-
   end
 end

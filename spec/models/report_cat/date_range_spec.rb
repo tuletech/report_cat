@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 module ReportCat
 
   describe DateRange do
@@ -41,7 +39,6 @@ module ReportCat
         expect( DateRange ).to_not receive( :create )
         DateRange.generate( @period, @start_date, @stop_date )
       end
-
     end
 
     #############################################################################
@@ -77,7 +74,6 @@ module ReportCat
       it 'raises an except for an unknown period' do
         expect { |b| DateRange.iterate( :hourly, '2013-01-01', '2013-12-31', &b) }.to raise_error( 'Unknown date range: hourly' )
       end
-
     end
 
     #############################################################################
@@ -96,7 +92,6 @@ module ReportCat
           expected = "join users on date( users.created_at ) between report_cat_date_ranges.start_date and report_cat_date_ranges.stop_date"
           expect( DateRange.join_to( @table, @column ) ).to eql( expected )
         end
-
       end
 
       describe '::join_before' do
@@ -105,7 +100,6 @@ module ReportCat
           expected = "join users on date( users.created_at ) <= report_cat_date_ranges.stop_date"
           expect( DateRange.join_before( @table, @column ) ).to eql( expected )
         end
-
       end
 
       describe '::join_after' do
@@ -114,9 +108,7 @@ module ReportCat
           expected = "join users on date( users.created_at ) > report_cat_date_ranges.stop_date"
           expect( DateRange.join_after( @table, @column ) ).to eql( expected )
         end
-
       end
-
     end
 
     #############################################################################
@@ -127,7 +119,6 @@ module ReportCat
       it 'generates date intersection sql' do
         expect( DateRange.sql_intersect( '2013-09-01', '2013-09-18' ) ).to eql_file( 'spec/data/models/sql_intersect.sql')
       end
-
     end
 
     describe '::sql_period' do
@@ -136,9 +127,6 @@ module ReportCat
         expected = "report_cat_date_ranges.period = 'weekly'"
         expect( DateRange.sql_period( :weekly ) ).to eql( expected )
       end
-
     end
-
   end
-
 end

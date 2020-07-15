@@ -27,7 +27,7 @@ It provides the following matchers:
 
 1. Add this to your `Gemfile` and `bundle install`
 
-		gem 'report_cat', :git => 'https://github.com/schrodingersbox/report_cat.git'
+		gem 'report_cat'
 
 2. Add this to your `config/routes.rb`
 
@@ -56,21 +56,21 @@ It provides the following matchers:
 
 ### Adding Params
 
-add_param( name, type, value = nil, options = {} )
+`add_param( name, type, value = nil, options = {} )`
 
 types = :check_box, :date, :select, :text_field
 options = :hidden, :values
 
 ### Adding Columns
 
-add_column( name, type, options = {} )
+`add_column( name, type, options = {} )`
 
 types = :date, :float, :integer, :moving_average, :ratio, :report, :string
 options = :hidden, :sql
 
 ### Adding Charts
 
-add_chart( name, type, label, values, options = {} )
+`add_chart( name, type, label, values, options = {} )`
 
 types = :area, :bar, :column, :line, :pie
 
@@ -86,29 +86,29 @@ You can place new reports anywhere you like, but `app/reports` is the recommende
 
 2.  Create a subclass of `ReportCat::Core::Report`, `ReportCat::Report::DateRangeReport` or `ReportCat::Report::CohortReport`
 
-    class MyReport << ReportCat::Report::DateRangeReport
+		class MyReport << ReportCat::Report::DateRangeReport
 
-        def initialize
+          def initialize
             super( :name => :my_report, :from => :users, :order_by => 'users.id asc' )
             add_column( :total, :integer, :sql => 'count( users.id )' )
             add_chart( :chart, :line, :start_date, :total )
-        end
-    end
+          end
+		end
 
 3.  Or build one on the fly
 
-    report = ReportCat::Core::DateRangeReport.new( :name => :my_report, :from => :users, :order_by => 'users.id asc' )
-    report.add_column( :total, :integer, :sql => 'count( users.id )' )
-    report.add_chart( :chart, :line, :start_date, :total )
-    report.generate
-    report.rows.each { |row| puts "Total = #{row[0]} }
+		report = ReportCat::Core::DateRangeReport.new( :name => :my_report, :from => :users, :order_by => 'users.id asc' )
+		report.add_column( :total, :integer, :sql => 'count( users.id )' )
+		report.add_chart( :chart, :line, :start_date, :total )
+		report.generate
+		report.rows.each { |row| puts "Total = #{row[0]} }
 
 
 ### Reload Reports In Development Mode
 
 Add the following to ApplicationController:
 
-      before_filter :require_reports if Rails.env.development?
+      before_action :require_reports if Rails.env.development?
 
       def require_reports
         silence_warnings do
@@ -128,6 +128,11 @@ without restarting the server.  Please let me know if you find a better way to d
  * [Clarifying the Roles of the .gemspec and Gemfile](http://yehudakatz.com/2010/12/16/clarifying-the-roles-of-the-gemspec-and-gemfile/)
  * [The Semi-Isolated Rails Engine](http://bibwild.wordpress.com/2012/05/10/the-semi-isolated-rails-engine/)
  * [Shoulda](https://github.com/thoughtbot/shoulda-matchers)
+
+## History
+
+ * Version 0.2.1 = Rails 4 compatible
+ * Version 5.0.0 = Rails 5 compatible
 
 # TODO
 

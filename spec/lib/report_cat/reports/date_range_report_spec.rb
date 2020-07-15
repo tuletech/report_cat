@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 module ReportCat
   module Reports
 
@@ -38,7 +36,6 @@ module ReportCat
         it 'defines default report values' do
           expect( @report.defaults ).to eql( @defaults )
         end
-
       end
 
       #############################################################################
@@ -64,7 +61,6 @@ module ReportCat
           expect( @report ).to have_column( :start_date ).with_type( :date ).with_options( :sql => "report_cat_date_ranges.start_date" )
           expect( @report ).to have_column( :stop_date ).with_type( :date ).with_options( :sql => "report_cat_date_ranges.stop_date" )
         end
-
       end
 
       #############################################################################
@@ -81,7 +77,6 @@ module ReportCat
           expect( @report ).to receive( :to_sql ).and_return( 'select 1' )
           @report.query
         end
-
       end
 
       #############################################################################
@@ -98,7 +93,6 @@ module ReportCat
           @report = DateRangeReport.new( :where => where )
           expect( @report.where ).to include( where )
         end
-
       end
 
       #############################################################################
@@ -116,10 +110,7 @@ module ReportCat
           expected = ReportCat::DateRange.range( @report.period, @report.start_date, @report.stop_date ).first
           expect( @report.first_period ).to eql( expected )
         end
-
       end
-
     end
-
   end
 end

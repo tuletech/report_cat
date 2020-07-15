@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe ReportCat::ReportsHelper do
 
   include SetupReports
@@ -20,7 +18,6 @@ describe ReportCat::ReportsHelper do
         expected = "<a href=\"/report_cat/reports/user_report\">User Report</a>"
         expect( helper.report_back( @report ) ).to eql( expected )
       end
-
     end
 
     context 'when back is not set' do
@@ -30,9 +27,7 @@ describe ReportCat::ReportsHelper do
         expected = "<a href=\"/\">Reports</a>"
         expect( helper.report_back( @report ) ).to eql( expected )
       end
-
     end
-
   end
 
   #############################################################################
@@ -44,7 +39,6 @@ describe ReportCat::ReportsHelper do
       expect( helper ).to receive( :render ).with( :partial => 'report_cat/reports/google_charts' )
       helper.report_chart_partial
     end
-
   end
 
   #############################################################################
@@ -55,7 +49,6 @@ describe ReportCat::ReportsHelper do
     it 'renders the configured charts' do
       expect( helper.report_charts( @report ) ).to eql_file( 'spec/data/helpers/report_charts.html' )
     end
-
   end
 
   #############################################################################
@@ -67,7 +60,6 @@ describe ReportCat::ReportsHelper do
       expected = I18n.t( :count, :scope => :report_cat, :count => @report.rows.count )
       expect( helper.report_count( @report ) ).to eql( expected )
     end
-
   end
 
   #############################################################################
@@ -81,7 +73,6 @@ describe ReportCat::ReportsHelper do
       expected = "<a href=\"#{url}\">Export as CSV</a>"
       expect( helper.report_csv_link( @report ) ).to eql( expected )
     end
-
   end
 
   #############################################################################
@@ -93,7 +84,6 @@ describe ReportCat::ReportsHelper do
       expected = t( :description, :scope => [ :report_cat, :instances, @report.name.to_sym ] )
       expect( helper.report_description( @report ) ).to eql( expected )
     end
-
   end
 
   #############################################################################
@@ -106,7 +96,6 @@ describe ReportCat::ReportsHelper do
       expect( helper ).to receive( :report_path ).and_return( '' )
       expect( helper.report_form( @report ) ).to eql_file( 'spec/data/helpers/report_form.html' )
     end
-
   end
 
   #############################################################################
@@ -121,10 +110,9 @@ describe ReportCat::ReportsHelper do
 
     it 'returns hidden params' do
       param = @report.param( :hidden_test )
-      expected = "<input id=\"hidden_test\" name=\"hidden_test\" type=\"hidden\" value=\"true\" />"
+      expected = "<input type=\"hidden\" name=\"hidden_test\" id=\"hidden_test\" value=\"true\" />"
       expect( helper.report_form_param( param ) ).to eql( expected )
     end
-
   end
 
   #############################################################################
@@ -137,7 +125,6 @@ describe ReportCat::ReportsHelper do
       expected =  "<a href=\"/report_cat/reports/cohort_report?is_cohort=1\">Cohort Report</a>"
       expect( helper.report_link( attributes ) ).to eql( expected )
     end
-
   end
 
   #############################################################################
@@ -148,7 +135,6 @@ describe ReportCat::ReportsHelper do
     it 'renders a list of reports in HTML' do
       expect( helper.report_list( @reports ) ).to eql_file( 'spec/data/helpers/report_list.html' )
     end
-
   end
 
   #############################################################################
@@ -160,7 +146,6 @@ describe ReportCat::ReportsHelper do
       expected = t( :name, :scope => [ :report_cat, :instances, @report.name.to_sym ] )
       expect( helper.report_name( @report ) ).to eql( expected )
     end
-
   end
 
   #############################################################################
@@ -200,7 +185,7 @@ describe ReportCat::ReportsHelper do
 
     it 'raises an exception for unknown types' do
       param = Param.new( :name => :foo, :type => :bar )
-      expect { report_param( param ) }.to raise_error
+      expect { report_param( param ) }.to raise_error("Unknown param: bar")
     end
 
     #############################################################################
@@ -217,8 +202,6 @@ describe ReportCat::ReportsHelper do
         @report.column( :total ).options[ :hidden ] = true
         expect( report_table( @report ) ).to eql_file( 'spec/data/helpers/report_table_hidden.html' )
       end
-
     end
-
   end
 end

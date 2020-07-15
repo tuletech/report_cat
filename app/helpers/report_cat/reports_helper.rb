@@ -38,7 +38,7 @@ module ReportCat
     end
 
     def report_csv_link( report )
-      link_to t( :export_as_csv, :scope => :report_cat ), :params => params.merge( :format => :csv )
+      link_to t( :export_as_csv, :scope => :report_cat ), :params => params.to_unsafe_hash.merge( :format => :csv )
     end
 
     def report_description( report )

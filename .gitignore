@@ -24,3 +24,5 @@ spec/dummy/.sass-cache
 Gemfile.lock
 
 passwords.yml
+/.ruby-version
+/report_cat-*.gem

@@ -1,12 +1,16 @@
+require 'rails-controller-testing'
+
 require 'spec_cat'
 
 require 'simplecov'
 require 'coveralls'
 
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
+  [
     SimpleCov::Formatter::HTMLFormatter,
     Coveralls::SimpleCov::Formatter
-]
+  ]
+)
 
 SimpleCov.start 'rails' do
   add_filter '/vendor/'

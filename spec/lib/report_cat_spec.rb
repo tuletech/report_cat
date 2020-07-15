@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 include ReportCat
 
 describe ReportCat do
@@ -20,7 +18,6 @@ describe ReportCat do
     it 'returns the configuration' do
       expect( ReportCat.config ).to be_an_instance_of( ReportCat::Config )
     end
-
   end
 
   #############################################################################
@@ -36,7 +33,6 @@ describe ReportCat do
       end
       expect( yielded ).to be( true )
     end
-
   end
 
   #############################################################################
@@ -56,7 +52,5 @@ describe ReportCat do
         expect( reports[ report.name.to_sym ] ).to_not be_nil
       end
     end
-
   end
-
 end

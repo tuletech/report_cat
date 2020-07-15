@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 include ReportCat::Core
 
 module ReportCat::Core
@@ -23,7 +21,6 @@ module ReportCat::Core
         expect( column.type ).to eql( @type )
         expect( column.options ).to eql( @options )
       end
-
     end
 
     #############################################################################
@@ -38,13 +35,11 @@ module ReportCat::Core
         expect( column.format( value ) ).to eql( expected )
       end
 
-
       it 'formats integers' do
         value = '727'
         expected = value.to_i
         column = Column.new( :name => @name, :type => :integer )
         expect( column.format( value ) ).to eql( expected )
-
       end
 
       it 'passes everything else through' do
@@ -52,7 +47,6 @@ module ReportCat::Core
         column = Column.new( :name => @name, :type => :string )
         expect( column.format( value ) ).to eql( value )
       end
-
     end
 
     #############################################################################
@@ -75,7 +69,6 @@ module ReportCat::Core
         expect( column ).to receive( :post_process_ratio ).with( @report )
         column.post_process( @report )
       end
-
     end
 
     #############################################################################
@@ -98,7 +91,6 @@ module ReportCat::Core
         expect( @report.rows[ 1 ][ 1 ] ).to eql( 1.5 )
         expect( @report.rows[ 2 ][ 1 ] ).to eql( 3.0 )
       end
-
     end
 
     #############################################################################
@@ -122,7 +114,6 @@ module ReportCat::Core
         expect( @report.rows[ 1 ][ 2 ] ).to eql( 0.75 )
         expect( @report.rows[ 2 ][ 2 ] ).to eql( 0.0 )
       end
-
     end
 
     #############################################################################
@@ -136,7 +127,6 @@ module ReportCat::Core
         expect( column.to_sql ).to eql( "#{sql} as #{@name}" )
       end
 
-
       it 'uses 0 for calculated columns' do
         column = Column.new( :name => @name, :type => :moving_average )
         expect( column.to_sql ).to eql( "0 as #{@name}" )
@@ -149,8 +139,6 @@ module ReportCat::Core
         column = Column.new( :name => @name, :type => :integer )
         expect( column.to_sql ).to eql( @name )
       end
-
     end
-
   end
 end

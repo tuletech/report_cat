@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe 'coverage' do
 
   it 'has a spec for every file' do
@@ -14,5 +12,4 @@ describe 'coverage' do
       end
     end
   end
-
 end

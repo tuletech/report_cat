@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 include ReportCat::Core
 
 describe RSpec::Matchers, 'have_chart' do
@@ -32,5 +30,4 @@ describe RSpec::Matchers, 'have_chart' do
     expect( @report ).to_not have_chart( name ).with_options( :foo )
     expect( @report ).to_not have_chart( name ).with_type( :foo ).with_label( :foo ).with_values( :foo ).with_options( :foo )
   end
-
 end

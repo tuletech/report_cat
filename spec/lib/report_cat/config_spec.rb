@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe ReportCat::Config do
 
   let( :config ) { ReportCat::Config.instance }
@@ -33,7 +31,6 @@ describe ReportCat::Config do
       config.layout = config.layout
       expect( config.layout ).to eql( config.layout )
     end
-
   end
 
   describe '#authenticate_with' do
@@ -61,7 +58,6 @@ describe ReportCat::Config do
       config.authenticate = nil
       instance_eval( &config.authenticate_with )
     end
-
   end
 
   describe '#authorize_with' do
@@ -89,8 +85,6 @@ describe ReportCat::Config do
       config.authorize = nil
       instance_eval( &config.authorize_with )
     end
-
   end
-
 end
 

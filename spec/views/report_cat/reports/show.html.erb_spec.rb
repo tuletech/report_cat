@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe 'report_cat/reports/show.html.erb' do
 
   include SetupReports
@@ -15,5 +13,4 @@ describe 'report_cat/reports/show.html.erb' do
     assign( :report, @report )
     render
   end
-
 end
